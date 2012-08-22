@@ -1,4 +1,6 @@
 UserService::Application.routes.draw do
+  mount Doorkeeper::Engine => '/oauth'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
