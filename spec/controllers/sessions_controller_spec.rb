@@ -14,7 +14,7 @@ describe SessionsController do
       let(:user) { FactoryGirl.create(:user) }
       context "email/password combination is correct" do
         it "logs in the user" do
-          post :create, :email => user.email, :password => user.password 
+          post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to(root_path)
           session[:user_id].should == user.id
         end
@@ -23,7 +23,7 @@ describe SessionsController do
     
     context "user doesn't exist or email/password combination is incorrect" do
       it "redirects to the login page with a flash error" do
-        post :create, :email => "foo@bar.com", :password => ""
+        post :create, :user => { :email => "foo@bar.com", :password => "" }
         response.should render_template('new')
         flash[:error].should_not be_nil
       end
