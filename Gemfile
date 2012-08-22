@@ -8,7 +8,7 @@ gem 'rails', '3.2.7'
 gem 'pg'
 gem 'doorkeeper'
 gem 'formtastic'
-
+gem 'validates_email_format_of'
 
 # Gems used only for assets and not required
 # in production environments by default.

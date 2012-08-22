@@ -143,6 +143,7 @@ GEM
     uglifier (1.2.7)
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
+    validates_email_format_of (1.5.3)
 
 PLATFORMS
   ruby
@@ -162,3 +163,4 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-matchers
   uglifier (>= 1.0.3)
+  validates_email_format_of
