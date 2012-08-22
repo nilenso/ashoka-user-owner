@@ -7,6 +7,7 @@ gem 'rails', '3.2.7'
 
 gem 'pg'
 gem 'doorkeeper'
+gem 'formtastic'
 
 
 # Gems used only for assets and not required
@@ -27,6 +28,7 @@ group :development, :test do
   gem 'rspec-rails' 
   gem 'rspec-http'
   gem 'guard-spork'
+  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
 end
 
