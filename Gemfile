@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rspec-rails' 
   gem 'rspec-http'
   gem 'guard-spork'
+  gem 'shoulda-matchers'
 end
 
 # To use ActiveModel has_secure_password
