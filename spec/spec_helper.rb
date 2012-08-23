@@ -85,3 +85,7 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+def sign_in_as(user)
+  session[:user_id] = user.id
+end
