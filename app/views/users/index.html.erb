@@ -1,5 +1,7 @@
 <h1> User </h1>
 
+<%= link_to "Add a new User", signup_path %>
+
 <% @users.each do |user| %>
   <ul>
     <li> <%= user.name %></li>
