@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+  - 1.9.3
+# uncomment this line if your project needs to run something other than `rake`:
+# script: bundle exec rspec spec
+before_script:
+  - psql -c 'create database user_owner_test;' -U postgres
+  - cp config/database.yml.sample config/database.yml
+  - bundle exec rake db:migrate
+  - bundle exec rake db:test:prepare
