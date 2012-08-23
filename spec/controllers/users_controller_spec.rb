@@ -35,12 +35,5 @@ describe UsersController do
       end
     end
   end
-
-  context "GET 'index'" do
-    it "shows the user information" do
-      get :index
-      response.should be_ok 
-      response.should render_template('index')
-    end
-  end
 end
+

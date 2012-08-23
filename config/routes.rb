@@ -9,7 +9,7 @@ UserService::Application.routes.draw do
   resources :users
   resources :sessions
 
-  root :to => 'users#index'
+  root :to => 'static_pages#home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
