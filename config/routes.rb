@@ -11,6 +11,12 @@ UserService::Application.routes.draw do
 
   root :to => 'static_pages#home'
 
+  namespace :api, :defaults => { :format => 'json' } do
+    scope :module => :v1 do
+      match 'user', :to => "users#show"
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

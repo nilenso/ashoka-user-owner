@@ -33,7 +33,7 @@ describe SessionsController do
   context "DELETE 'destroy'" do
     it "logs out the current user and redirects to login page" do
       delete :destroy
-      response.should redirect_to(login_path)
+      response.should redirect_to(root_path)
       session[:user_id].should be_nil
     end
   end
