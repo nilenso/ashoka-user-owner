@@ -7,6 +7,12 @@ describe SessionsController do
       response.should be_ok
       response.should render_template('new')
     end
+
+    it "assigns session for return_to if params is passed" do
+      return_to = "http://abc.com"
+      get :new, :return_to => return_to
+      session[:return_to].should == return_to
+    end
   end
 
   context "POST 'create'" do
@@ -17,6 +23,12 @@ describe SessionsController do
           post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to(root_path)
           session[:user_id].should == user.id
+        end
+
+        it "redirects to return to page if user is authorizing from a client app" do
+          session[:return_to] = "http://google.com"
+          post :create, :user => { :email => user.email, :password => user.password }
+          response.should redirect_to("http://google.com")
         end
       end
     end
