@@ -5,15 +5,13 @@ module Api
       respond_to :json
 
       def show
-        respond_with current_user.as_json(:except => :password_digest)
+        respond_with current_user.to_json(:except => :password_digest)
       end
 
-      private
+    private
 
       def current_user
-        if doorkeeper_token
-          @current_user ||= User.find(doorkeeper_token.resource_owner_id)
-        end
+        @current_user ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
       end
     end
   end
