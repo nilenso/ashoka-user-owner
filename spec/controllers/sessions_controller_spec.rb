@@ -17,10 +17,10 @@ describe SessionsController do
 
   context "POST 'create'" do
     context "user exists" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :approved => true)) }
       context "email/password combination is correct" do
         it "logs in the user" do
-          post :create, :user => { :email => user.email, :password => user.password }
+          post :create, :user => { :email => user.email, :password => user.password}
           response.should redirect_to(root_path)
           session[:user_id].should == user.id
         end
@@ -30,9 +30,15 @@ describe SessionsController do
           post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to("http://google.com")
         end
+
+        it "doesn't allow the user to log in if his organization is not approved" do
+          user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization))
+          post :create, :user => { :email => user.email, :password => user.password }
+          response.should redirect_to pending_path
+        end
       end
     end
-    
+
     context "user doesn't exist or email/password combination is incorrect" do
       it "redirects to the login page with a flash error" do
         post :create, :user => { :email => "foo@bar.com", :password => "" }

@@ -13,15 +13,15 @@ describe User do
     it { should validate_presence_of(:name)}
     it { should validate_presence_of(:password_digest)}
     it { should validate_uniqueness_of(:email) }
+  end
 
-    context "user is not an admin" do
-      it { should validate_presence_of(:organization_id) }
+  context "logic" do
+    it "checks if user is an admin" do
+      user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization))
+      user.should_not be_admin
+      user.role = 'admin'
+      user.save
+      user.should be_admin
     end
-
-    context "user is an admin" do
-      subject { FactoryGirl.create(:user, :role => 'admin')}
-      it { should_not validate_presence_of(:organization_id) }
-    end
-
   end
 end

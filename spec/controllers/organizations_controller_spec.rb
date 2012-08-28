@@ -14,7 +14,7 @@ describe OrganizationsController do
 
   context "POST 'create'" do
     context "when organization created successfully" do
-      
+
       let(:user) { FactoryGirl.attributes_for(:user) }
 
       it "creates a new organization" do
