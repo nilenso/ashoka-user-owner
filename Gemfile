@@ -9,6 +9,7 @@ gem 'pg'
 gem 'doorkeeper'
 gem 'formtastic'
 gem 'validates_email_format_of'
+gem 'cancan'
 
 # Gems used only for assets and not required
 # in production environments by default.
