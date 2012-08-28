@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :name
   validates_email_format_of :email
   validates_uniqueness_of :email
+  belongs_to :organization
 
-  ROLES = %w(admin)
+  ROLES = %w(admin cso_admin)
 end

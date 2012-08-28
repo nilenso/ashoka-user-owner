@@ -1,0 +1,20 @@
+<h1>Register your Organization</h1>
+
+<%= semantic_form_for @organization do |f| %>
+  <%= f.inputs :name => "Organization Information" do %>
+    <% f.input :name, :label => "Organization Name" %>
+  <% end %>
+
+  <%= f.semantic_fields_for :users do |user| %>
+    <%= user.inputs :name => "User Information" do %>
+      <%= user.input :name %>
+      <%= user.input :email %>
+      <%= user.input :password, :required => true %>
+      <%= user.input :password_confirmation, :as => :password, :required => true %>
+    <% end %>
+  <% end %>
+
+  <%= f.actions do %>
+    <% f.action :submit, :label => "Register", :as => :button %>
+  <% end %>
+<% end %>
