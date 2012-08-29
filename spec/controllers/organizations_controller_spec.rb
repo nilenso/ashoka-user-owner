@@ -69,66 +69,64 @@ describe OrganizationsController do
     end
   end
 
-  context "PUT 'change_status' to approve" do
-    it "approves the organization with a success message" do
-      admin = FactoryGirl.create(:user, :role => "admin")
-      sign_in_as(admin)
+  context "PUT 'change_status' to approve or reject" do
 
-      org = FactoryGirl.create(:organization)
-      FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
-      put :change_status, :organization_id => org.id, :status => "approved"
-      org.reload
+    context "when admin is logged in" do
+      before :each do
+        admin = FactoryGirl.create(:user, :role => "admin")
+        sign_in_as(admin)
+      end
 
-      org.should be_approved
-      response.should redirect_to organizations_path
-      flash[:notice].should_not be_nil
+      it "approves the organization with a success message" do
+        org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
+        put :change_status, :organization_id => org.id, :status => "approved"
+        org.reload
+
+        org.should be_approved
+        response.should redirect_to organizations_path
+        flash[:notice].should_not be_nil
+      end
+
+      it "sends an approval mail to the cso admin of the organization" do
+        org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
+        put :change_status, :organization_id => org.id, :status => "approved"
+        ActionMailer::Base.deliveries.should_not be_empty
+        assigns(:email).to.join('').should == user.email
+      end
+
+      it "rejects the organization with a success message" do
+        org = FactoryGirl.create(:organization)
+        put :change_status, :organization_id => org.id, :status => "rejected"
+        org.reload
+
+        org.should be_rejected
+        response.should redirect_to organizations_path
+        flash[:notice].should_not be_nil
+      end
     end
 
-    it "sends an approval mail to the cso admin of the organization" do
-      admin = FactoryGirl.create(:user, :role => "admin")
-      sign_in_as(admin)
+    context "when not logged in" do
+      it "does not allow anyone other than admin to approve an organization" do
+        org = FactoryGirl.create(:organization)
+        put :change_status, :organization_id => org.id, :status => "approved"
+        org.reload
 
-      org = FactoryGirl.create(:organization)
-      user = FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
-      put :change_status, :organization_id => org.id, :status => "approved"
+        org.should_not be_approved
+        response.should redirect_to login_path
+        flash[:error].should_not be_nil
+      end
 
-      ActionMailer::Base.deliveries.should_not be_empty
-      assigns(:email).to.join('').should == user.email
-    end
+      it "does not allow anyone other than admin to reject an organization" do
+        org = FactoryGirl.create(:organization)
+        put :change_status, :organization_id => org.id, :status => "rejected"
+        org.reload
 
-    it "does not allow anyone other than admin to approve an organization" do
-      org = FactoryGirl.create(:organization)
-      put :change_status, :organization_id => org.id, :status => "approved"
-      org.reload
-
-      org.should_not be_approved
-      response.should redirect_to login_path
-      flash[:error].should_not be_nil
-    end
-  end
-
-  context "PUT 'change_status' to reject" do
-    it "rejects the organization with a success message" do
-      admin = FactoryGirl.create(:user, :role => "admin")
-      sign_in_as(admin)
-
-      org = FactoryGirl.create(:organization)
-      put :change_status, :organization_id => org.id, :status => "rejected"
-      org.reload
-
-      org.should be_rejected
-      response.should redirect_to organizations_path
-      flash[:notice].should_not be_nil
-    end
-
-    it "does not allow anyone other than admin to reject an organization" do
-      org = FactoryGirl.create(:organization)
-      put :change_status, :organization_id => org.id, :status => "rejected"
-      org.reload
-
-      org.should_not be_rejected
-      response.should redirect_to login_path
-      flash[:error].should_not be_nil
+        org.should_not be_rejected
+        response.should redirect_to login_path
+        flash[:error].should_not be_nil
+      end
     end
   end
 end
