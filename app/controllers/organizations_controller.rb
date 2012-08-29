@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
 
-  before_filter :require_admin, :only => [ :index, :change_status]
+  before_filter :require_admin, :only => [ :index, :change_status ]
 
 	def new
 		@organization = Organization.new()
@@ -29,6 +29,9 @@ class OrganizationsController < ApplicationController
     organization = Organization.find(params[:organization_id])
     organization.status = params[:status]
     organization.save
+    if organization.approved?
+      @email = UserMailer.approval_mail(organization.users.first).deliver
+    end
     flash[:notice] = "#{organization.name} is #{organization.status}!"
     redirect_to organizations_path
   end

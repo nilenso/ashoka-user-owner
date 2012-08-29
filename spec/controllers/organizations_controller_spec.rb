@@ -75,6 +75,7 @@ describe OrganizationsController do
       sign_in_as(admin)
 
       org = FactoryGirl.create(:organization)
+      FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
       put :change_status, :organization_id => org.id, :status => "approved"
       org.reload
 
@@ -83,7 +84,19 @@ describe OrganizationsController do
       flash[:notice].should_not be_nil
     end
 
-   it "does not allow anyone other than admin to approve an organization" do
+    it "sends an approval mail to the cso admin of the organization" do
+      admin = FactoryGirl.create(:user, :role => "admin")
+      sign_in_as(admin)
+
+      org = FactoryGirl.create(:organization)
+      user = FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
+      put :change_status, :organization_id => org.id, :status => "approved"
+
+      ActionMailer::Base.deliveries.should_not be_empty
+      assigns(:email).to.join('').should == user.email
+    end
+
+    it "does not allow anyone other than admin to approve an organization" do
       org = FactoryGirl.create(:organization)
       put :change_status, :organization_id => org.id, :status => "approved"
       org.reload
@@ -108,7 +121,7 @@ describe OrganizationsController do
       flash[:notice].should_not be_nil
     end
 
-   it "does not allow anyone other than admin to reject an organization" do
+    it "does not allow anyone other than admin to reject an organization" do
       org = FactoryGirl.create(:organization)
       put :change_status, :organization_id => org.id, :status => "rejected"
       org.reload
