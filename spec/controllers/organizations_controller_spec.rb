@@ -45,4 +45,12 @@ describe OrganizationsController do
       end
     end
   end
+
+  context "GET 'index'" do
+    it "should list all the organizations" do
+      get :index
+      response.should be_ok
+      assigns(:organizations).should_not be_nil
+    end
+  end
 end

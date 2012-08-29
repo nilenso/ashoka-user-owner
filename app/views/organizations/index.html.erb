@@ -1,0 +1,8 @@
+<p>
+  <%= "There are no organizations" if @organizations.empty? %>
+</p>
+<ul>
+  <% for organization in @organizations do%>
+    <li> <%= organization.name %> </li>
+  <% end %>
+</ul>

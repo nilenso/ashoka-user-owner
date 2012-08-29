@@ -17,4 +17,8 @@ class OrganizationsController < ApplicationController
       render :new
     end
 	end
+
+  def index
+    @organizations = Organization.all
+  end
 end
