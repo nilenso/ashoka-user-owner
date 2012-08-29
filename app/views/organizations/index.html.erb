@@ -14,8 +14,8 @@
       <tr>
         <td> <%= organization.name %> </td>
         <td>
-          <%= link_to 'Approve', organization_approve_path(organization.id), :method => :put %>
-          <%= link_to "Reject", organization_reject_path(organization.id), :method => :put %>
+          <%= link_to 'Approve', organization_change_status_path(organization.id, :status => "approved"), :method => :put %>
+          <%= link_to "Reject", organization_change_status_path(organization.id, :status => "rejected"), :method => :put %>
         </td>
       </tr>
     <% end %>

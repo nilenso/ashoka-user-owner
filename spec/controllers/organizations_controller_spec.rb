@@ -69,13 +69,13 @@ describe OrganizationsController do
     end
   end
 
-  context "PUT 'approve'" do
+  context "PUT 'change_status' to approve" do
     it "approves the organization with a success message" do
       admin = FactoryGirl.create(:user, :role => "admin")
       sign_in_as(admin)
 
       org = FactoryGirl.create(:organization)
-      put :approve, :organization_id => org.id
+      put :change_status, :organization_id => org.id, :status => "approved"
       org.reload
 
       org.should be_approved
@@ -85,7 +85,7 @@ describe OrganizationsController do
 
    it "does not allow anyone other than admin to approve an organization" do
       org = FactoryGirl.create(:organization)
-      put :approve, :organization_id => org.id
+      put :change_status, :organization_id => org.id, :status => "approved"
       org.reload
 
       org.should_not be_approved
@@ -94,13 +94,13 @@ describe OrganizationsController do
     end
   end
 
-  context "PUT 'reject'" do
+  context "PUT 'change_status' to reject" do
     it "rejects the organization with a success message" do
       admin = FactoryGirl.create(:user, :role => "admin")
       sign_in_as(admin)
 
       org = FactoryGirl.create(:organization)
-      put :reject, :organization_id => org.id
+      put :change_status, :organization_id => org.id, :status => "rejected"
       org.reload
 
       org.should be_rejected
@@ -110,7 +110,7 @@ describe OrganizationsController do
 
    it "does not allow anyone other than admin to reject an organization" do
       org = FactoryGirl.create(:organization)
-      put :reject, :organization_id => org.id
+      put :change_status, :organization_id => org.id, :status => "rejected"
       org.reload
 
       org.should_not be_rejected
