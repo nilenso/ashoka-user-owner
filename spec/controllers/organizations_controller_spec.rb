@@ -68,4 +68,16 @@ describe OrganizationsController do
       flash[:error].should_not be_nil
     end
   end
+
+  context "PUT 'approve'" do
+    it "approves the organization with a success message" do
+      org = FactoryGirl.create(:organization)
+      put :approve, :organization_id => org.id
+      org.reload
+
+      org.should be_approved
+      response.should redirect_to organizations_path
+      flash[:notice].should_not be_nil
+    end
+  end
 end

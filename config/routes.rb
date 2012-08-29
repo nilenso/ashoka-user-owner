@@ -9,7 +9,9 @@ UserService::Application.routes.draw do
   get 'static_pages/pending_approval', :as => 'pending'
 
   resources :sessions
-  resources :organizations
+  resources :organizations do
+    put 'approve'
+  end
 
   root :to => 'static_pages#home'
 

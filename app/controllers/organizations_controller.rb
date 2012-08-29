@@ -25,6 +25,14 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.all
   end
 
+  def approve
+    organization = Organization.find(params[:organization_id])
+    organization.status = "approved"
+    organization.save
+    flash[:notice] = organization.name + " is approved!"
+    redirect_to organizations_path
+  end
+
   private
 
   def require_admin

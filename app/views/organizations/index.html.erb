@@ -3,10 +3,21 @@
 </p>
 
 <% unless @organizations.empty? %>
+  <h1>List of Organizations</h1>
   <table>
     <h2>Pending</h2>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
     <% @organizations.select{ |org| org.status == "pending"}.each do |organization|%>
-      <tr><td> <%= organization.name %> </td></tr>
+      <tr>
+        <td> <%= organization.name %> </td>
+        <td>
+          <%= link_to 'Approve', organization_approve_path(organization.id), :method => :put %>
+          <%= link_to "Reject" %>
+        </td>
+      </tr>
     <% end %>
   </table>
 
