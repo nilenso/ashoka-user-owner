@@ -1,4 +1,7 @@
 class OrganizationsController < ApplicationController
+
+  before_filter :require_admin, :only => :index
+
 	def new
 		@organization = Organization.new()
 		@organization.users << User.new()
@@ -20,5 +23,16 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.all
+  end
+
+  private
+
+  def require_admin
+    if !has_signed_in_user?
+      redirect_to(login_path)
+    elsif !current_user.admin?
+      flash[:error] = "You are not authorized to do that."
+      redirect_to(root_path)
+    end
   end
 end

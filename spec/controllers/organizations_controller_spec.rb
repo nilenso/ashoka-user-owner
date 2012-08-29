@@ -47,10 +47,25 @@ describe OrganizationsController do
   end
 
   context "GET 'index'" do
-    it "should list all the organizations" do
+    it "lists all the organizations" do
+      get :index
+      response.should redirect_to(login_path)
+    end
+
+    it "can be accessed by the sys admin" do
+      sys_admin = FactoryGirl.create(:user, :role => "admin")
+      sign_in_as(sys_admin)
       get :index
       response.should be_ok
       assigns(:organizations).should_not be_nil
+    end
+
+    it "can not be accessed by anyone other than sys admin" do
+      not_sys_admin = FactoryGirl.create(:user)
+      sign_in_as(not_sys_admin)
+      get :index
+      response.should redirect_to(root_path)
+      flash[:error].should_not be_nil
     end
   end
 end
