@@ -17,7 +17,7 @@ describe SessionsController do
 
   context "POST 'create'" do
     context "user exists" do
-      let(:user) { FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :approved => true)) }
+      let(:user) { FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => 'approved')) }
       context "email/password combination is correct" do
         it "logs in the user" do
           post :create, :user => { :email => user.email, :password => user.password}
