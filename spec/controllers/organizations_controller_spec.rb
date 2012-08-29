@@ -93,4 +93,29 @@ describe OrganizationsController do
       flash[:error].should_not be_nil
     end
   end
+
+  context "PUT 'reject'" do
+    it "rejects the organization with a success message" do
+      admin = FactoryGirl.create(:user, :role => "admin")
+      sign_in_as(admin)
+
+      org = FactoryGirl.create(:organization)
+      put :reject, :organization_id => org.id
+      org.reload
+
+      org.should be_rejected
+      response.should redirect_to organizations_path
+      flash[:notice].should_not be_nil
+    end
+
+   it "does not allow anyone other than admin to reject an organization" do
+      org = FactoryGirl.create(:organization)
+      put :reject, :organization_id => org.id
+      org.reload
+
+      org.should_not be_rejected
+      response.should redirect_to login_path
+      flash[:error].should_not be_nil
+    end
+  end
 end

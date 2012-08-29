@@ -10,7 +10,7 @@ UserService::Application.routes.draw do
 
   resources :sessions
   resources :organizations do
-    put 'approve'
+    put 'approve', 'reject'
   end
 
   root :to => 'static_pages#home'

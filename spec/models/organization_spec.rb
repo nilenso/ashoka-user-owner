@@ -7,9 +7,18 @@ describe Organization do
   it { should respond_to(:status) }
 
   context "Logic" do
-    it "checks if the organization is approved" do
+    it "checks if the organization is approved or not" do
       org = FactoryGirl.create(:organization)
       org.should_not be_approved
+      org.status = "approved"
+      org.should be_approved
+    end
+
+    it "checks if the organization is rejected or not" do
+      org = FactoryGirl.create(:organization)
+      org.should_not be_rejected
+      org.status = "rejected"
+      org.should be_rejected
     end
   end
 end

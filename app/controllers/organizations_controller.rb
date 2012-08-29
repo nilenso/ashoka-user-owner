@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
 
-  before_filter :require_admin, :only => [ :index, :approve ]
+  before_filter :require_admin, :only => [ :index, :approve, :reject ]
 
 	def new
 		@organization = Organization.new()
@@ -30,6 +30,14 @@ class OrganizationsController < ApplicationController
     organization.status = "approved"
     organization.save
     flash[:notice] = organization.name + " is approved!"
+    redirect_to organizations_path
+  end
+
+  def reject
+    organization = Organization.find(params[:organization_id])
+    organization.status = "rejected"
+    organization.save
+    flash[:notice] = organization.name + " is rejected!"
     redirect_to organizations_path
   end
 
