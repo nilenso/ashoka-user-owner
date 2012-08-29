@@ -90,14 +90,23 @@ describe OrganizationsController do
 
       it "sends an approval mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
-        user = FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
+        user = FactoryGirl.create(:user, :email => "foo@baz.com", :organization => org)
         put :change_status, :organization_id => org.id, :status => "approved"
+        ActionMailer::Base.deliveries.should_not be_empty
+        assigns(:email).to.join('').should == user.email
+      end
+
+      it "sends a rejection mail to the cso admin of the organization" do
+        org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :email => "baz@bar.com", :organization => org)
+        put :change_status, :organization_id => org.id, :status => "rejected"
         ActionMailer::Base.deliveries.should_not be_empty
         assigns(:email).to.join('').should == user.email
       end
 
       it "rejects the organization with a success message" do
         org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :email => "fooz@bar.com", :organization => org)
         put :change_status, :organization_id => org.id, :status => "rejected"
         org.reload
 

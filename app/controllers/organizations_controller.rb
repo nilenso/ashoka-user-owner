@@ -32,6 +32,9 @@ class OrganizationsController < ApplicationController
     if organization.approved?
       @email = UserMailer.approval_mail(organization.users.first).deliver
     end
+    if organization.rejected?
+      @email = UserMailer.rejection_mail(organization.users.first).deliver
+    end
     flash[:notice] = "#{organization.name} is #{organization.status}!"
     redirect_to organizations_path
   end

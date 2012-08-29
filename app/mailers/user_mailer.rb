@@ -5,4 +5,9 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail(:to => user.email, :from => 'srihari@c42.in', :subject => "Welcome to user owner")
   end
+
+  def rejection_mail(user)
+    @user = user
+    mail(:to => user.email, :from => 'srihari@c42.in', :subject => "Your organization has not been approved")
+  end
 end

@@ -8,4 +8,12 @@ describe UserMailer do
     lambda { UserMailer.approval_mail(user).deliver }.should_not raise_error
     lambda { UserMailer.approval_mail(user).deliver }.should change(ActionMailer::Base.deliveries,:size).by(1)
   end
+
+  it "sends a rejection mail to the user" do
+    org = FactoryGirl.create(:organization)
+    user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
+    lambda { UserMailer.rejection_mail(user) }.should_not raise_error
+    lambda { UserMailer.rejection_mail(user).deliver }.should_not raise_error
+    lambda { UserMailer.rejection_mail(user).deliver }.should change(ActionMailer::Base.deliveries,:size).by(1)
+  end
 end
