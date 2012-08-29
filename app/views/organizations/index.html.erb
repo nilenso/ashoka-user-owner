@@ -1,8 +1,26 @@
 <p>
   <%= "There are no organizations" if @organizations.empty? %>
 </p>
-<ul>
-  <% for organization in @organizations do%>
-    <li> <%= organization.name %> </li>
-  <% end %>
-</ul>
+
+<% unless @organizations.empty? %>
+  <table>
+    <h2>Pending</h2>
+    <% @organizations.select{ |org| org.status == "pending"}.each do |organization|%>
+      <tr><td> <%= organization.name %> </td></tr>
+    <% end %>
+  </table>
+
+  <table>
+    <h2>Approved</h2>
+    <% @organizations.select{ |org| org.status == "approved"}.each do |organization|%>
+      <tr><td> <%= organization.name %> </td> </tr>
+    <% end %>
+  </table>
+
+  <table>
+    <h2>Rejected</h2>
+    <% @organizations.select{ |org| org.status == "rejected"}.each do |organization|%>
+      <tr><td> <%= organization.name %> </td> </tr>
+    <% end %>
+  </table>
+<% end %>
