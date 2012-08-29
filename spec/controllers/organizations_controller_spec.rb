@@ -52,17 +52,17 @@ describe OrganizationsController do
       response.should redirect_to(login_path)
     end
 
-    it "can be accessed by the sys admin" do
-      sys_admin = FactoryGirl.create(:user, :role => "admin")
-      sign_in_as(sys_admin)
+    it "can be accessed by the admin" do
+      admin = FactoryGirl.create(:user, :role => "admin")
+      sign_in_as(admin)
       get :index
       response.should be_ok
       assigns(:organizations).should_not be_nil
     end
 
-    it "can not be accessed by anyone other than sys admin" do
-      not_sys_admin = FactoryGirl.create(:user)
-      sign_in_as(not_sys_admin)
+    it "can not be accessed by anyone other than admin" do
+      not_admin = FactoryGirl.create(:user)
+      sign_in_as(not_admin)
       get :index
       response.should redirect_to(root_path)
       flash[:error].should_not be_nil
@@ -71,6 +71,9 @@ describe OrganizationsController do
 
   context "PUT 'approve'" do
     it "approves the organization with a success message" do
+      admin = FactoryGirl.create(:user, :role => "admin")
+      sign_in_as(admin)
+
       org = FactoryGirl.create(:organization)
       put :approve, :organization_id => org.id
       org.reload
@@ -78,6 +81,16 @@ describe OrganizationsController do
       org.should be_approved
       response.should redirect_to organizations_path
       flash[:notice].should_not be_nil
+    end
+
+   it "does not allow anyone other than admin to approve an organization" do
+      org = FactoryGirl.create(:organization)
+      put :approve, :organization_id => org.id
+      org.reload
+
+      org.should_not be_approved
+      response.should redirect_to login_path
+      flash[:error].should_not be_nil
     end
   end
 end
