@@ -1,0 +1,43 @@
+@import 'susy';
+@import 'compass/reset';
+@import 'palette';
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+
+$app_width      : 960px;
+$total-columns  : 1;
+$column-width   : $app_width;
+$gutter-width   : 1px;
+$grid-padding   : $gutter-width;
+$base-font-size : 16px;
+
+.container{
+  @include container;
+}
+
+#login { 
+  text-align: center;
+  width: 25%;
+  margin: 2em auto;
+  padding: 1em;
+  @include border-radius(10px);
+  @include box-shadow(rgba($e, 0.4) 0 2px 25px);
+}
+
+h1 {
+  font-size: 2em;
+  color: $e;
+  margin-bottom: 0.5em;
+}
+
+input {
+  font-size: 0.9em;
+  margin: 0.5em 0;
+  padding: 0.3em 0.3em;
+}
+
+button {
+  width: 40%;
+  font-size: 0.93em;
+  margin-top: 0.6em;
+}

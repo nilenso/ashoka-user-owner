@@ -13,7 +13,7 @@ UserService::Application.routes.draw do
       put 'change_status'
     end
 
-    root :to => 'static_pages#home'
+    root :to => 'sessions#new'
   end
 
   namespace :api, :defaults => { :format => 'json' } do

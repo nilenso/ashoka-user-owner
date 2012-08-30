@@ -8,9 +8,11 @@
 </head>
 <body>
 
-<%= render "layouts/flash", :flash => flash %>
-<%= render "layouts/change_locale" %>
-<%= yield %>
+<div class="container">
+  <%= render "layouts/flash", :flash => flash %>
+  <%= render "layouts/change_locale" %>
+  <%= yield %>
+</div>
 
 </body>
 </html>
