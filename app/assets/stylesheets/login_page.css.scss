@@ -12,6 +12,14 @@ $gutter-width   : 1px;
 $grid-padding   : $gutter-width;
 $base-font-size : 16px;
 
+$button_bg_color: $d;
+$link_color: $d;
+$link_hover_color: $e;
+$heading_color: $e;
+$button_text_color: lighten($a, 5%);
+$login_box_bg_color: lighten($a, 15%);
+$login_box_shadow_color: rgba($a, 0.4);
+
 body {
   background: url('/assets/background.png');
 }
@@ -26,27 +34,27 @@ body {
   margin: 0 auto;
   margin-top: 20em;
   padding: 1em;
-  background-color: lighten($a, 15%);
+  background-color: lighten($login_box_bg_color, 15%);
   @include border-radius(10px);
-  @include box-shadow(rgba($a, 0.4) 0px 0px 30px);
+  @include box-shadow($login_box_shadow_color 0px 0px 30px);
 
   a {
     float: right;
     font-size: 0.9em;
     text-decoration: none;
-    color: $d;
+    color: $link_color;
     &:visited {
-      color: $d;
+      color: $link_color;
     }
     &:hover {
-      color: $e;
+      color: $link_hover_color;
     }
   }
 }
 
 h1 {
   font-size: 2em;
-  color: $e;
+  color: $heading_color;
   margin-bottom: 0.5em;
 }
 
@@ -64,16 +72,16 @@ button {
   font-size: 0.93em;
   border: 2px lighten($b, 10%) solid;
   padding: 0.5em 0.5em;
-  color: lighten($a, 5%);
+  color: $button_text_color;
   @include border-radius(5px);
-  @include background-image(linear-gradient($d, darken($d, 2%), darken($d, 15%)));
+  @include background-image(linear-gradient($button_bg_color, darken($button_bg_color, 2%), darken($button_bg_color, 15%)));
   margin-top: 0.6em;
   cursor: pointer;
   &:hover{
-    @include background-image(linear-gradient($d, darken($d, 5%), darken($d, 20%)));  
+    @include background-image(linear-gradient($button_bg_color, darken($button_bg_color, 5%), darken($button_bg_color, 20%)));  
   }
 
   &:active{
-    @include background-image(linear-gradient(darken($d, 20%), darken($d, 5%), $d));    
+    @include background-image(linear-gradient(darken($button_bg_color, 20%), darken($button_bg_color, 5%), $button_bg_color));    
   }
 }
