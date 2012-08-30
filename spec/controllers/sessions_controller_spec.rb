@@ -42,7 +42,7 @@ describe SessionsController do
     context "user doesn't exist or email/password combination is incorrect" do
       it "redirects to the login page with a flash error" do
         post :create, :user => { :email => "foo@bar.com", :password => "" }
-        response.should render_template('new')
+        response.should redirect_to login_path
         flash[:error].should_not be_nil
       end
     end

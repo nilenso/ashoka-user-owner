@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       redirect_to(session.delete(:return_to) || root_path)
     else
       flash[:error] = t "wrong_email_password"
-      render action: 'new'
+      redirect_to login_path
     end
   end
 
