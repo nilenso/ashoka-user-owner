@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:user][:email])
     if user && user.authenticate(params[:user][:password])
       session[:user_id] = user.id
+      flash[:notice] = t "log_in_successful"
       redirect_to(organizations_path) and return if user.admin?
       redirect_to(session.delete(:return_to) || root_path)
     else

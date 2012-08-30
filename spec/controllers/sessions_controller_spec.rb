@@ -47,6 +47,11 @@ describe SessionsController do
           post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to organizations_path
         end
+
+        it "notifies the user with a flash notice that he has signed in" do
+          post :create, :user => { :email => user.email, :password => user.password}
+          flash[:notice].should_not be_nil
+        end
       end
     end
 
