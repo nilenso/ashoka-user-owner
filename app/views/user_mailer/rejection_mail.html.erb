@@ -2,8 +2,10 @@
 <p>
   Your Organization <%= @user.organization.name %> has been rejected! :(
   <% if @message %>
-    This is a message from the administrator:
-    <%= @message %>
+    <p>
+    This is a message from the administrator
+    </p>
+    <blockquote><%= @message %></blockquote>
   <% end %>
 </p>
 <p>Thanks for trying to join us and have a great day!</p>
