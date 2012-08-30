@@ -1,6 +1,6 @@
 <h1><%= t("sign_in")%></h1>
 
-<%= semantic_form_for 'user', :url => sessions_path do |f| %>
+<%= semantic_form_for @user, :url => sessions_path do |f| %>
   <%= f.inputs do %>
     <%= f.input :email, :required => true %>
     <%= f.input :password, :required => true %>

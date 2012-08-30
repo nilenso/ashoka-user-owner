@@ -8,6 +8,11 @@ describe SessionsController do
       response.should render_template('new')
     end
 
+    it "assigns a blank user" do
+      get :new
+      assigns(:user).should be_true
+    end
+
     it "assigns session for return_to if params is passed" do
       return_to = "http://abc.com"
       get :new, :return_to => return_to
