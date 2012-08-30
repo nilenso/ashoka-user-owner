@@ -48,6 +48,8 @@ fr:
   status_changed: "Est %{organization_name} %{status}!"
   please_login: S'il vous plaît connectez
   not_authorized: Vous n'êtes pas autorisé à le faire.
+  log_in_successful: Connecté avec succès!
+
  
   #Model translations
   activerecord:
