@@ -1,2 +1,44 @@
 en:
-  hello: "Hello world"
+  log_in: "Log In"
+  log_out: "Log Out"
+  register: "Register"
+  sign_in: "Sign In"
+
+  static_pages:
+    home:
+      user_owner: "User Owner"
+      pending_approvals: "Pending Approvals"
+
+  user_mailer:
+    approval_mail:
+      welcome_message: "Welcome to User Owner Service, %{user_name}"
+      approved_message: "Your organization, %{organization_name} has been approved! :)"
+      thanks_for_joining: "Thanks for joining us and have a great day!"
+
+    rejection_mail:
+      sorry_message: "Sorry, %{user_name}"
+      rejected_message: "Your organization %{organization_name} has been rejected! :("
+      admin_message: "This is a message from the administrator"
+      thanks_for_trying: "Thanks for trying to join us and have a great day!"
+
+  organizations:
+    new:
+      register_organization: "Register your Organization"
+      organization_info: "Organization Information"
+      user_info: "User Information"
+    index:
+      no_organizations: "There are no organizations"
+      list_of_organizations: "List of Organizations"
+      pending: "Pending"
+      actions: "Actions"
+      approve: "Approve"
+      approved: "Approved"
+      reject: "Reject"
+      rejected: "Rejected"
+
+  wrong_email_password: "Email/Password is wrong"
+  pending_approval_message: "Your organization is pending approval. You can login and use the app only when the organization is approved. You will recieve a mail regarding the approval/rejection."
+  creation_failed: "Organization creation failed"
+  status_changed: "%{organization_name} is %{status}!"
+  please_login: "Please login"
+  not_authorized: "You are not authorized to do that."

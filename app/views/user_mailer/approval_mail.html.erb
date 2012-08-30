@@ -1,6 +1,5 @@
-
-<h1>Welcome to User Owner Service, <%= @user.name %></h1>
+<h1> <%=  t ".welcome_message", :user_name =>  @user.name %> </h1>
 <p>
-  Your Organization <%= @user.organization.name %> has been approved! :) 
+  <%= t ".approved_message", :organization_name => @user.organization.name%>
 </p>
-<p>Thanks for joining us and have a great day!</p>
+<p> <%= t ".thanks_for_joining" %> </p>

@@ -1,2 +1,4 @@
 fr:
-  hello: "Bonjour"
+  static_pages:
+    home:
+      user_owner: "User Own"

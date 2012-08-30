@@ -1,24 +1,24 @@
 <p>
-  <%= "There are no organizations" if @organizations.empty? %>
+  <%= t(".no_organizations") if @organizations.empty? %>
 </p>
 
 <% unless @organizations.empty? %>
-  <h1>List of Organizations</h1>
+  <h1><%= t ".list_of_organizations" %></h1>
   <table>
-    <h2>Pending</h2>
+    <h2><%= t ".pending" %></h2>
     <tr>
-      <th>Name</th>
-      <th>Actions</th>
+      <th>Organization.human_attribute_name(:name) </th>
+      <th><%= t ".actions" %></th>
     </tr>
     <% @organizations.select{ |org| org.status == "pending"}.each do |organization|%>
       <tr>
         <td> <%= organization.name %> </td>
         <td>
-          <%= link_to 'Approve', organization_change_status_path(organization.id, :status => "approved"), :method => :put %>
+          <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put %>
           <%= form_tag organization_change_status_path(organization.id), :method => :put do %>
             <%= text_area_tag 'rejection_message' %>
             <%= hidden_field_tag "status", "rejected" %>
-            <%= submit_tag "Reject" %>
+            <%= submit_tag t(".reject") %>
           <% end %>
         </td>
       </tr>
@@ -26,14 +26,14 @@
   </table>
 
   <table>
-    <h2>Approved</h2>
+    <h2><%= t ".approved" %></h2>
     <% @organizations.select{ |org| org.status == "approved"}.each do |organization|%>
       <tr><td> <%= organization.name %> </td> </tr>
     <% end %>
   </table>
 
   <table>
-    <h2>Rejected</h2>
+    <h2><%= t ".rejected" %></h2>
     <% @organizations.select{ |org| org.status == "rejected"}.each do |organization|%>
       <tr><td> <%= organization.name %> </td> </tr>
     <% end %>

@@ -1,12 +1,12 @@
-<h1>Register your Organization</h1>
+<h1><%= t ".register_organization" %></h1>
 
 <%= semantic_form_for @organization do |f| %>
-  <%= f.inputs :name => "Organization Information" do %>
-    <% f.input :name, :label => "Organization Name" %>
+  <%= f.inputs :name => t(".organization_info") do %>
+    <% f.input :name, :label => Organization.human_attribute_name(:name) %>
   <% end %>
 
   <%= f.semantic_fields_for :users do |user| %>
-    <%= user.inputs :name => "User Information" do %>
+    <%= user.inputs :name => t(".user_info") do %>
       <%= user.input :name %>
       <%= user.input :email %>
       <%= user.input :password, :required => true %>
@@ -15,6 +15,6 @@
   <% end %>
 
   <%= f.actions do %>
-    <% f.action :submit, :label => "Register", :as => :button %>
+    <% f.action :submit, :label => t("register"), :as => :button %>
   <% end %>
 <% end %>

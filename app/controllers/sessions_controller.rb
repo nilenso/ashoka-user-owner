@@ -10,9 +10,9 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to(session.delete(:return_to) || root_path)
     else
-      flash[:error] = "Email/Password is wrong"
-      render 'new'
-    end 
+      flash[:error] = t "wrong_email_password"
+      render action: 'new'
+    end
   end
 
   def destroy

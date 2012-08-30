@@ -1,4 +1,4 @@
-<h1>Sign In</h1>
+<h1><%= t("sign_in")%></h1>
 
 <%= semantic_form_for 'user', :url => sessions_path do |f| %>
   <%= f.inputs do %>
@@ -7,6 +7,6 @@
   <% end %>
 
   <%= f.actions do %>
-    <% f.action :submit, :label => "Log in", :as => :button %>
+    <% f.action :submit, :label => t("log_in"), :as => :button %>
   <% end %>
 <% end %>

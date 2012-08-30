@@ -14,9 +14,9 @@ class OrganizationsController < ApplicationController
 
     if @organization.save
       redirect_to root_path
-      flash[:notice] = "Your organization has been created but pending approval. You will recieve a mail when it is approved."
+      flash[:notice] = t("pending_approval_message")
     else
-      flash[:error] = "Organization creation failed"
+      flash[:error] = t("creation_failed")
       render :new
     end
 	end
@@ -36,7 +36,7 @@ class OrganizationsController < ApplicationController
         UserMailer.rejection_mail(organization.users.first, params[:rejection_message].presence).deliver
       end
     end
-    flash[:notice] = "#{organization.name} is #{organization.status}!"
+    flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end
 
@@ -44,10 +44,10 @@ class OrganizationsController < ApplicationController
 
   def require_admin
     if !has_signed_in_user?
-      flash[:error] = "Please login"
+      flash[:error] = t "please_login"
       redirect_to(login_path)
     elsif !current_user.admin?
-      flash[:error] = "You are not authorized to do that."
+      flash[:error] = t "not_authorized"
       redirect_to(root_path)
     end
   end
