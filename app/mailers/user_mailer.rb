@@ -1,5 +1,4 @@
 class UserMailer < ActionMailer::Base
-  # include SendGrid
   default from: "friendly_robot@user-owner-staging.herokuapp.com"
 
   def approval_mail(user)
