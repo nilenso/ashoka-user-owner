@@ -32,6 +32,7 @@ group :development, :test do
   gem 'rspec-rails' 
   gem 'rspec-http'
   gem 'guard-spork'
+  gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'growl'
   gem 'factory_girl_rails'
