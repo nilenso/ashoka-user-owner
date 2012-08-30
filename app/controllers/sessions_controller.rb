@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   before_filter :organization_approved, :only => :create
   def new
+    @user = User.new
     session[:return_to] = params[:return_to] if params[:return_to]
   end
 
