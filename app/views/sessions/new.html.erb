@@ -1,16 +1,18 @@
 <%= stylesheet_link_tag 'login_page' %>
 
 <div id="login">
+  <%= link_to t("register"), register_path %>
   <h1><%= t("sign_in")%></h1>
 
   <%= semantic_form_for @user, :url => sessions_path do |f| %>
     <%= f.inputs do %>
-      <%= f.input :email, :required => true, :label => false, :placeholder => "USERNAME" %>
+      <%= f.input :email, :required => true, :label => false, :placeholder => "EMAIL" %>
       <%= f.input :password, :required => true, :label => false, :placeholder => "PASSWORD" %>
     <% end %>
 
     <%= f.actions do %>
       <% f.action :submit, :label => t("log_in"), :as => :button %>
     <% end %>
+
   <% end %>
 </div>

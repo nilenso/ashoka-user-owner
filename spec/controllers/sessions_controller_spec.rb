@@ -41,6 +41,12 @@ describe SessionsController do
           post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to pending_path
         end
+
+        it "redirects to Organisations#index if user is admin" do
+          user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization), :role => 'admin')
+          post :create, :user => { :email => user.email, :password => user.password }
+          response.should redirect_to organizations_path
+        end
       end
     end
 
