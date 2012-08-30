@@ -1,4 +1,57 @@
 fr:
+  log_in: Connexion
+  log_out: Déconnexion
+  register: Inscrivez-vous
+  sign_in: "S'identifier"
+ 
   static_pages:
     home:
-      user_owner: "User Own"
+      user_owner: Owner utilisateur
+      pending_approvals: Approbations en attente
+  
+  user_mailer:
+    approval_mail:
+      welcome_message: "Bienvenue au service du propriétaire utilisateur, %{user_name}"
+      approved_message: "Votre organisation, %{organization_name} a été approuvé :)"
+      thanks_for_joining: Merci de nous avoir rejoints et ont un grand jour!
+ 
+    rejection_mail:
+      sorry_message: "Désolé,  %{user_name}"
+      rejected_message: "Votre organisation %{organization_name} a été rejeté :("
+      admin_message: Ceci est un message de l'administrateur
+      thanks_for_trying: Merci d'essayer de nous rejoindre et avoir un grand jour!
+ 
+  organizations:
+    new:
+      register_organization: Enregistrez votre Organisation
+      organization_info: Information sur l'organisme
+      user_info: Information de l'Utilisateur
+ 
+    index:
+      no_organizations: Il n'y a pas d'organisations
+      list_of_organizations: Liste des organisations
+      pending: En attente
+      actions: Actions
+      approve: Approuver
+      approved: Approuvé
+      reject: Rejeter
+      rejected: Rejeté
+ 
+  wrong_email_password: Email / mot de passe est incorrect
+  pending_approval_message: Votre organisation est en attente d'approbation. Vous pouvez vous connecter et utiliser l'application que lorsque l'organisme est agréé. Vous recevrez un e-mail concernant l'approbation / rejet.
+  creation_failed: Création Organisation échoué
+  status_changed: "Est %{organization_name} %{status}!"
+  please_login: S'il vous plaît connectez
+  not_authorized: Vous n'êtes pas autorisé à le faire.
+ 
+  #Model translations
+  activerecord:
+    attributes:
+      organization:
+        name: Nom
+ 
+      user:
+        name: Nom d'utilisateur
+        email: Email
+        password: Mot de passe
+        password_confirmation: Confirmation de mot de passe
