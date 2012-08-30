@@ -28,12 +28,13 @@ class OrganizationsController < ApplicationController
   def change_status
     organization = Organization.find(params[:organization_id])
     organization.status = params[:status]
-    organization.save
-    if organization.approved?
-      @email = UserMailer.approval_mail(organization.users.first).deliver
-    end
-    if organization.rejected?
-      @email = UserMailer.rejection_mail(organization.users.first).deliver
+    if organization.save
+      if organization.approved?
+        UserMailer.approval_mail(organization.users.first).deliver
+      end
+      if organization.rejected?
+        UserMailer.rejection_mail(organization.users.first).deliver
+      end
     end
     flash[:notice] = "#{organization.name} is #{organization.status}!"
     redirect_to organizations_path
