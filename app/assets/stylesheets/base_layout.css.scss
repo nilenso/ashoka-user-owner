@@ -13,3 +13,23 @@ $base-font-size : 16px;
 .container{
   @include container;
 }
+
+p.error{
+  background-color: $error_bg_color;
+  border: 1px solid $error_border_color;
+  color: $error_color;
+  padding: 8px 35px 8px 14px;
+}
+
+p.notice{
+  background-color: $success_bg_color;
+  border-color: $success_border_color;
+  color: $success_color;
+  padding: 8px 35px 8px 14px;
+}
+
+h1 {
+  font-size: 2em;
+  color: $e;
+  margin-bottom: 0.5em;
+}
