@@ -50,6 +50,6 @@ describe UserMailer do
     org = FactoryGirl.create(:organization)
     user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
     email = UserMailer.approval_mail(user)
-    email.should deliver_from("friendly_robot@user-owner-staging.herokuapp.com")
+    email.should deliver_from("\"User Owner Robot\" <friendly_robot@user-owner-staging.herokuapp.com>")
   end
 end
