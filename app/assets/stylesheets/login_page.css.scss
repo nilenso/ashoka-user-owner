@@ -15,10 +15,10 @@ $base-font-size : 16px;
   @include container;
 }
 
-#login { 
+#login {
   text-align: center;
   width: 25%;
-  margin: 2em auto;
+  margin: 3em auto;
   padding: 1em;
   @include border-radius(10px);
   @include box-shadow(rgba($e, 0.4) 0 2px 25px);
@@ -34,6 +34,7 @@ input {
   font-size: 0.9em;
   margin: 0.5em 0;
   padding: 0.3em 0.3em;
+  width: 80%;
 }
 
 button {
