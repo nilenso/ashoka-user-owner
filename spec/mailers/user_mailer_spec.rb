@@ -52,4 +52,11 @@ describe UserMailer do
     email = UserMailer.approval_mail(user)
     email.should deliver_from("\"User Owner Robot\" <friendly_robot@user-owner-staging.herokuapp.com>")
   end
+
+  it "should include the rejection message in the body" do
+    org = FactoryGirl.create(:organization)
+    user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
+    email = UserMailer.rejection_mail(user, "someuniquemessage")
+    email.should have_body_text("someuniquemessage")
+  end
 end

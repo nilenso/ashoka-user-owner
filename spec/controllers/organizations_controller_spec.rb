@@ -77,20 +77,6 @@ describe OrganizationsController do
         sign_in_as(admin)
       end
 
-      it "approves the organization with a success message" do
-        org = FactoryGirl.create(:organization)
-        user = FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
-        mailer = double('mailer')
-        mailer.should_receive(:deliver)
-        stub = UserMailer.stub(:approval_mail).and_return(mailer)
-        put :change_status, :organization_id => org.id, :status => "approved"
-        org.reload
-
-        org.should be_approved
-        response.should redirect_to organizations_path
-        flash[:notice].should_not be_nil
-      end
-
       it "sends an approval mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:user, :email => "foo@baz.com", :organization => org)
@@ -109,7 +95,21 @@ describe OrganizationsController do
         put :change_status, :organization_id => org.id, :status => "rejected"
       end
 
-      it "rejects the organization with a success message" do
+      it "approves the organization with a flash notice" do
+        org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :email => "foo@bar.com", :organization => org)
+        mailer = double('mailer')
+        mailer.should_receive(:deliver)
+        stub = UserMailer.stub(:approval_mail).and_return(mailer)
+        put :change_status, :organization_id => org.id, :status => "approved"
+        org.reload
+
+        org.should be_approved
+        response.should redirect_to organizations_path
+        flash[:notice].should_not be_nil
+      end
+
+      it "rejects the organization with a flash notice" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:user, :email => "fooz@bar.com", :organization => org)
         mailer = double('mailer')

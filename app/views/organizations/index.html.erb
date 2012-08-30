@@ -15,7 +15,11 @@
         <td> <%= organization.name %> </td>
         <td>
           <%= link_to 'Approve', organization_change_status_path(organization.id, :status => "approved"), :method => :put %>
-          <%= link_to "Reject", organization_change_status_path(organization.id, :status => "rejected"), :method => :put %>
+          <%= form_tag organization_change_status_path(organization.id), :method => :put do %>
+            <%= text_area_tag 'rejection_message' %>
+            <%= hidden_field_tag "status", "rejected" %>
+            <%= submit_tag "Reject" %>
+          <% end %>
         </td>
       </tr>
     <% end %>
