@@ -28,6 +28,14 @@ p.notice{
   padding: 8px 35px 8px 14px;
 }
 
+p.inline-errors {
+  background-color: rgba($error_bg_color, 0.4);
+  width: 80%;
+  border: 1px solid $error_border_color;
+  color: $error_color;
+  padding: 8px 35px 8px 14px;  
+}
+
 h1 {
   font-size: 2em;
   color: $e;

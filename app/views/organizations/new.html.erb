@@ -1,20 +1,23 @@
-<h1><%= t ".register_organization" %></h1>
+<%= stylesheet_link_tag 'register_page' %>
 
-<%= semantic_form_for @organization do |f| %>
-  <%= f.inputs :name => t(".organization_info") do %>
-    <% f.input :name, :label => Organization.human_attribute_name(:name) %>
-  <% end %>
+<div id="register">
+  <h1><%= t ".register_organization" %></h1>
+  <%= semantic_form_for @organization do |f| %>
+    <%= f.inputs :name => t(".organization_info") do %>
+      <% f.input :name, :label => Organization.human_attribute_name(:name) %>
+    <% end %>
 
-  <%= f.semantic_fields_for :users do |user| %>
-    <%= user.inputs :name => t(".user_info") do %>
-      <%= user.input :name %>
-      <%= user.input :email %>
-      <%= user.input :password, :required => true %>
-      <%= user.input :password_confirmation, :as => :password, :required => true %>
+    <%= f.semantic_fields_for :users do |user| %>
+      <%= user.inputs :name => t(".user_info") do %>
+        <%= user.input :name %>
+        <%= user.input :email %>
+        <%= user.input :password, :required => true %>
+        <%= user.input :password_confirmation, :as => :password, :required => true %>
+      <% end %>
+    <% end %>
+
+    <%= f.actions do %>
+      <% f.action :submit, :label => t("register"), :as => :button %>
     <% end %>
   <% end %>
-
-  <%= f.actions do %>
-    <% f.action :submit, :label => t("register"), :as => :button %>
-  <% end %>
-<% end %>
+</div>
