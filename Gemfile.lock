@@ -66,6 +66,7 @@ GEM
     guard-spork (1.1.0)
       guard (>= 1.1)
       spork (>= 0.8.4)
+    highline (1.6.14)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.4)
@@ -177,6 +178,7 @@ DEPENDENCIES
   growl
   guard-rspec
   guard-spork
+  highline
   jquery-rails
   pg
   pry-rails
