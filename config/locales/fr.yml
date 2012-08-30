@@ -41,6 +41,8 @@ fr:
       approved: Approuvé
       reject: Rejeter
       rejected: Rejeté
+      reject_prompt_message: Inclure un message personnel à l'administrateur de cette organisation ici. Appuyez sur Annuler pour rejeter sans un message.
+      or: ou
  
   wrong_email_password: Email / mot de passe est incorrect
   pending_approval_message: Votre organisation est en attente d'approbation. Vous pouvez vous connecter et utiliser l'application que lorsque l'organisme est agréé. Vous recevrez un e-mail concernant l'approbation / rejet.

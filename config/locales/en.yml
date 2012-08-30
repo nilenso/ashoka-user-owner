@@ -41,6 +41,8 @@ en:
       approved: Approved
       reject: Reject
       rejected: Rejected
+      reject_prompt_message: Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
+      or: or
 
   wrong_email_password: Email/Password is wrong
   pending_approval_message: Your organization is pending approval. You can login and use the app only when the organization is approved. You will recieve a mail regarding the approval/rejection.

@@ -16,7 +16,7 @@
               <%= hidden_field_tag 'rejection_message' %>
               <%= hidden_field_tag "status", "rejected" %>
               <div class="actions">
-                <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put %> or
+                <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put %> <%= t('.or') %>
                 <%= submit_tag t(".reject"), :class => 'reject' %>
               </div>
             <% end %>
@@ -44,7 +44,7 @@
 <script type="text/javascript">
   $(function(){
     $(".reject").click(function(){
-      reject_message = prompt("Include a personal message to the administrator of this organization here. Press cancel to reject without a message.");
+      reject_message = <%= raw("prompt(\"") + t(".reject_prompt_message") + raw("\");")%>
       $("#rejection_message").val(reject_message);
       document.forms[0].submit();
     });
