@@ -1,41 +1,52 @@
-<p>
-  <%= t(".no_organizations") if @organizations.empty? %>
-</p>
+<%= stylesheet_link_tag 'admin_page' %>
+<div id="admin">
+  <p>
+    <%= t(".no_organizations") if @organizations.empty? %>
+  </p>
 
-<% unless @organizations.empty? %>
-  <h1><%= t ".list_of_organizations" %></h1>
-  <table>
-    <h2><%= t ".pending" %></h2>
-    <tr>
-      <th><%= Organization.human_attribute_name(:name) %></th>
-      <th><%= t ".actions" %></th>
-    </tr>
-    <% @organizations.select{ |org| org.status == "pending"}.each do |organization|%>
-      <tr>
-        <td> <%= organization.name %> </td>
-        <td>
-          <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put %>
-          <%= form_tag organization_change_status_path(organization.id), :method => :put do %>
-            <%= text_area_tag 'rejection_message' %>
-            <%= hidden_field_tag "status", "rejected" %>
-            <%= submit_tag t(".reject") %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <% unless @organizations.empty? %>
+    <h1><%= t ".list_of_organizations" %></h1>
+    <table>
+      <h2><%= t ".pending" %></h2>
+      <% @organizations.select{ |org| org.status == "pending"}.each do |organization|%>
+        <tr>
+          <td> <%= organization.name %> </td>
+          <td>
+            <%= form_tag organization_change_status_path(organization.id), :method => :put do %>
+              <%= hidden_field_tag 'rejection_message' %>
+              <%= hidden_field_tag "status", "rejected" %>
+              <div class="actions">
+                <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put %> or
+                <%= submit_tag t(".reject"), :class => 'reject' %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
 
-  <table>
-    <h2><%= t ".approved" %></h2>
-    <% @organizations.select{ |org| org.status == "approved"}.each do |organization|%>
-      <tr><td> <%= organization.name %> </td> </tr>
-    <% end %>
-  </table>
+    <table>
+      <h2><%= t ".approved" %></h2>
+      <% @organizations.select{ |org| org.status == "approved"}.each do |organization|%>
+        <tr><td> <%= organization.name %> </td> </tr>
+      <% end %>
+    </table>
 
-  <table>
-    <h2><%= t ".rejected" %></h2>
-    <% @organizations.select{ |org| org.status == "rejected"}.each do |organization|%>
-      <tr><td> <%= organization.name %> </td> </tr>
-    <% end %>
-  </table>
-<% end %>
+    <table>
+      <h2><%= t ".rejected" %></h2>
+      <% @organizations.select{ |org| org.status == "rejected"}.each do |organization|%>
+        <tr><td> <%= organization.name %> </td> </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $(".reject").click(function(){
+      reject_message = prompt("Include a personal message to the administrator of this organization here. Press cancel to reject without a message.");
+      $("#rejection_message").val(reject_message);
+      document.forms[0].submit();
+    });
+  });
+</script>
