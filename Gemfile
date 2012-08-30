@@ -12,6 +12,7 @@ gem 'validates_email_format_of'
 gem 'cancan'
 gem 'rails-i18n'
 gem 'highline'
+gem 'pry-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -35,8 +36,7 @@ group :development, :test do
   gem 'growl'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
-  gem 'email_spec'
-  gem 'pry-rails'
+  gem 'email_spec'  
 end
 
 # To use ActiveModel has_secure_password
