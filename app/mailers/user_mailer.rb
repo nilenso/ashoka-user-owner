@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "friendly_robot@user-owner-staging.herokuapp.com"
+  default from: "\"User Owner Robot\" <friendly_robot@user-owner-staging.herokuapp.com>"
 
   def approval_mail(user)
     @user = user
