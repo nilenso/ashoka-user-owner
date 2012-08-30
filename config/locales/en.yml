@@ -9,6 +9,11 @@ en:
       user_owner: User Owner
       pending_approvals: Pending Approvals
 
+  sessions:
+    new:
+      email: Email
+      password: Password
+
   user_mailer:
     approval_mail:
       welcome_message: "Welcome to User Owner Service, %{user_name}"

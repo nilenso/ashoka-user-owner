@@ -3,6 +3,7 @@
 @import 'palette';
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
+@import "compass/css3/images";
 
 $app_width      : 960px;
 $total-columns  : 1;
@@ -11,17 +12,23 @@ $gutter-width   : 1px;
 $grid-padding   : $gutter-width;
 $base-font-size : 16px;
 
+body {
+  background: url('/assets/background.png');
+}
+
 .container{
   @include container;
 }
 
 #login {
   text-align: left;
-  width: 25%;
-  margin: 3em auto;
+  width: 15em;
+  margin: 0 auto;
+  margin-top: 20em;
   padding: 1em;
+  background-color: lighten($a, 15%);
   @include border-radius(10px);
-  @include box-shadow(rgba($e, 0.4) 0 2px 25px);
+  @include box-shadow(rgba($a, 0.4) 0px 0px 30px);
 
   a {
     float: right;
@@ -52,6 +59,21 @@ input {
 
 button {
   width: 40%;
+  float: right;
+  margin-right: 0.7em;
   font-size: 0.93em;
+  border: 2px lighten($b, 10%) solid;
+  padding: 0.5em 0.5em;
+  color: lighten($a, 5%);
+  @include border-radius(5px);
+  @include background-image(linear-gradient($d, darken($d, 2%), darken($d, 15%)));
   margin-top: 0.6em;
+  cursor: pointer;
+  &:hover{
+    @include background-image(linear-gradient($d, darken($d, 5%), darken($d, 20%)));  
+  }
+
+  &:active{
+    @include background-image(linear-gradient(darken($d, 20%), darken($d, 5%), $d));    
+  }
 }
