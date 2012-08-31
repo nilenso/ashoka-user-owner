@@ -1,9 +1,0 @@
-<h1><%= t(".user_owner")%></h1>
-
-<% if controller.has_signed_in_user? %>
-  <%= link_to t("log_out"), logout_path %>  |
-  <%= link_to t(".pending_approvals"), organizations_path if controller.current_user.admin? %>
-<% else %>
-  <%= link_to t("register"), register_path %> |
-  <%= link_to t("log_in"), login_path %>
-<% end %>
