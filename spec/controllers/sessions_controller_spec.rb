@@ -42,10 +42,10 @@ describe SessionsController do
           response.should redirect_to pending_path
         end
 
-        it "redirects to Organisations#index if user is admin" do
+        it "redirects to the root path if user is admin" do
           user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization), :role => 'admin')
           post :create, :user => { :email => user.email, :password => user.password }
-          response.should redirect_to organizations_path
+          response.should redirect_to root_path
         end
 
         it "notifies the user with a flash notice that he has signed in" do
