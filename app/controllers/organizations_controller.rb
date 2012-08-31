@@ -33,7 +33,7 @@ class OrganizationsController < ApplicationController
         UserMailer.approval_mail(organization.users.first).deliver
       end
       if organization.rejected?
-        UserMailer.rejection_mail(organization.users.first, params[:rejection_message].presence).deliver
+        UserMailer.rejection_mail(organization.users.first, params[:rejection_message]).deliver
       end
     end
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
