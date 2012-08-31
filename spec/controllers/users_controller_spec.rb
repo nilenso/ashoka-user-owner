@@ -1,0 +1,54 @@
+require 'spec_helper'
+
+describe UsersController do
+  context "GET 'new'" do
+    it "renders the 'new' template" do
+      organization = FactoryGirl.create(:organization)
+      get :new, :organization_id => organization.id
+      
+      response.should be_ok
+      response.should render_template :new
+    end
+
+    it "assigns a blank user" do
+      organization = FactoryGirl.create(:organization)
+      get :new, :organization_id => organization.id
+      assigns(:user).should be_a(User)
+    end
+  end
+
+  context "POST 'create'" do
+    it "creates a new user" do
+      organization = FactoryGirl.create(:organization)
+      user = FactoryGirl.attributes_for(:user)
+      expect do
+        post :create, :organization_id => organization.id, :user => user
+      end.to change { User.count }.by(1)
+    end
+
+    it  "assigns an instance variable for the user" do
+      organization = FactoryGirl.create(:organization)
+      user = FactoryGirl.attributes_for(:user)
+      post :create, :organization_id => organization.id, :user => user
+      assigns(:user).should be_a(User)
+    end
+
+    context "when save is successful" do
+      it "should redirect to the root page" do 
+        organization = FactoryGirl.create(:organization)
+        user = FactoryGirl.attributes_for(:user)
+        post :create, :organization_id => organization.id, :user => user
+        response.should redirect_to(root_path)
+      end
+    end
+
+    context "when save is unsuccessful" do
+      it "should re-render the new page" do 
+        organization = FactoryGirl.create(:organization)
+        user = FactoryGirl.attributes_for(:user).delete('name')
+        post :create, :organization_id => organization.id, :user => user
+        response.should render_template(:new)
+      end
+    end
+  end
+end
