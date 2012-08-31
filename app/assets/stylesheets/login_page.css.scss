@@ -1,9 +1,6 @@
-@import 'susy';
-@import 'compass/reset';
+@import 'base_layout';
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
-@import 'base_layout';
-@import 'palette';
 @import "compass/css3/images";
 
 $app_width      : 960px;
