@@ -14,6 +14,7 @@ fr:
     new:
       email: Email
       password: Mot de passe
+      welcome: "Bonjour, %{username}!"
   
   user_mailer:
     approval_mail:

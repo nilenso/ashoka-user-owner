@@ -22,7 +22,7 @@
             <% end %>
 
             <div id="action_links">
-              <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put, :confirm => "conrifm" %> <%= t('.or') %>
+              <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put, :confirm => t(:confirm) %> <%= t('.or') %>
               <%= link_to t('.reject'), '#', :class => 'reject'  %>
             </div>
           </td>
