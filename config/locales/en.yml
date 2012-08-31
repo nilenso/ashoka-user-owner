@@ -3,6 +3,7 @@ en:
   log_out: Log Out
   register: Register
   sign_in: Sign In
+  confirm: Are you sure?
 
   static_pages:
     home:

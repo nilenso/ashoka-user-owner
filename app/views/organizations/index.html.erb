@@ -12,14 +12,19 @@
         <tr>
           <td> <%= organization.name %> </td>
           <td>
+
             <%= form_tag organization_change_status_path(organization.id), :method => :put do %>
               <%= hidden_field_tag 'rejection_message' %>
               <%= hidden_field_tag "status", "rejected" %>
               <div class="actions">
-                <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put %> <%= t('.or') %>
-                <%= submit_tag t(".reject"), :class => 'reject' %>
+                <%= hidden_field_tag t(".reject")%>
               </div>
             <% end %>
+
+            <div id="action_links">
+              <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put, :confirm => "conrifm" %> <%= t('.or') %>
+              <%= link_to t('.reject'), '#', :class => 'reject'  %>
+            </div>
           </td>
         </tr>
       <% end %>
@@ -44,9 +49,11 @@
 <script type="text/javascript">
   $(function(){
     $(".reject").click(function(){
-      reject_message = <%= raw("prompt(\"") + t(".reject_prompt_message") + raw("\");")%>
-      $("#rejection_message").val(reject_message);
-      document.forms[0].submit();
+      var reject_message = <%= raw("prompt(\"") + t(".reject_prompt_message") + raw("\");")%>
+      if(reject_message != null) {
+        $("#rejection_message").val(reject_message);
+        document.forms[0].submit();
+      }
     });
   });
 </script>

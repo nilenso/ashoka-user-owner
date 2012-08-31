@@ -3,6 +3,7 @@ fr:
   log_out: Déconnexion
   register: Inscrivez-vous
   sign_in: "S'identifier"
+  confirm: Etes-vous sûr?
  
   static_pages:
     home:
