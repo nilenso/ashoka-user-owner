@@ -8,13 +8,13 @@ fr:
   static_pages:
     home:
       user_owner: Owner utilisateur
-      pending_approvals: Approbations en attente
 
   sessions:
     new:
       email: Email
       password: Mot de passe
       welcome: "Bonjour, %{username}!"
+      pending_approvals: Approbations en attente
   
   user_mailer:
     approval_mail:
