@@ -40,3 +40,23 @@ h1 {
   color: $e;
   margin-bottom: 0.5em;
 }
+
+.change_locale {
+  margin: 0 auto;  
+  text-align: center;
+  font-size: 0.8em;
+  margin-top: 0.8em;
+  color: #ddd;
+}
+
+a {
+  font-size: 0.9em;
+  text-decoration: none;
+  color: $link_color;
+  &:visited {
+    color: $link_color;
+  }
+  &:hover {
+    color: darken($link_color, 15%);
+  }
+}
