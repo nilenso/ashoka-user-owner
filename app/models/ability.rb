@@ -6,7 +6,7 @@ class Ability
     if user.role == 'admin'
         can :manage, :all
     elsif user.role == 'cso_admin'
-        can :create, User
+        can :manage, User
         can :read, :all
     else
         can :read, :all

@@ -15,6 +15,7 @@ en:
       password: Password
       welcome: "Hi, %{username}!"
       pending_approvals: Pending Approvals
+      create_a_user: Create a new user
 
   user_mailer:
     approval_mail:
