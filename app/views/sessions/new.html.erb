@@ -5,7 +5,7 @@
   <h2>You are logged in!</h2>
   <div id="action_links">
     <%= link_to t("log_out"), logout_path %>
-    <%= link_to t(".pending_approvals"), organizations_path if controller.current_user.admin? %>
+    <%= link_to t(".pending_approvals"), organizations_path if can? :manage, Organization %>
   </div>
 <% else %>
 
