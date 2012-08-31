@@ -1,18 +1,27 @@
 <%= stylesheet_link_tag 'login_page' %>
 
 <div id="login">
-  <%= link_to t("register"), register_path %>
-  <h1><%= t("sign_in")%></h1>
+<% if has_signed_in_user? %>
+  <h2>You are logged in!</h2>
+  <div id="action_links">
+    <%= link_to t("log_out"), logout_path %>
+    <%= link_to t(".pending_approvals"), organizations_path if controller.current_user.admin? %>
+  </div>
+<% else %>
 
-  <%= semantic_form_for @user, :url => sessions_path do |f| %>
+    <%= link_to t("register"), register_path %>
+    <h1><%= t("sign_in")%></h1>
+
+    <%= semantic_form_for @user, :url => sessions_path do |f| %>
     <%= f.inputs do %>
-      <%= f.input :email, :required => true, :label => false, :placeholder => t(".email").upcase %>
-      <%= f.input :password, :required => true, :label => false, :placeholder => t(".password").upcase %>
+    <%= f.input :email, :required => true, :label => false, :placeholder => t(".email").upcase %>
+    <%= f.input :password, :required => true, :label => false, :placeholder => t(".password").upcase %>
     <% end %>
 
     <%= f.actions do %>
-      <% f.action :submit, :label => t("log_in"), :as => :button %>
+    <% f.action :submit, :label => t("log_in"), :as => :button %>
     <% end %>
 
-  <% end %>
+    <% end %>
+<% end %>
 </div>

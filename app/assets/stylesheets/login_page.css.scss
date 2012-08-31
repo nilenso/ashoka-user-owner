@@ -41,6 +41,7 @@ body {
   @include box-shadow($login_box_shadow_color 0px 0px 30px);
 
   a {
+    padding: 0 0.2em;
     float: right;
     font-size: 0.9em;
     text-decoration: none;
@@ -86,4 +87,14 @@ button {
   &:active{
     @include background-image(linear-gradient(darken($button_bg_color, 20%), darken($button_bg_color, 5%), $button_bg_color));    
   }
+}
+
+h2 {
+    font-size: 1.5em;
+    color: lighten($heading_color, 20%);
+    padding: 0.5em 0;
+}
+
+#action_links {
+  padding: 1em;
 }
