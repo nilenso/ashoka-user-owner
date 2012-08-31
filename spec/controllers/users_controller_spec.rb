@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe UsersController do
+  before(:each) do
+    user = FactoryGirl.build(:user)
+    user.role = "cso_admin"
+    user.save
+    sign_in_as(user)
+  end
+
   context "GET 'new'" do
     it "renders the 'new' template" do
       organization = FactoryGirl.create(:organization)
