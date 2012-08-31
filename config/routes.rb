@@ -6,7 +6,7 @@ UserService::Application.routes.draw do
     get 'login', :to => 'sessions#new', :as => 'login'
     get 'logout', :to => 'sessions#destroy', :as => 'logout'
 
-    get 'static_pages/pending_approval', :as => 'pending'
+    get 'pending_approval', :to => 'static_pages#pending_approval', :as => 'pending'
 
     resources :sessions
     resources :organizations do
