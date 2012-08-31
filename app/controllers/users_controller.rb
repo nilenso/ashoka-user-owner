@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.organization_id = params[:organization_id]
+    @user.role = 'user'
     if @user.save
       redirect_to root_path
     else

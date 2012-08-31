@@ -33,6 +33,20 @@ describe UsersController do
       assigns(:user).should be_a(User)
     end
 
+    it "assigns the proper organization ID for the user" do
+      organization = FactoryGirl.create(:organization)
+      user = FactoryGirl.attributes_for(:user)
+      post :create, :organization_id => organization.id, :user => user
+      User.last.organization_id.should == organization.id
+    end
+
+    it "assigns the role for the user as 'user'" do
+      organization = FactoryGirl.create(:organization)
+      user = FactoryGirl.attributes_for(:user)
+      post :create, :organization_id => organization.id, :user => user
+      User.last.role.should == 'user'
+    end
+
     context "when save is successful" do
       it "should redirect to the root page" do 
         organization = FactoryGirl.create(:organization)
