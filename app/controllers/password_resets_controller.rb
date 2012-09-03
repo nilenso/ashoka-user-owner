@@ -12,7 +12,7 @@ class PasswordResetsController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     @user.password_reset_token = nil
     if @user.save
-      redirect_to root_path
+      redirect_to root_path, :notice => "Password has been reset!"
     else
       render :edit
     end

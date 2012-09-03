@@ -31,6 +31,7 @@ describe PasswordResetsController do
         response.should be_redirect
         user = User.find(user)
         user.authenticate(user_password[:password]).should be_true
+        flash[:notice].should_not be_nil
       end
 
       it "deletes the password reset token after the reset" do
