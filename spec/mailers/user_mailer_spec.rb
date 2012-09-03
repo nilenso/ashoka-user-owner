@@ -56,4 +56,15 @@ describe UserMailer do
     email = UserMailer.rejection_mail(user, "someuniquemessage")
     email.should have_body_text("someuniquemessage")
   end
+
+  context "password reset" do
+    it "sends a password reset mail to user" do
+    org = FactoryGirl.create(:organization)
+    user = FactoryGirl.create(:user, :email => "bar@foo.com", :organization => org)
+    user.generate_password_reset_token
+    lambda { UserMailer.password_reset_mail(user) }.should_not raise_error
+    lambda { UserMailer.password_reset_mail(user).deliver }.should_not raise_error
+    lambda { UserMailer.password_reset_mail(user).deliver }.should change(ActionMailer::Base.deliveries,:size).by(1)
+    end
+  end
 end

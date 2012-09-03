@@ -9,6 +9,7 @@ UserService::Application.routes.draw do
     get 'pending_approval', :to => 'static_pages#pending_approval', :as => 'pending'
 
     resources :sessions
+    resources :password_resets
     resources :organizations do
       resources :users, :only => [:create, :new]
       put 'approve', 'reject'

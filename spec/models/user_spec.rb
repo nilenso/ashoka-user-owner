@@ -32,4 +32,26 @@ describe User do
       user.should be_admin
     end
   end
+
+  context "password reset" do
+    it "generates a password reset token" do
+      user = FactoryGirl.create(:user)
+      user.generate_password_reset_token
+      user.reload.password_reset_token.should_not be_nil
+    end
+
+    it "sets a password reset token" do
+      user = FactoryGirl.create(:user)
+      user.send_password_reset
+      user.reload.password_reset_token.should_not be_nil
+    end
+
+    it "sends a email to the user with the password token " do
+      user = FactoryGirl.create(:user)
+      user.send_password_reset
+      ActionMailer::Base.deliveries.should_not be_empty
+      email = ActionMailer::Base.deliveries.last
+      email.to.should include(user.email)
+    end
+  end
 end

@@ -11,4 +11,9 @@ class UserMailer < ActionMailer::Base
     @message = message
     mail(:to => user.email, :subject => "Your organization has not been approved")
   end
+
+  def password_reset_mail(user)
+    @user = user
+    mail(:to => user.email, :subject => "Password Reset")
+  end
 end
