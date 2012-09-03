@@ -25,20 +25,6 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.all
   end
 
-  def change_status
-    organization = Organization.find(params[:organization_id])
-    organization.status = params[:status]
-    if organization.save
-      if organization.approved?
-        UserMailer.approval_mail(organization.users.first).deliver
-      end
-      if organization.rejected?
-        UserMailer.rejection_mail(organization.users.first, params[:rejection_message]).deliver
-      end
-    end
-    flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
-    redirect_to organizations_path
-  end
 
   private
 
