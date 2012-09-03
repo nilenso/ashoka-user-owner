@@ -42,6 +42,13 @@ describe User do
       user.reload.password_reset_token.should_not be_nil
     end
 
+    it "resets the password to password provided" do
+      user.generate_password_reset_token
+      user.reset_password("xyz","xyz")
+      user.reload.password_reset_token.should be_nil
+      user.authenticate("xyz").should be_true
+    end
+
     it "sets a password reset token" do
       user.send_password_reset
       user.reload.password_reset_token.should_not be_nil

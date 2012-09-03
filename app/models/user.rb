@@ -1,4 +1,4 @@
- class User < ActiveRecord::Base
+class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
   validates_presence_of :email, :name, :password_confirmation, :password, :role
@@ -19,15 +19,26 @@
   end
 
   def generate_password_reset_token
-    begin
-      self[:password_reset_token] = SecureRandom.urlsafe_base64
-    end while User.exists?(:password_reset_token => self[:password_reset_token])
+    generate_token(:password_reset_token)
     save!
+  end
+
+  def reset_password(password, password_confirmation)
+    self.password = password
+    self.password_confirmation = password_confirmation
+    self.password_reset_token = nil
+    save
   end
 
   private
 
   def role_is_valid
     errors.add(:role, "Invalid role specified") unless ROLES.include? role
+  end
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
 end
