@@ -62,6 +62,21 @@ describe UsersController do
         post :create, :organization_id => @organization.id, :user => user
         response.should redirect_to(root_path)
       end
+
+      it "generates a password token at creation of user" do
+        user = FactoryGirl.attributes_for(:user)
+        post :create, :organization_id => @organization.id, :user => user
+        User.find_by_email(user[:email]).password_reset_token.should_not be_nil
+      end
+
+      it "sends a mail to given user with password link" do
+        ActionMailer::Base.deliveries.clear
+        user = FactoryGirl.attributes_for(:user)
+        post :create, :organization_id => @organization.id, :user => user
+        ActionMailer::Base.deliveries.should_not be_empty
+        email = ActionMailer::Base.deliveries.first
+        email.to.should include(user[:email])
+      end
     end
 
     context "when save is unsuccessful" do
