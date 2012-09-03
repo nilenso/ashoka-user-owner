@@ -83,6 +83,7 @@ describe OrganizationsController do
         mailer.should_receive(:deliver)
         stub = UserMailer.stub(:approval_mail).and_return(mailer)
         put :approve, :organization_id => org.id
+        response.should be_redirect
         org.reload.should be_approved
       end
 

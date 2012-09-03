@@ -13,16 +13,15 @@
           <td> <%= organization.name %> </td>
           <td>
 
-            <%= form_tag organization_change_status_path(organization.id), :method => :put do %>
+            <%= form_tag organization_reject_path(organization.id), :method => :put do %>
               <%= hidden_field_tag 'rejection_message' %>
-              <%= hidden_field_tag "status", "rejected" %>
               <div class="actions">
                 <%= hidden_field_tag t(".reject")%>
               </div>
             <% end %>
 
             <div id="action_links">
-              <%= link_to t('.approve'), organization_change_status_path(organization.id, :status => "approved"), :method => :put, :confirm => t(:confirm) %> <%= t('.or') %>
+              <%= link_to t('.approve'), organization_approve_path(organization.id), :method => :put, :confirm => t(:confirm) %> <%= t('.or') %>
               <%= link_to t('.reject'), '#', :class => 'reject'  %>
             </div>
           </td>

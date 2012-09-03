@@ -11,6 +11,7 @@ UserService::Application.routes.draw do
     resources :sessions
     resources :organizations do
       resources :users, :only => [:create, :new]
+      put 'approve', 'reject'
     end
 
     root :to => 'sessions#new'

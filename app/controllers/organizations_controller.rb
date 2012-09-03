@@ -2,12 +2,12 @@ class OrganizationsController < ApplicationController
 
   before_filter :require_admin, :only => [ :index, :approve, :reject ]
 
-	def new
-		@organization = Organization.new()
-		@organization.users << User.new()
-	end
+  def new
+    @organization = Organization.new()
+    @organization.users << User.new()
+  end
 
-	def create
+  def create
     @organization = Organization.new(params[:organization])
     cso_admin = @organization.users.first
     cso_admin.role = "cso_admin" if cso_admin.present?
@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
       flash[:error] = t("creation_failed")
       render :new
     end
-	end
+  end
 
   def index
     @organizations = Organization.all
@@ -28,9 +28,9 @@ class OrganizationsController < ApplicationController
   def approve
     organization = Organization.find(params[:organization_id])
     organization.status = "approved"
-    if organization.save
+    if organization.save!
       UserMailer.approval_mail(organization.users.first).deliver
-    flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
+      flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
       redirect_to organizations_path
     end
   end
@@ -38,9 +38,9 @@ class OrganizationsController < ApplicationController
   def reject
     organization = Organization.find(params[:organization_id])
     organization.status = "rejected"
-    if organization.save
+    if organization.save!
       UserMailer.rejection_mail(organization.users.first).deliver
-    flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
+      flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
       redirect_to organizations_path
     end
   end
