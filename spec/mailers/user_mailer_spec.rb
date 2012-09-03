@@ -1,9 +1,6 @@
 require "spec_helper"
 
 describe UserMailer do
-  include EmailSpec::Helpers
-  include EmailSpec::Matchers
-
   it "sends an approval mail to the user" do
     org = FactoryGirl.create(:organization)
     user = FactoryGirl.create(:user, :email => "bar@foo.com", :organization => org)

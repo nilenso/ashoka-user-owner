@@ -79,9 +79,6 @@ describe OrganizationsController do
       it "sends an approval mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
-        mailer = double('mailer')
-        mailer.should_receive(:deliver)
-        stub = UserMailer.stub(:approval_mail).and_return(mailer)
         put :approve, :organization_id => org.id
         response.should be_redirect
         org.reload.should be_approved
@@ -90,9 +87,6 @@ describe OrganizationsController do
       it "approves the organization with a flash notice" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization_id => org.id)
-        mailer = double('mailer')
-        mailer.should_receive(:deliver)
-        stub = UserMailer.stub(:approval_mail).and_return(mailer)
         put :approve, :organization_id => org.id
 
         org.reload.should be_approved
@@ -123,9 +117,6 @@ describe OrganizationsController do
       it "sends an rejection mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
-        mailer = double('mailer')
-        mailer.should_receive(:deliver)
-        stub = UserMailer.stub(:rejection_mail).and_return(mailer)
         put :reject, :organization_id => org.id
         org.reload.should_not be_approved
       end
@@ -133,9 +124,6 @@ describe OrganizationsController do
       it "rejects the organization with a flash notice" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization_id => org.id)
-        mailer = double('mailer')
-        mailer.should_receive(:deliver)
-        stub = UserMailer.stub(:rejection_mail).and_return(mailer)
         put :reject, :organization_id => org.id
 
         org.reload.should_not be_approved
