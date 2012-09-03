@@ -11,7 +11,6 @@ UserService::Application.routes.draw do
     resources :sessions
     resources :organizations do
       resources :users, :only => [:create, :new]
-      put 'change_status'
     end
 
     root :to => 'sessions#new'
