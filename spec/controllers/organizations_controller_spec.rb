@@ -74,12 +74,16 @@ describe OrganizationsController do
       before(:each) do
         admin = FactoryGirl.create(:admin_user)
         sign_in_as(admin)
+        ActionMailer::Base.deliveries.clear
       end
 
       it "sends an approval mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
         put :approve, :organization_id => org.id
+        ActionMailer::Base.deliveries.should_not be_empty
+        email = ActionMailer::Base.deliveries.first
+        email.to.should include(user.email)
         response.should be_redirect
         org.reload.should be_approved
       end
@@ -112,12 +116,16 @@ describe OrganizationsController do
       before(:each) do
         admin = FactoryGirl.create(:admin_user)
         sign_in_as(admin)
+        ActionMailer::Base.deliveries.clear
       end
 
       it "sends an rejection mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
         put :reject, :organization_id => org.id
+        ActionMailer::Base.deliveries.should_not be_empty
+        email = ActionMailer::Base.deliveries.first
+        email.to.should include(user.email)
         org.reload.should_not be_approved
       end
 

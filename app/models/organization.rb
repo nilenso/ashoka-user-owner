@@ -6,10 +6,34 @@ class Organization < ActiveRecord::Base
   validates_uniqueness_of :name
 
   def approved?
-    status == "approved"
+    status == Organization::Status::APPROVED
   end
 
   def rejected?
-    status == "rejected"
+    status == Organization::Status::REJECTED
+  end
+
+  def approve!
+    if status == Status::REJECTED
+      raise StandardError, "A rejected organization cannot be approved"
+    else
+      self.status = Status::APPROVED
+      save!
+    end
+  end
+
+  def reject!
+    if status == Status::APPROVED
+      raise StandardError, "A approved organization cannot be rejected"
+    else
+      self.status = Status::REJECTED
+      save!
+    end
+  end
+
+  module Status
+    APPROVED = "approved"
+    PENDING = "pending"
+    REJECTED = 'rejected'
   end
 end
