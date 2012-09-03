@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag 'register_page' %>
+
 <%= semantic_form_for @user, :url => password_reset_path(params[:id]) do |f| %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
