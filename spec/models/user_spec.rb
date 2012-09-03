@@ -34,20 +34,20 @@ describe User do
   end
 
   context "password reset" do
+    let(:org) { FactoryGirl.create(:organization) }
+    let(:user) { FactoryGirl.create(:user, :organization => org) }
+
     it "generates a password reset token" do
-      user = FactoryGirl.create(:user)
       user.generate_password_reset_token
       user.reload.password_reset_token.should_not be_nil
     end
 
     it "sets a password reset token" do
-      user = FactoryGirl.create(:user)
       user.send_password_reset
       user.reload.password_reset_token.should_not be_nil
     end
 
     it "sends a email to the user with the password token " do
-      user = FactoryGirl.create(:user)
       user.send_password_reset
       ActionMailer::Base.deliveries.should_not be_empty
       email = ActionMailer::Base.deliveries.last
