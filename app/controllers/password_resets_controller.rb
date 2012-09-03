@@ -10,6 +10,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by_password_reset_token!(params[:id])
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
+    @user.password_reset_token = nil
     if @user.save
       redirect_to root_path
     else

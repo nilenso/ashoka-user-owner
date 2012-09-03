@@ -29,8 +29,17 @@ describe PasswordResetsController do
         user_password = { :password => "xyz", :password_confirmation => "xyz" }
         put :update, :id => user.password_reset_token, :user  => user_password
         response.should be_redirect
-        user = User.find_by_password_reset_token(user.password_reset_token)
+        user = User.find(user)
         user.authenticate(user_password[:password]).should be_true
+      end
+
+      it "deletes the password reset token after the reset" do
+        user = FactoryGirl.create(:user)
+        user.generate_password_reset_token
+        user_password = { :password => "xyz", :password_confirmation => "xyz" }
+        put :update, :id => user.password_reset_token, :user  => user_password
+        response.should be_redirect
+        User.find(user).password_reset_token.should be_nil
       end
     end
 
