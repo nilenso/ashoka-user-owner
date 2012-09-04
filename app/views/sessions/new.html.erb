@@ -3,15 +3,8 @@
 <div id="login">
 <% if has_signed_in_user? %>
   <h2><%= t ".welcome", :username => current_user.name %></h2>
-  <div id="action_links">
-    <%= link_to t("log_out"), logout_path %>
-    <%= link_to t(".pending_approvals"), organizations_path if can? :manage, Organization %>
-    <%= link_to t(".add_applications"), "/oauth/applications/new" if can? :manage, Organization %>
-    <%= link_to t(".create_a_user"), new_organization_user_path(current_user.organization_id) if can? :manage, User and !current_user.admin? %>
-  </div>
 <% else %>
 
-    <%= link_to t("register"), register_path %>
     <h1><%= t("sign_in")%></h1>
 
     <%= semantic_form_for @user, :url => sessions_path do |f| %>

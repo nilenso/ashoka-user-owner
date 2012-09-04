@@ -5,6 +5,15 @@ en:
   sign_in: Sign In
   confirm: Are you sure?
 
+  header:
+    home: Home
+    pending_approvals: Pending Approvals
+    create_a_user: Create a new user
+    add_applications: Add a new application
+    log_in: Log In
+    log_out: Log Out
+    register: Register
+
   static_pages:
     home:
       user_owner: User Owner
@@ -14,9 +23,6 @@ en:
       email: Email
       password: Password
       welcome: "Hi, %{username}!"
-      pending_approvals: Pending Approvals
-      create_a_user: Create a new user
-      add_applications: Add a new application
 
   user_mailer:
     approval_mail:

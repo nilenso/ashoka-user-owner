@@ -29,13 +29,8 @@ body {
 
 #register {
   text-align: left;
-  width: 25em;
-  margin: 0 auto;
-  margin-top: 10em;
-  padding: 1em;
-  background-color: lighten($login_box_bg_color, 15%);
-  @include border-radius(10px);
-  @include box-shadow($login_box_shadow_color 0px 0px 30px);
+  width: 60%;
+  margin: auto;
 
   a {
     float: right;

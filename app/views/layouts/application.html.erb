@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>UserService</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<title>UserService</title>
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class="container">
-  <%= render "layouts/flash", :flash => flash %>
-  <%= yield %>
-  <%= render "layouts/change_locale" %>
-</div>
-
+	<%= render "layouts/header" %>
+	<div class = "container">
+		<%= render "layouts/flash", :flash => flash %>
+		<div class="box"><%= yield %></div>
+	</div>
+	<%= render "layouts/change_locale" %>
 </body>
 </html>

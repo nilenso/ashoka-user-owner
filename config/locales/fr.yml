@@ -5,6 +5,15 @@ fr:
   sign_in: "S'identifier"
   confirm: Etes-vous sûr?
 
+  header:
+    home: Maison
+    pending_approvals: Approbations en attente
+    create_a_user: Créer un nouvel utilisateur
+    add_applications: Ajouter une nouvelle application
+    log_in: Connexion
+    log_out: Déconnexion
+    register: Inscrivez-vous
+
   static_pages:
     home:
       user_owner: Owner utilisateur
@@ -14,9 +23,6 @@ fr:
       email: Email
       password: Mot de passe
       welcome: "Bonjour, %{username}!"
-      pending_approvals: Approbations en attente
-      create_a_user: Créer un nouvel utilisateur
-      add_applications: Ajouter une nouvelle application
 
   user_mailer:
     approval_mail:
