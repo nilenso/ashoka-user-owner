@@ -19,20 +19,12 @@ $button_text_color: lighten($a, 5%);
 $login_box_bg_color: lighten($a, 15%);
 $login_box_shadow_color: rgba($a, 0.4);
 
-body {
-  background: url('/assets/background.png');
-}
-
-.container{
-  @include container;
-}
-
 #login {
-  text-align: center;
+  text-align: left;
   width: 60%;
   margin: auto;
   a {
-    padding: 0 0.2em;
+    padding: 0 10px;
     float: right;
     font-size: 0.9em;
     text-decoration: none;
@@ -46,30 +38,24 @@ body {
   }
 }
 
-h1 {
-  font-size: 2em;
-  color: $heading_color;
-  margin-bottom: 0.5em;
-}
-
 input {
   font-size: 0.9em;
-  margin: 0.5em 0;
-  padding: 0.3em 0.3em;
+  margin: 15px 0;
+  padding: 10px 10px;
   width: 90%;
 }
 
 button {
   width: 40%;
   float: right;
-  margin-right: 0.7em;
+  margin-right: 32px;
   font-size: 0.93em;
   border: 2px lighten($b, 10%) solid;
-  padding: 0.5em 0.5em;
+  padding: 13px 13px;
   color: $button_text_color;
   @include border-radius(5px);
   @include background-image(linear-gradient($button_bg_color, darken($button_bg_color, 2%), darken($button_bg_color, 15%)));
-  margin-top: 0.6em;
+  margin-top: 10px;
   cursor: pointer;
   &:hover{
     @include background-image(linear-gradient($button_bg_color, darken($button_bg_color, 5%), darken($button_bg_color, 20%)));
@@ -78,10 +64,4 @@ button {
   &:active{
     @include background-image(linear-gradient(darken($button_bg_color, 20%), darken($button_bg_color, 5%), $button_bg_color));
   }
-}
-
-h2 {
-    font-size: 1.5em;
-    color: lighten($heading_color, 20%);
-    padding: 0.5em 0;
 }

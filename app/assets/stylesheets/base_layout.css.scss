@@ -1,56 +1,69 @@
 @import 'susy';
 @import 'palette';
-@import 'compass/reset';
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
+@import 'compass/reset';
 
 $app_width      : 960px;
 $total-columns  : 1;
 $column-width   : $app_width;
-$gutter-width   : 1px;
+$gutter-width   : 0px;
 $grid-padding   : $gutter-width;
 $base-font-size : 16px;
 
 $login_box_bg_color: lighten($a, 15%);
 $login_box_shadow_color: rgba($a, 0.4);
 
-.container{
-  @include container;
+body {
+  background: url('/assets/background.png');
 }
 
-.box {
-  width: 70%;
-  margin: 0 auto;
-  margin-top: 10em;
-  padding: 2em;
+.container{
+  @include container;
+  margin: 20px auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
   background-color: lighten($login_box_bg_color, 15%);
-  @include border-radius(10px);
+  @include border-bottom-radius(15px);
   @include box-shadow($login_box_shadow_color 0px 0px 30px);
 }
 
-.header{
-  width: 80%;
+.header {
+  width: $app_width;
   position: relative;
-  margin: 2em auto;
+  margin: 20px auto;
   background-color: $header_color;
-  padding: 0.8em;
+  padding-top: 15px;
+  padding-bottom: 15px;
   clear: both;
-  li {
-    padding-left: 25px;
-    font-size: 14px;
-    text-decoration: none;
-    display: inline;
-  }
+  @include border-top-radius(15px);
   .signin, .logout {
     float: right;
-    padding: 0.1em 1em;
+    padding: 5px 7px;
+    margin-right: 7px;
     @include border-radius(10px);
     background-color: lighten($header_color, 5%);
     &:hover {
       background-color: lighten($header_color, 10%);
     }
   }
+  a {
+    color: $link_color;
+    text-decoration: none;
+    &:hover { color: darken($link_color, 20%); }
+  }
+  li {
+    padding-left: 25px;
+    font-size: 1.15em;
+    text-decoration: none;
+    display: inline;
+  }
+}
+
+#flash_messages {
+  width: 90%;
+  margin: auto;
 }
 
 p.error{
@@ -72,20 +85,26 @@ p.inline-errors {
   width: 80%;
   border: 1px solid $error_border_color;
   color: $error_color;
-  padding: 8px 35px 8px 14px;  
+  padding: 8px 35px 8px 14px;
 }
 
 h1 {
   font-size: 2em;
   color: $e;
-  margin-bottom: 0.5em;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: lighten($header_color, 20%);
+  padding: 10px 0;
 }
 
 .change_locale {
-  margin: 0 auto;  
+  margin: 0 auto;
   text-align: center;
   font-size: 0.8em;
-  margin-top: 0.8em;
+  margin-top: 5px;
   color: #ddd;
 }
 

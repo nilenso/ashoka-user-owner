@@ -10,7 +10,7 @@
 	<%= render "layouts/header" %>
 	<div class = "container">
 		<%= render "layouts/flash", :flash => flash %>
-		<div class="box"><%= yield %></div>
+		<%= yield %>
 	</div>
 	<%= render "layouts/change_locale" %>
 </body>

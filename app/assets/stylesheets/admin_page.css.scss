@@ -19,16 +19,10 @@ $button_text_color: lighten($a, 5%);
 $login_box_bg_color: lighten($a, 15%);
 $login_box_shadow_color: rgba($a, 0.4);
 
-body {
-  background: url('/assets/background.png');
-}
-
-.container{
-  @include container;
-}
-
 #admin {
   text-align: left;
+  width: 60%;
+  margin: auto;
 
   a {
     font-size: 0.9em;
@@ -43,13 +37,6 @@ body {
   }
 }
 
-h1 {
-  font-size: 2em;
-  color: $heading_color;
-  margin-bottom: 0.5em;
-}
-
-
 .reject {
   font-family: serif;
   text-align: center;
@@ -62,12 +49,6 @@ h1 {
   &:hover {
     color: $link_hover_color;
   }
-}
-
-h2 {
-    font-size: 1.2em;
-    color: lighten($heading_color, 20%);
-    padding: 0.5em 0;
 }
 
 table {
