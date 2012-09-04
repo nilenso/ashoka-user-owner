@@ -34,6 +34,16 @@ describe PasswordResetsController do
         flash[:notice].should_not be_nil
       end
 
+      it "resets the session" do
+        user = FactoryGirl.create(:user)
+        sign_in_as(user)
+        user.generate_password_reset_token
+        user_password = { :password => "xyz", :password_confirmation => "xyz" }
+        put :update, :id => user.password_reset_token, :user  => user_password
+        response.should be_redirect
+        controller.current_user.should be_nil
+      end
+
       it "deletes the password reset token after the reset" do
         user = FactoryGirl.create(:user)
         user.generate_password_reset_token
