@@ -48,6 +48,9 @@ fr:
       reject_prompt_message: Inclure un message personnel à l'administrateur de cette organisation ici. Appuyez sur Annuler pour rejeter sans un message.
       or: ou
 
+  password_resets:
+    password_reset: Mot de passe a été réinitialisé!
+
   wrong_email_password: Email / mot de passe est incorrect
   pending_approval_message: Votre organisation est en attente d'approbation. Vous pouvez vous connecter et utiliser l'application que lorsque l'organisme est agréé. Vous recevrez un e-mail concernant l'approbation / rejet.
   creation_failed: Création Organisation échoué
