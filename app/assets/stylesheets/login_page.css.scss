@@ -29,7 +29,7 @@ body {
 
 #login {
   text-align: left;
-  width: 15em;
+  width: 18em;
   margin: 0 auto;
   margin-top: 10em;
   padding: 1em;
@@ -78,11 +78,11 @@ button {
   margin-top: 0.6em;
   cursor: pointer;
   &:hover{
-    @include background-image(linear-gradient($button_bg_color, darken($button_bg_color, 5%), darken($button_bg_color, 20%)));  
+    @include background-image(linear-gradient($button_bg_color, darken($button_bg_color, 5%), darken($button_bg_color, 20%)));
   }
 
   &:active{
-    @include background-image(linear-gradient(darken($button_bg_color, 20%), darken($button_bg_color, 5%), $button_bg_color));    
+    @include background-image(linear-gradient(darken($button_bg_color, 20%), darken($button_bg_color, 5%), $button_bg_color));
   }
 }
 

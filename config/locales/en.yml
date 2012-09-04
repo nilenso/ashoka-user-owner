@@ -16,6 +16,7 @@ en:
       welcome: "Hi, %{username}!"
       pending_approvals: Pending Approvals
       create_a_user: Create a new user
+      add_applications: Add a new application
 
   user_mailer:
     approval_mail:

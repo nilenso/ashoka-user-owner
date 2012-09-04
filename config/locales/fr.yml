@@ -4,7 +4,7 @@ fr:
   register: Inscrivez-vous
   sign_in: "S'identifier"
   confirm: Etes-vous sûr?
- 
+
   static_pages:
     home:
       user_owner: Owner utilisateur
@@ -15,26 +15,27 @@ fr:
       password: Mot de passe
       welcome: "Bonjour, %{username}!"
       pending_approvals: Approbations en attente
-      create_a_user: Créer un nouvel utilisateur 
-  
+      create_a_user: Créer un nouvel utilisateur
+      add_applications: Ajouter une nouvelle application
+
   user_mailer:
     approval_mail:
       welcome_message: "Bienvenue au service du propriétaire utilisateur, %{user_name}"
       approved_message: "Votre organisation, %{organization_name} a été approuvé :)"
       thanks_for_joining: Merci de nous avoir rejoints et ont un grand jour!
- 
+
     rejection_mail:
       sorry_message: "Désolé,  %{user_name}"
       rejected_message: "Votre organisation %{organization_name} a été rejeté :("
       admin_message: Ceci est un message de l'administrateur
       thanks_for_trying: Merci d'essayer de nous rejoindre et avoir un grand jour!
- 
+
   organizations:
     new:
       register_organization: Enregistrez votre Organisation
       organization_info: Information sur l'organisme
       user_info: Information de l'Utilisateur
- 
+
     index:
       no_organizations: Il n'y a pas d'organisations
       list_of_organizations: Liste des organisations
@@ -46,7 +47,7 @@ fr:
       rejected: Rejeté
       reject_prompt_message: Inclure un message personnel à l'administrateur de cette organisation ici. Appuyez sur Annuler pour rejeter sans un message.
       or: ou
- 
+
   wrong_email_password: Email / mot de passe est incorrect
   pending_approval_message: Votre organisation est en attente d'approbation. Vous pouvez vous connecter et utiliser l'application que lorsque l'organisme est agréé. Vous recevrez un e-mail concernant l'approbation / rejet.
   creation_failed: Création Organisation échoué
@@ -55,13 +56,13 @@ fr:
   not_authorized: Vous n'êtes pas autorisé à le faire.
   log_in_successful: Connecté avec succès!
 
- 
+
   #Model translations
   activerecord:
     attributes:
       organization:
         name: Nom
- 
+
       user:
         name: Nom d'utilisateur
         email: Email
