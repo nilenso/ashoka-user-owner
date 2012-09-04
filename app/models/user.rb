@@ -19,8 +19,10 @@ class User < ActiveRecord::Base
   end
 
   def generate_password_reset_token
-    generate_token(:password_reset_token)
-    save!
+   begin
+    self[:password_reset_token] = SecureRandom.urlsafe_base64
+   end while User.exists?(:password_reset_token => self[:password_reset_token])
+   save!
   end
 
   def reset_password(password, password_confirmation)
@@ -30,15 +32,15 @@ class User < ActiveRecord::Base
     save
   end
 
+  def generate_password
+    token = SecureRandom.urlsafe_base64
+    self.password = token
+    self.password_confirmation = token
+  end
+
   private
 
   def role_is_valid
     errors.add(:role, "Invalid role specified") unless ROLES.include? role
-  end
-
-  def generate_token(column)
-    begin
-      self[column] = SecureRandom.urlsafe_base64
-    end while User.exists?(column => self[column])
   end
 end

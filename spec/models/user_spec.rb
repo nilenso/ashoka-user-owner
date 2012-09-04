@@ -60,5 +60,11 @@ describe User do
       email = ActionMailer::Base.deliveries.last
       email.to.should include(user.email)
     end
+
+    it "generates a random password" do
+      user = FactoryGirl.create(:user, :password => "xyz", :password_confirmation => "xyz")
+      user.generate_password
+      user.authenticate("xyz").should be_false
+    end
   end
 end

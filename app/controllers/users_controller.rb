@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.organization_id = params[:organization_id]
     @user.role = 'user'
+    @user.generate_password
     if @user.save
       redirect_to root_path
       @user.send_password_reset
