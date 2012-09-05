@@ -36,7 +36,7 @@ class OrganizationsController < ApplicationController
   def reject
     organization = Organization.find(params[:organization_id])
     organization.reject!
-    UserMailer.rejection_mail(organization.users.first).deliver
+    UserMailer.rejection_mail(organization.users.first, params[:rejection_message]).deliver
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end
