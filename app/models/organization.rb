@@ -4,6 +4,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :users
   validates_presence_of :name
   validates_uniqueness_of :name
+  validates_inclusion_of :default_locale, :in => I18n.available_locales.map(&:to_s)
 
   def approved?
     status == Organization::Status::APPROVED

@@ -54,4 +54,21 @@ describe Organization do
       org.reload.status.should eq Organization::Status::REJECTED
     end
   end
+
+  context "when validating default_locale" do
+    it "uses i18n.default_locale if default_locale is not specified" do
+      org = FactoryGirl.create(:organization)
+      org.default_locale.should == I18n.default_locale.to_s
+    end
+
+    it "allows a standard rails locale" do
+      org = FactoryGirl.build(:organization, :default_locale => 'fr')
+      org.should be_valid
+    end
+
+    it "does not allow an invalid locale" do
+      org = FactoryGirl.build(:organization, :default_locale => 'abcd')
+      org.should_not be_valid
+    end
+  end
 end
