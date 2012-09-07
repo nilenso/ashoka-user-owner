@@ -1,4 +1,7 @@
 fr:
+  language:
+    name: Français
+
   log_in: Connexion
   log_out: Déconnexion
   register: Inscrivez-vous

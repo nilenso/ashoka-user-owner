@@ -1,4 +1,7 @@
 en:
+  language:
+    name: English
+    
   log_in: Log In
   log_out: Log Out
   register: Register
