@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "spec_helper"
 
 describe UserMailer do
@@ -33,7 +35,6 @@ describe UserMailer do
     email.should have_body_text(user.name)
   end
 
-
   it "should have the organization's name in the body" do
     org = FactoryGirl.create(:organization)
     user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
@@ -55,6 +56,22 @@ describe UserMailer do
     user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
     email = UserMailer.rejection_mail(user, 'en', "someuniquemessage")
     email.should have_body_text("someuniquemessage")
+  end
+
+  context "when sending an email in the organization's default locale" do
+    it "sends an approval mail in the correct locale" do
+      org = FactoryGirl.create(:organization, :default_locale => 'fr')
+      user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
+      email = UserMailer.approval_mail(user, 'fr')
+      email.should have_body_text("Bienvenue au service")
+    end
+
+    it "sends a rejection mail in the correct locale" do
+      org = FactoryGirl.create(:organization, :default_locale => 'fr')
+      user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
+      email = UserMailer.rejection_mail(user, 'fr', "REJECTED!")
+      email.should have_body_text("Désolé")
+    end
   end
 
   context "password reset" do

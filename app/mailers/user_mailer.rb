@@ -3,13 +3,17 @@ class UserMailer < ActionMailer::Base
 
   def approval_mail(user, locale)
     @user = user
-    mail(:to => user.email, :subject => "Welcome to user owner")
+    I18n.with_locale(locale.to_sym) do
+      mail(:to => user.email, :subject => "Welcome to user owner")
+    end
   end
 
   def rejection_mail(user, locale, message=nil)
     @user = user
     @message = message
-    mail(:to => user.email, :subject => "Your organization has not been approved")
+    I18n.with_locale(locale.to_sym) do
+      mail(:to => user.email, :subject => "Your organization has not been approved")
+    end
   end
 
   def password_reset_mail(user)
