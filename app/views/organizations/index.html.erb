@@ -11,8 +11,8 @@
       <% @organizations.select{ |org| org.status == "pending"}.each do |organization|%>
         <tr>
           <td> <%= organization.name %> </td>
+          <td> (<%= I18n.name_for_locale(organization.default_locale.to_sym) %>) </td>
           <td>
-
             <%= form_tag organization_reject_path(organization.id), :method => :put do %>
               <%= hidden_field_tag 'rejection_message' %>
               <div class="actions">
