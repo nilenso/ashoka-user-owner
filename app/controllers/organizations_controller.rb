@@ -9,6 +9,7 @@ class OrganizationsController < ApplicationController
 
   def create
     @organization = Organization.new(params[:organization])
+    @organization.default_locale = I18n.locale.to_s
     cso_admin = @organization.users.first
     cso_admin.role = "cso_admin" if cso_admin.present?
 

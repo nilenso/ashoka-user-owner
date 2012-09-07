@@ -35,6 +35,13 @@ describe OrganizationsController do
         cso_admin = Organization.find_by_name(organization[:name]).users.first
         cso_admin.role.should == "cso_admin"
       end
+
+      it "assigns a default_locale to the organization" do
+        organization_attributes = { :name => "xuz", :users_attributes => [user] }
+        post :create, :organization => organization_attributes, :locale => :fr
+        organization = Organization.find_by_name(organization_attributes[:name])
+        organization.default_locale.should == 'fr'
+      end
     end
 
     context "when organization not created" do
