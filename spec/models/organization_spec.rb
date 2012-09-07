@@ -7,6 +7,7 @@ describe Organization do
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
   it { should respond_to(:status) }
+  it { should respond_to(:default_locale) }
 
   context "Logic" do
     it "checks if the organization is approved or not" do
