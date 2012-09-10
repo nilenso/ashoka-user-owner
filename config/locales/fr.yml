@@ -39,6 +39,9 @@ fr:
       admin_message: Ceci est un message de l'administrateur
       thanks_for_trying: Merci d'essayer de nous rejoindre et avoir un grand jour!
 
+    password_reset_mail:
+      subject: "Vous avez été invité à rejoindre %{organization_name}"
+
   organizations:
     new:
       register_organization: Enregistrez votre Organisation

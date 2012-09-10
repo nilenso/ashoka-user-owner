@@ -39,6 +39,10 @@ en:
       admin_message: This is a message from the administrator
       thanks_for_trying: Thanks for trying to join us and have a great day!
 
+    password_reset_mail:
+      subject: "You have been invited to join %{organization_name}"
+
+
   organizations:
     new:
       register_organization: Register your Organization
