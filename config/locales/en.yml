@@ -41,6 +41,7 @@ en:
 
     password_reset_mail:
       subject: "You have been invited to join %{organization_name}"
+      welcome_message: "You have been invited to join %{organization_name}. Please use the link below to set your password."
 
 
   organizations:
