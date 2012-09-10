@@ -62,7 +62,7 @@ fr:
       or: ou
 
   password_resets:
-    password_reset: Mot de passe a été réinitialisé!
+    success: Mot de passe a été réinitialisé!
 
   wrong_email_password: Email / mot de passe est incorrect
   pending_approval_message: Votre organisation est en attente d'approbation. Vous pouvez vous connecter et utiliser l'application que lorsque l'organisme est agréé. Vous recevrez un e-mail concernant l'approbation / rejet.

@@ -63,7 +63,7 @@ en:
       or: or
 
   password_resets:
-    password_reset: Password has been reset!
+    success: Password has been reset!
 
   wrong_email_password: Email/Password is wrong
   pending_approval_message: Your organization is pending approval. You can login and use the app only when the organization is approved. You will recieve a mail regarding the approval/rejection.
