@@ -9,7 +9,7 @@
 
     <%= semantic_form_for @user, :url => sessions_path do |f| %>
     <%= f.inputs do %>
-    <%= f.input :email, :required => true, :label => false, :placeholder => t(".email").upcase %>
+    <%= f.input :email, :input_html => {:name => "user_or_email" }, :required => true, :label => false, :placeholder => t(".user_or_email").upcase %>
     <%= f.input :password, :required => true, :label => false, :placeholder => t(".password").upcase %>
     <% end %>
 

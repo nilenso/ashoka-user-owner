@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:user][:email])
+    user = User.find_by_email(params[:user_or_email]) ||
+           User.find_by_name(params[:user_or_email])
     if user && user.authenticate(params[:user][:password])
       session[:user_id] = user.id
       flash[:notice] = t "log_in_successful"
@@ -25,7 +26,9 @@ class SessionsController < ApplicationController
   private
 
   def organization_approved
-    user = User.find_by_email(params[:user][:email])
+     user = User.find_by_email(params[:user_or_email]) ||
+           User.find_by_name(params[:user_or_email])
+
     if user.present?
       redirect_to(pending_path) unless  user.admin? || user.organization.approved?
     end
