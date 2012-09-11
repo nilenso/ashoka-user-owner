@@ -61,6 +61,10 @@ fr:
       reject_prompt_message: Inclure un message personnel à l'administrateur de cette organisation ici. Appuyez sur Annuler pour rejeter sans un message.
       or: ou
 
+  users:
+    create:
+      user_created_successfully: Nouvel utilisateur a été créé et vous recevrez un mail concernant le mot de passe
+
   password_resets:
     success: Mot de passe a été réinitialisé!
 

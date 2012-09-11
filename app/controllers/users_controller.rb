@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user.role = 'user'
     @user.generate_password
     if @user.save
+      flash[:notice] = t "users.create.user_created_successfully"
       redirect_to root_path
       @user.send_password_reset
     else

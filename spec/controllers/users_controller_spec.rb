@@ -68,6 +68,7 @@ describe UsersController do
         user = FactoryGirl.attributes_for(:user)
         post :create, :organization_id => @organization.id, :user => user
         response.should redirect_to(root_path)
+        flash[:notice].should_not be_nil
       end
 
       it "generates a password token at creation of user" do
