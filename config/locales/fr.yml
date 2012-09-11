@@ -23,7 +23,7 @@ fr:
 
   sessions:
     new:
-      user_or_email: Email / Nom d'utilisateur
+      email: Email
       password: Mot de passe
       welcome: "Bonjour, %{username}!"
 

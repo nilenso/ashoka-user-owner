@@ -25,37 +25,31 @@ describe SessionsController do
       let(:user) { FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => 'approved')) }
       context "email/password combination is correct" do
         it "logs in the user" do
-          post :create, :user => { :password => user.password}, :user_or_email => user.email
-          response.should redirect_to(root_path)
-          session[:user_id].should == user.id
-        end
-
-        it "allows using the username to log in" do
-          post :create, :user => { :password => user.password}, :user_or_email => user.name
+          post :create, :user => { :email => user.email, :password => user.password}
           response.should redirect_to(root_path)
           session[:user_id].should == user.id
         end
 
         it "redirects to return to page if user is authorizing from a client app" do
           session[:return_to] = "http://google.com"
-          post :create, :user => { :password => user.password }, :user_or_email => user.email
+          post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to("http://google.com")
         end
 
         it "doesn't allow the user to log in if his organization is not approved" do
           user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization))
-          post :create, :user => { :password => user.password }, :user_or_email => user.email
+          post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to pending_path
         end
 
         it "redirects to the root path if user is admin" do
           user = FactoryGirl.create(:admin_user, :organization => FactoryGirl.create(:organization), :role => 'admin')
-          post :create, :user => { :password => user.password }, :user_or_email => user.email
+          post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to root_path
         end
 
         it "notifies the user with a flash notice that he has signed in" do
-          post :create, :user => { :password => user.password}, :user_or_email => user.email
+          post :create, :user => { :email => user.email, :password => user.password}
           flash[:notice].should_not be_nil
         end
       end
@@ -63,7 +57,7 @@ describe SessionsController do
 
     context "user doesn't exist or email/password combination is incorrect" do
       it "redirects to the login page with a flash error" do
-        post :create, :user => { :password => "" }, :user_or_email => "foo@bar.com"
+        post :create, :user => { :email => "foo@bar.com", :password => "" }
         response.should redirect_to login_path
         flash[:error].should_not be_nil
       end
