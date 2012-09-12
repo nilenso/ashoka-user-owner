@@ -66,5 +66,13 @@ describe User do
       user.generate_password
       user.authenticate("xyz").should be_false
     end
+
+    it "changes the status from pending  to accepted if the password is reset" do
+      user = FactoryGirl.create(:user, :status => User::Status::PENDING, :organization => org)
+      user.generate_password_reset_token
+      user.status.should == User::Status::PENDING
+      user.reset_password("xyz","xyz")
+      user.status.should == User::Status::ACCEPTED
+    end
   end
 end

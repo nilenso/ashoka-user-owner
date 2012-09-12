@@ -80,6 +80,13 @@ describe UsersController do
         User.find_by_email("smittty@baz.com").authenticate("123").should be_false
       end
 
+      it "assigns the status for the user as 'pending'" do
+
+        user = FactoryGirl.attributes_for(:user)
+        post :create, :organization_id => @organization.id, :user => user
+        User.last.status.should == User::Status::PENDING
+      end
+
       it "should redirect to the root page" do
 
         user = FactoryGirl.attributes_for(:user)

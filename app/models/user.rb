@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
     self.password = password
     self.password_confirmation = password_confirmation
     self.password_reset_token = nil
+    self.status = Status::ACCEPTED
     save
   end
 
@@ -36,6 +37,11 @@ class User < ActiveRecord::Base
     token = SecureRandom.urlsafe_base64
     self.password = token
     self.password_confirmation = token
+  end
+
+  module Status
+    ACCEPTED = "accepted"
+    PENDING = "pending"
   end
 
   private

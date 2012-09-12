@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120907062145) do
+ActiveRecord::Schema.define(:version => 20120912083327) do
 
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20120907062145) do
     t.string   "role"
     t.integer  "organization_id"
     t.string   "password_reset_token"
+    t.string   "status"
   end
 
 end
