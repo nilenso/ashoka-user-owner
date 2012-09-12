@@ -25,6 +25,23 @@ describe UsersController do
     end
   end
 
+  context "GET 'index'" do
+    it "renders the 'index' template" do
+      get :index, :organization_id => @organization.id
+
+      response.should be_ok
+      response.should render_template :index
+    end
+    it "lists all the user of the given organization" do
+      user = FactoryGirl.create(:user, :organization => @organization, :role => 'user')
+      another_user = FactoryGirl.create(:cso_admin_user, :organization => @organization)
+      get :index, :organization_id => @organization
+      response.should be_ok
+      assigns(:users).should include user
+      assigns(:users).should_not include another_user
+    end
+  end
+
   context "POST 'create'" do
 
     it  "assigns an instance variable for the user" do

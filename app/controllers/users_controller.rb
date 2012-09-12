@@ -7,6 +7,11 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def index
+    organization = Organization.find(params[:organization_id])
+    @users = organization.users.select { |user| user.role == "user" }
+  end
+
   def create
     @user = User.new(params[:user])
     @user.organization_id = params[:organization_id]

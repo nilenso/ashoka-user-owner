@@ -4,6 +4,7 @@
     <li><%= link_to t("header.pending_approvals"), organizations_path if can? :manage, Organization %></li>
     <li><%= link_to t("header.add_applications"), "/oauth/applications/new" if can? :manage, Organization %></li>
     <li><%= link_to t("header.create_a_user"), new_organization_user_path(current_user.organization_id) if can? :manage, User and !current_user.admin? %></li>
+    <li><%= link_to t("header.list_users"), organization_users_path(current_user.organization_id) if can? :manage, User and !current_user.admin? %></li>
     <% if has_signed_in_user? %>
       <li><%= link_to t("header.log_out"), logout_path, :class => 'logout' %></li>
     <% else %>

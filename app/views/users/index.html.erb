@@ -1,0 +1,16 @@
+<% unless @users.empty? %>
+  <h1><%= t ".list_of_users" %></h1>
+  <table>
+    <tr> 
+      <th>Name</th>
+      <th>Email</th>
+      <th>Status</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
