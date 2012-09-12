@@ -11,6 +11,7 @@ describe SessionsController do
     it "assigns a blank user" do
       get :new
       assigns(:user).should be_true
+      assigns(:applications).should be_true
     end
 
     it "assigns session for return_to if params is passed" do

@@ -23,6 +23,17 @@ $login_box_shadow_color: rgba($a, 0.4);
   text-align: left;
   width: 60%;
   margin: auto;
+  .application_list{
+    a{
+      float: none;
+    }
+    h3{
+      padding-bottom: 5px;
+    }
+    li{
+      padding-bottom: 5px;
+    }
+  }
   a {
     padding: 0 10px;
     float: right;
@@ -65,3 +76,4 @@ button {
     @include background-image(linear-gradient(darken($button_bg_color, 20%), darken($button_bg_color, 5%), $button_bg_color));
   }
 }
+

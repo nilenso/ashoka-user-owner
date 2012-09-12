@@ -3,6 +3,16 @@
 <div id="login">
 <% if has_signed_in_user? %>
   <h2><%= t ".welcome", :username => current_user.name %></h2>
+  <% if cannot? :manage, User %>
+    <div class = "application_list" >
+      <h3> List of applications you can use </h3>
+      <ul>
+      <% @applications.each do |application| %>
+        <li><%= link_to application.name, application_url(application.redirect_uri) %></li>
+      <% end %>
+    </ul>
+    </div>
+  <% end %>
 <% else %>
 
     <h1><%= t("sign_in")%></h1>

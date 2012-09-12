@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   def new
     @user = User.new
     session[:return_to] = params[:return_to] if params[:return_to]
+    @applications = Doorkeeper::Application.all
   end
 
   def create
