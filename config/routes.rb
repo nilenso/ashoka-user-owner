@@ -22,6 +22,7 @@ UserService::Application.routes.draw do
     scope :module => :v1 do
       match 'user', :to => "users#show"
       match 'organizations', :to => "organizations#index"
+      match 'organization_users', :to => "users#organization_users"
     end
   end
 end
