@@ -25,14 +25,14 @@ module Api
 
         it "returns names and ids for the users of the current_user's organization in JSON" do
           controller.stub(:current_user) { @cso_admin }
-          get :organization_users, :format => :json
+          get :index, :organization_id => @organization.id, :format => :json
           response.body.should include @user.to_json(:only => [:id, :name])
           response.body.should_not include @cso_admin.to_json(:only => [:id, :name])
         end
 
         it "doesn't allow a normal user" do
           controller.stub(:current_user) { @user }
-          get :organization_users, :format => :json
+          get :index, :organization_id => @organization.id, :format => :json
           response.body.should include "not authorized"
         end
       end

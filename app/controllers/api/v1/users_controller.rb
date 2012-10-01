@@ -9,9 +9,9 @@ module Api
         respond_with current_user.to_json(:except => :password_digest)
       end
 
-      def organization_users
+      def index
         if current_user.role == 'cso_admin'
-          organization = current_user.organization
+          organization = Organization.find(params[:organization_id])
           users = organization.users - [].push(current_user)
           respond_with users.to_json(:only => [:id, :name])
         else
