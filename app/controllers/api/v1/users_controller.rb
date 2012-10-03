@@ -10,9 +10,11 @@ module Api
       end
 
       def index
+        user_ids = params[:user_ids]
         if current_user.role == 'cso_admin'
           organization = Organization.find(params[:organization_id])
           users = organization.users - [].push(current_user)
+          users.select! { |user| user_ids.include?(user.id) } if user_ids
           respond_with users.to_json(:only => [:id, :name])
         else
           respond_with "not authorized"
