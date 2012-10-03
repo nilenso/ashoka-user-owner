@@ -39,7 +39,7 @@ module Api
 
         it "returns names and ids for specific users of an organization if their user_ids are given" do
           controller.stub(:current_user) { @cso_admin }
-          get :index, :organization_id => @organization.id, :user_ids => [@another_user.id], :format => :json
+          get :index, :organization_id => @organization.id, :user_ids => [@another_user.id.to_s], :format => :json
           response.body.should include @another_user.to_json(:only => [:id, :name])
           response.body.should_not include @user.to_json(:only => [:id, :name])
         end
