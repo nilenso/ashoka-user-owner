@@ -16,37 +16,38 @@ describe OrganizationsController do
     context "when organization created successfully" do
 
       let(:user) { FactoryGirl.attributes_for(:user) }
+      
+      before(:each) do
+        @organization = FactoryGirl.attributes_for(:organization)
+        @organization[:users] = FactoryGirl.attributes_for(:user)
+      end
 
       it "creates a new organization" do
-        organization = FactoryGirl.attributes_for(:organization)
-        expect { post :create, :organization => organization }.to change { Organization.count }.by(1)
+        expect { post :create, :organization => @organization }.to change { Organization.count }.by(1)
       end
 
       it "redirects to root path with a flash message" do
-        organization = { :name => "xuz", :users_attributes => [user] }
-        post :create, :organization => organization
+        post :create, :organization => @organization
         response.should redirect_to(root_path)
         flash[:notice].should_not be_nil
       end
 
       it "makes the user created as the cso_admin for the organization" do
-        organization = { :name => "xuz", :users_attributes => [user] }
-        post :create, :organization => organization
-        cso_admin = Organization.find_by_name(organization[:name]).users.first
+        post :create, :organization => @organization
+        cso_admin = Organization.find_by_name(@organization[:name]).users.first
         cso_admin.role.should == "cso_admin"
       end
 
       it "assigns a default_locale to the organization" do
-        organization_attributes = { :name => "xuz", :users_attributes => [user] }
-        post :create, :organization => organization_attributes, :locale => :fr
-        organization = Organization.find_by_name(organization_attributes[:name])
+        post :create, :organization => @organization, :locale => :fr
+        organization = Organization.find_by_name(@organization[:name])
         organization.default_locale.should == 'fr'
       end
     end
 
     context "when organization not created" do
       it "renders the new page" do
-        post :create, :organization => { :users_attributes => [] }
+        post :create, :organization => { :users => [] }
         response.should render_template('new')
         flash[:error].should_not be_nil
       end

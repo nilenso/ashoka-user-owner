@@ -1,7 +1,6 @@
 class Organization < ActiveRecord::Base
-  attr_accessible :name, :users_attributes
+  attr_accessible :name
   has_many :users
-  accepts_nested_attributes_for :users
   validates_presence_of :name
   validates_uniqueness_of :name
   validates_inclusion_of :default_locale, :in => I18n.available_locales.map(&:to_s)
@@ -38,6 +37,14 @@ class Organization < ActiveRecord::Base
 
   def cso_admin
     users.find_by_role('cso_admin')
+  end
+
+  def self.build(org_name, cso_admin_params)
+    organization = Organization.new(:name => org_name)
+    cso_admin = User.new(cso_admin_params)
+    cso_admin.role = "cso_admin"
+    organization.users <<  cso_admin
+    organization
   end
 
   module Status

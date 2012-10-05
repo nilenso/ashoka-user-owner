@@ -3,15 +3,15 @@ class OrganizationsController < ApplicationController
   before_filter :require_admin, :only => [ :index, :approve, :reject ]
 
   def new
-    @organization = Organization.new()
-    @organization.users << User.new()
+    @organization = Organization.new
+    @organization.users << User.new
   end
 
   def create
-    @organization = Organization.new(params[:organization])
+    @organization = Organization.build(params[:organization][:name], 
+                                       params[:organization][:users])
+
     @organization.default_locale = I18n.locale.to_s
-    cso_admin = @organization.users.first
-    cso_admin.role = "cso_admin" if cso_admin.present?
 
     if @organization.save
       redirect_to root_path
