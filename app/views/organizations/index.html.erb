@@ -8,7 +8,7 @@
     <h1><%= t ".list_of_organizations" %></h1>
     <table>
       <h2><%= t ".pending" %></h2>
-      <% @organizations.select{ |org| org.status == "pending"}.each do |organization|%>
+      <% @organizations.select{ |org| org.status == Organization::Status::PENDING}.each do |organization|%>
         <tr>
           <td> <%= organization.name %> </td>
           <td> (<%= I18n.name_for_locale(organization.default_locale.to_sym) %>) </td>
@@ -31,14 +31,14 @@
 
     <table>
       <h2><%= t ".approved" %></h2>
-      <% @organizations.select{ |org| org.status == "approved"}.each do |organization|%>
+      <% @organizations.select{ |org| org.status == Organization::Status::APPROVED}.each do |organization|%>
         <tr><td> <%= organization.name %> </td> </tr>
       <% end %>
     </table>
 
     <table>
       <h2><%= t ".rejected" %></h2>
-      <% @organizations.select{ |org| org.status == "rejected"}.each do |organization|%>
+      <% @organizations.select{ |org| org.status == Organization::Status::REJECTED}.each do |organization|%>
         <tr><td> <%= organization.name %> </td> </tr>
       <% end %>
     </table>
