@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validate :role_is_valid
   validates_uniqueness_of :email
   belongs_to :organization
+  before_create :generate_password
   before_validation :default_values
 
   ROLES = %w(admin cso_admin user)

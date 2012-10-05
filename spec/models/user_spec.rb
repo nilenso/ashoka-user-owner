@@ -66,6 +66,11 @@ describe User do
       user.authenticate("xyz").should be_false
     end
 
+    it "generates the password token automatically when a User is created" do
+      user = FactoryGirl.create(:user, :password => "xyz", :password_confirmation => "xyz")
+      user.authenticate("xyz").should be_false
+    end
+
     it "changes the status from pending  to accepted if the password is reset" do
       user = FactoryGirl.create(:user, :status => User::Status::PENDING, :organization => org)
       user.generate_password_reset_token
