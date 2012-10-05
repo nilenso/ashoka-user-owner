@@ -53,5 +53,6 @@ class User < ActiveRecord::Base
 
   def default_values
     self.role ||= "user"
+    self.status ||= User::Status::PENDING
   end
 end

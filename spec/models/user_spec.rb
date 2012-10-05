@@ -80,5 +80,9 @@ describe User do
       user = User.create(:name => 'John', :email => 'abc@abc.com', :password => 'abc', :password_confirmation => 'abc')
       user.reload.role.should == 'user'
     end
+    it "sets the default status to 'pending'" do
+      user = User.create(:name => 'John', :email => 'abc@abc.com', :password => 'abc', :password_confirmation => 'abc')
+      user.reload.status.should == User::Status::PENDING
+    end
   end
 end
