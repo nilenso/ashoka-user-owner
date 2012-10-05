@@ -47,6 +47,10 @@ class Organization < ActiveRecord::Base
     organization
   end
 
+  def self.approved_organizations
+    where(:status => Status::APPROVED)
+  end
+
   module Status
     APPROVED = "approved"
     PENDING = "pending"
