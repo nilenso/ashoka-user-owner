@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Organization do
   subject { FactoryGirl.create(:organization) }
   it { should have_many(:users) }
-  it { should accept_nested_attributes_for(:users) }
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
   it { should respond_to(:status) }
@@ -84,5 +83,18 @@ describe Organization do
     cso_ad = FactoryGirl.create(:cso_admin_user, :role => 'cso_admin')
     org.users << cso_ad
     org.cso_admin.should == cso_ad
+  end
+
+  context "when creating an organization" do
+    it "creates an Organization and the cso admin for it" do\
+      org_params = {:name => "my_org"}
+      cso_admin_params = {:name => "cso_admin_user", :email => "xyz@abc.com", :password => "abc",
+                     :password_confirmation => 'abc'}
+      organization = Organization.build(org_params[:name], cso_admin_params)
+      organization.save
+      organization.reload.name.should == "my_org"
+      organization.cso_admin.name.should == "cso_admin_user"
+    end
+
   end
 end
