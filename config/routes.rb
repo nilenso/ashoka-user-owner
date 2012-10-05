@@ -20,7 +20,7 @@ UserService::Application.routes.draw do
 
   namespace :api, :defaults => { :format => 'json' } do
     scope :module => :v1 do
-      match 'user', :to => "users#show"
+      get 'me', :to => "users#me"
       resources :organizations, :shallow => true, :only => [:index] do
         resources :users, :shallow => true, :only => [:index]
       end

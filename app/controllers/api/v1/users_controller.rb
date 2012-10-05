@@ -6,7 +6,7 @@ module Api
       load_and_authorize_resource :user, :parent => false
       respond_to :json
 
-      def show
+      def me
         respond_with current_user.to_json(:except => :password_digest)
       end
 
