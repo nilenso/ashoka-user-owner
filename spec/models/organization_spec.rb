@@ -77,6 +77,12 @@ describe Organization do
     user = FactoryGirl.create(:user)
     org.users << user
     org.cso_users.should include user
+  end
 
+  it "returns the cso admin of the Organization" do
+    org = FactoryGirl.create(:organization)
+    cso_ad = FactoryGirl.create(:cso_admin_user, :role => 'cso_admin')
+    org.users << cso_ad
+    org.cso_admin.should == cso_ad
   end
 end

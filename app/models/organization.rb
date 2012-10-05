@@ -36,6 +36,10 @@ class Organization < ActiveRecord::Base
     users.where(:role => 'user')
   end
 
+  def cso_admin
+    users.find_by_role('cso_admin')
+  end
+
   module Status
     APPROVED = "approved"
     PENDING = "pending"
