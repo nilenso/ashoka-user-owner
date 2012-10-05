@@ -119,46 +119,5 @@ describe UsersController do
         response.should render_template(:new)
       end
     end
-
-    context "when authenticating" do
-      it "allows a CSO admin to create an user" do
-        user = FactoryGirl.build(:user)
-        user.role = "cso_admin"
-        user.organization_id = @organization.id
-        user.save
-        sign_in_as(user)
-
-
-        new_user = FactoryGirl.attributes_for(:user).delete('name')
-        post :create, :organization_id => @organization.id, :user => new_user
-        response.should be_ok
-      end
-
-      it "does not allow a CSO admin from another organization to create an user" do
-        another_organization = FactoryGirl.create(:organization)
-
-        user = FactoryGirl.build(:user)
-        user.role = "cso_admin"
-        user.organization_id = another_organization.id
-        user.save
-        sign_in_as(user)
-
-        new_user = FactoryGirl.attributes_for(:user).delete('name')
-        post :create, :organization_id => @organization.id, :user => new_user
-        response.should_not be_ok
-      end
-
-      it "does not allow the sysadmin to create a user" do
-        user = FactoryGirl.build(:user)
-        user.role = "admin"
-        user.organization_id = nil
-        user.save
-        sign_in_as(user)
-
-        new_user = FactoryGirl.attributes_for(:user).delete('name')
-        post :create, :organization_id => @organization.id, :user => new_user
-        response.should_not be_ok
-      end
-    end
   end
 end

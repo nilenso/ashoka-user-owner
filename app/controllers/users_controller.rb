@@ -13,15 +13,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-    @user.organization_id = params[:organization_id]
-    @user.role = 'user'
-    @user.status = User::Status::PENDING
-    @user.generate_password
-    if @user.save
+    organization = Organization.find(params[:organization_id])
+    user = organization.users.new(params[:user])
+    if user.save
       flash[:notice] = t "users.create.user_created_successfully"
       redirect_to root_path
-      @user.send_password_reset
+      user.send_password_reset
     else
       render :new
     end
