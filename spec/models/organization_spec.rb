@@ -71,4 +71,12 @@ describe Organization do
       org.should_not be_valid
     end
   end
+
+  it "returns a list of cso users for the organization" do
+    org = FactoryGirl.create(:organization)
+    user = FactoryGirl.create(:user)
+    org.users << user
+    org.cso_users.should include user
+
+  end
 end

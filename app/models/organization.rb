@@ -32,6 +32,10 @@ class Organization < ActiveRecord::Base
     end
   end
 
+  def cso_users
+    users.where(:role => 'user')
+  end
+
   module Status
     APPROVED = "approved"
     PENDING = "pending"

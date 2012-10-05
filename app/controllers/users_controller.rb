@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def index
     organization = Organization.find(params[:organization_id])
-    @users = organization.users.select { |user| user.role == "user" }
+    @users = organization.cso_users
   end
 
   def create
