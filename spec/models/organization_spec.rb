@@ -95,6 +95,12 @@ describe Organization do
       organization.reload.name.should == "my_org"
       organization.cso_admin.name.should == "cso_admin_user"
     end
+  end
 
+  it "returns a list of approved organizations" do
+    org = FactoryGirl.create(:organization, :status => Organization::Status::APPROVED)
+    another_org = FactoryGirl.create(:organization, :status => Organization::Status::PENDING)
+    Organization.approved_organizations.should include org
+    Organization.approved_organizations.should_not include another_org
   end
 end
