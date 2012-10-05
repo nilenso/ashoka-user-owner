@@ -29,7 +29,7 @@ class OrganizationsController < ApplicationController
   def approve
     organization = Organization.find(params[:organization_id])
     organization.approve!
-    UserMailer.approval_mail(organization.users.first, organization.default_locale).deliver
+    UserMailer.approval_mail(organization.cso_admin, organization.default_locale).deliver
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end
@@ -37,7 +37,7 @@ class OrganizationsController < ApplicationController
   def reject
     organization = Organization.find(params[:organization_id])
     organization.reject!
-    UserMailer.rejection_mail(organization.users.first, organization.default_locale, params[:rejection_message]).deliver
+    UserMailer.rejection_mail(organization.cso_admin, organization.default_locale, params[:rejection_message]).deliver
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end
