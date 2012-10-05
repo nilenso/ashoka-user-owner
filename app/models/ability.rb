@@ -4,12 +4,13 @@ class Ability
   def initialize(user)
     user ||= User.new
     if user.role == 'admin'
-        can :manage, :all
+        can :manage, Organization
     elsif user.role == 'cso_admin'
-        can :manage, User
-        can :read, :all
+        can :manage, User, :organization_id => user.organization_id
+        can :read, Organization, :id => user.organization_id
     else
-        can :read, :all
+        can :read, User, :id => user.id
+        can :read, Organization, :id => user.organization_id
     end
     # Define abilities for the passed in user here. For example:
     #
