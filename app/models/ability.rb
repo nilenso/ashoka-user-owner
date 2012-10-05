@@ -12,6 +12,8 @@ class Ability
         can :read, User, :id => user.id
         can :read, Organization, :id => user.organization_id
     end
+
+    can :me, User, :id => user.id
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
