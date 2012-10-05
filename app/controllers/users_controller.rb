@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.organization_id = params[:organization_id]
-    @user.generate_password
     if @user.save
       flash[:notice] = t "users.create.user_created_successfully"
       redirect_to root_path
