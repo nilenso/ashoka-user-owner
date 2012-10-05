@@ -81,9 +81,9 @@ describe User do
   end
 
   context "default values" do
-    it "sets the default role to 'user'" do
+    it "sets the default role to 'field_agent'" do
       user = User.create(:name => 'John', :email => 'abc@abc.com', :password => 'abc', :password_confirmation => 'abc')
-      user.reload.role.should == 'user'
+      user.reload.role.should == 'field_agent'
     end
     it "sets the default status to 'pending'" do
       user = User.create(:name => 'John', :email => 'abc@abc.com', :password => 'abc', :password_confirmation => 'abc')

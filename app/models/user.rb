@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   before_create :generate_password
   before_validation :default_values
 
-  ROLES = %w(admin cso_admin user)
+  ROLES = %w(admin cso_admin field_agent)
 
   def admin?
     role == 'admin'
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def default_values
-    self.role ||= "user"
+    self.role ||= "field_agent"
     self.status ||= User::Status::PENDING
   end
 end

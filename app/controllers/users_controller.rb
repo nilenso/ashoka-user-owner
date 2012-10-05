@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def index
     organization = Organization.find(params[:organization_id])
-    @users = organization.cso_users
+    @users = organization.field_agents
   end
 
   def create

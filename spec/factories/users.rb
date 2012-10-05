@@ -6,7 +6,7 @@ FactoryGirl.define do
     sequence(:email){ |n| "xyz#{n}@aa.com"}
     password "foo"
     password_confirmation "foo"
-    before(:create) { |user| user.role = 'user' }
+    before(:create) { |user| user.role = 'field_agent' }
 
     factory :admin_user do
       before(:create) { |user| user.role = 'admin' }

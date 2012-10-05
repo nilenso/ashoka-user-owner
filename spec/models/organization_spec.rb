@@ -71,11 +71,11 @@ describe Organization do
     end
   end
 
-  it "returns a list of cso users for the organization" do
+  it "returns a list of field agents for the organization" do
     org = FactoryGirl.create(:organization)
     user = FactoryGirl.create(:user)
     org.users << user
-    org.cso_users.should include user
+    org.field_agents.should include user
   end
 
   it "returns the cso admin of the Organization" do

@@ -67,11 +67,11 @@ describe UsersController do
         User.last.organization_id.should == @organization.id
       end
 
-      it "assigns the role for the user as 'user'" do
+      it "assigns the role for the user as 'field_agent'" do
 
         user = FactoryGirl.attributes_for(:user)
         post :create, :organization_id => @organization.id, :user => user
-        User.last.role.should == 'user'
+        User.last.role.should == 'field_agent'
       end
 
       it "assigns a random password for the user" do

@@ -31,8 +31,8 @@ class Organization < ActiveRecord::Base
     end
   end
 
-  def cso_users
-    users.where(:role => 'user')
+  def field_agents
+    users.where(:role => 'field_agent')
   end
 
   def cso_admin
