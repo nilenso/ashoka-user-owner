@@ -12,7 +12,6 @@ describe User do
 
     it { should validate_presence_of(:email)}
     it { should validate_presence_of(:name)}
-    it { should validate_presence_of(:role)}
     it { should validate_presence_of(:password)}
     it { should validate_presence_of(:password_confirmation)}
     it { should validate_uniqueness_of(:email) }
@@ -73,6 +72,13 @@ describe User do
       user.status.should == User::Status::PENDING
       user.reset_password("xyz","xyz")
       user.status.should == User::Status::ACCEPTED
+    end
+  end
+
+  context "default values" do
+    it "sets the default role to 'user'" do
+      user = User.create(:name => 'John', :email => 'abc@abc.com', :password => 'abc', :password_confirmation => 'abc')
+      user.reload.role.should == 'user'
     end
   end
 end
