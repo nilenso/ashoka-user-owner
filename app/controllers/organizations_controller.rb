@@ -3,14 +3,14 @@ class OrganizationsController < ApplicationController
   before_filter :require_admin, :only => [ :index, :approve, :reject ]
 
   def new
-    @organization = Organization.new()
-    @organization.users << User.new()
+    @organization = Organization.new
+    @organization.users << User.new
   end
 
   def create
     @organization = Organization.build(params[:organization][:name], 
                                        params[:organization][:users])
-    
+
     @organization.default_locale = I18n.locale.to_s
 
     if @organization.save
