@@ -56,7 +56,6 @@ describe User do
     it "sets password reset token and password token sent at parameters" do
       user.send_password_reset
       user.reload.password_reset_token.should_not be_nil
-      user.password_reset_sent_at.should_not be_nil
     end
 
     it "sends a email to the user with the password token " do

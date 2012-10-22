@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022065145) do
+ActiveRecord::Schema.define(:version => 20121022072104) do
 
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false
@@ -64,13 +64,12 @@ ActiveRecord::Schema.define(:version => 20121022065145) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "role"
     t.integer  "organization_id"
     t.string   "password_reset_token"
     t.string   "status"
-    t.datetime "password_reset_sent_at"
   end
 
 end

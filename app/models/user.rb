@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
   end
 
   def send_password_reset
-    self.password_reset_sent_at = Time.now
     generate_password_reset_token
     UserMailer.password_reset_mail(self).deliver
   end
