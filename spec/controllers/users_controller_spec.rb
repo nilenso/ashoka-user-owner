@@ -75,7 +75,7 @@ describe UsersController do
       end
 
       it "assigns a random password for the user" do
-        user = {:name => "foo", :email => "smittty@baz.com", :password => "123", :password_confirmation => "123"}
+        user = {:name => "foo", :email => "smittty@baz.com"}
         post :create, :organization_id => @organization.id, :user => user
         User.find_by_email("smittty@baz.com").authenticate("123").should be_false
       end
