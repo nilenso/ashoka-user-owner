@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
-  validates_presence_of :email, :name, :password_confirmation, :password
+  validates_presence_of :email, :name
+  validates_presence_of :password, :password_confirmation, :on => :create
   validates_email_format_of :email
   validate :role_is_valid
   validates_uniqueness_of :email
@@ -16,6 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def send_password_reset
+    self.password_reset_sent_at = Time.now
     generate_password_reset_token
     UserMailer.password_reset_mail(self).deliver
   end
@@ -28,6 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def reset_password(password, password_confirmation)
+    return false if password.blank?
     self.password = password
     self.password_confirmation = password_confirmation
     self.password_reset_token = nil

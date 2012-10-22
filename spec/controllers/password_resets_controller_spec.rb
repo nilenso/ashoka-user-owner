@@ -10,6 +10,37 @@ describe PasswordResetsController do
     end
   end
 
+  context "POST 'create'" do
+    context "when save is successful" do
+      it "creates the password with the new one" do
+        org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :password_reset_token => nil, :organization => org)
+        post :create, :email => user.email
+        response.should be_redirect
+        user.reload.password_reset_token.should_not be_nil
+        flash[:notice].should_not be_nil
+      end
+
+      it "sends an email to user" do
+        ActionMailer::Base.deliveries.clear
+        org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :password_reset_token => nil, :organization => org)
+        post :create, :email => user.email
+        ActionMailer::Base.deliveries.should_not be_empty
+        email = ActionMailer::Base.deliveries.first
+        email.to.should include(user.email)
+      end
+    end
+
+    context "when save unsuccessful" do
+      it "renders the reset password page again" do
+        post :create, :email => "xyz@abc.com"
+        response.should redirect_to new_password_reset_path
+        flash[:error].should_not be_nil
+      end
+    end
+  end
+
   context "GET 'edit'" do
     it "renders the page to change the password using reset password token" do
       user = FactoryGirl.create(:user)

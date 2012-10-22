@@ -12,9 +12,14 @@ describe User do
 
     it { should validate_presence_of(:email)}
     it { should validate_presence_of(:name)}
-    it { should validate_presence_of(:password)}
-    it { should validate_presence_of(:password_confirmation)}
     it { should validate_uniqueness_of(:email) }
+
+    it "validates presence of password and password confirmation on create" do
+      organization = FactoryGirl.create(:organization)
+      user = FactoryGirl.build(:user, :organization => organization)
+      user.password = nil
+      user.should_not be_valid
+    end
 
     it "doesn't allow an invalid role" do
       user = FactoryGirl.build(:admin_user, :role => 'xyz')
@@ -48,9 +53,10 @@ describe User do
       user.authenticate("xyz").should be_true
     end
 
-    it "sets a password reset token" do
+    it "sets password reset token and password token sent at parameters" do
       user.send_password_reset
       user.reload.password_reset_token.should_not be_nil
+      user.password_reset_sent_at.should_not be_nil
     end
 
     it "sends a email to the user with the password token " do
