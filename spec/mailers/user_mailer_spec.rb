@@ -69,7 +69,7 @@ describe UserMailer do
     it "sends a rejection mail in the correct locale" do
       org = FactoryGirl.create(:organization, :default_locale => 'fr')
       user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
-      email = UserMailer.deactivation_mail(user, 'fr', "REJECTED!")
+      email = UserMailer.deactivation_mail(user, 'fr', "Deactivated!")
       email.should have_body_text("Désolé")
     end
   end

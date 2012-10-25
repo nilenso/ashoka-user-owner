@@ -40,7 +40,7 @@ describe SessionsController do
         it "doesn't allow the user to log in if his organization is not active" do
           user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE))
           post :create, :user => { :email => user.email, :password => user.password }
-          response.should redirect_to rejected_path
+          response.should redirect_to deactivated_path
         end
 
         it "redirects to the root path if user is admin" do

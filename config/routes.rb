@@ -6,7 +6,7 @@ UserService::Application.routes.draw do
     get 'login', :to => 'sessions#new', :as => 'login'
     get 'logout', :to => 'sessions#destroy', :as => 'logout'
 
-    get 'rejected_organization', :to => 'static_pages#rejected_organization', :as => 'rejected'
+    get 'deactivated_organization', :to => 'static_pages#deactivated_organization', :as => 'deactivated'
 
     resources :sessions
     resources :password_resets
