@@ -6,13 +6,13 @@ UserService::Application.routes.draw do
     get 'login', :to => 'sessions#new', :as => 'login'
     get 'logout', :to => 'sessions#destroy', :as => 'logout'
 
-    get 'pending_approval', :to => 'static_pages#pending_approval', :as => 'pending'
+    get 'rejected_organization', :to => 'static_pages#rejected_organization', :as => 'rejected'
 
     resources :sessions
     resources :password_resets
     resources :organizations do
       resources :users, :only => [:create, :new, :index]
-      put 'approve', 'reject'
+      put 'activate', 'deactivate'
     end
 
     root :to => 'sessions#new'

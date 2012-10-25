@@ -77,7 +77,7 @@ describe OrganizationsController do
     end
   end
 
-  context "PUT 'approve'" do
+  context "PUT 'activate'" do
     context "when admin is logged in" do
       before(:each) do
         admin = FactoryGirl.create(:admin_user)
@@ -85,41 +85,41 @@ describe OrganizationsController do
         ActionMailer::Base.deliveries.clear
       end
 
-      it "sends an approval mail to the cso admin of the organization" do
+      it "sends an activation mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
-        put :approve, :organization_id => org.id
+        put :activate, :organization_id => org.id
         ActionMailer::Base.deliveries.should_not be_empty
         email = ActionMailer::Base.deliveries.first
         email.to.should include(user.email)
         response.should be_redirect
-        org.reload.should be_approved
+        org.reload.should be_active
       end
 
-      it "approves the organization with a flash notice" do
+      it "activates the organization with a flash notice" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization_id => org.id)
-        put :approve, :organization_id => org.id
+        put :activate, :organization_id => org.id
 
-        org.reload.should be_approved
+        org.reload.should be_active
         response.should redirect_to organizations_path
         flash[:notice].should_not be_nil
       end
     end
 
     context "when not logged in" do
-      it "does not allow anyone other than admin to approve an organization" do
+      it "does not allow anyone other than admin to activate an organization" do
         org = FactoryGirl.create(:organization)
-        put :approve, :organization_id => org.id
-
-        org.reload.should_not be_approved
-        response.should redirect_to login_path
+        user = FactoryGirl.create(:cso_admin_user, :organization => org, :status => 'approved')
+        sign_in_as(user)
+        put :activate, :organization_id => org.id
+        response.should redirect_to(root_path)
         flash[:error].should_not be_nil
       end
     end
   end
 
-  context "PUT 'reject'" do
+  context "PUT 'deactivate'" do
     context "when admin is logged in" do
       before(:each) do
         admin = FactoryGirl.create(:admin_user)
@@ -127,33 +127,32 @@ describe OrganizationsController do
         ActionMailer::Base.deliveries.clear
       end
 
-      it "sends an rejection mail to the cso admin of the organization" do
+      it "sends an deactivation mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
-        put :reject, :organization_id => org.id
+        put :deactivate, :organization_id => org.id
         ActionMailer::Base.deliveries.should_not be_empty
         email = ActionMailer::Base.deliveries.first
         email.to.should include(user.email)
-        org.reload.should_not be_approved
+        org.reload.should_not be_active
       end
 
-      it "rejects the organization with a flash notice" do
+      it "deactivates the organization with a flash notice" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization_id => org.id)
-        put :reject, :organization_id => org.id
+        put :deactivate, :organization_id => org.id
 
-        org.reload.should_not be_approved
+        org.reload.should_not be_active
         response.should redirect_to organizations_path
         flash[:notice].should_not be_nil
       end
     end
 
     context "when not logged in" do
-      it "does not allow anyone other than admin to reject an organization" do
+      it "does not allow anyone other than admin to deactivate an organization" do
         org = FactoryGirl.create(:organization)
-        put :reject, :organization_id => org.id
+        put :deactivate, :organization_id => org.id
 
-        org.reload.should_not be_approved
         response.should redirect_to login_path
         flash[:error].should_not be_nil
       end

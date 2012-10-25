@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022072104) do
+ActiveRecord::Schema.define(:version => 20121025115718) do
 
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false
@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(:version => 20121022072104) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.string   "status",         :default => "pending"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.string   "status",         :default => "active"
     t.string   "default_locale", :default => "en"
   end
 

@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   def organization_approved
     user = User.find_by_email(params[:user][:email])
     if user.present?
-      redirect_to(pending_path) unless  user.admin? || user.organization.approved?
+      redirect_to(rejected_path) unless  user.admin? || user.organization.active?
     end
   end
 end

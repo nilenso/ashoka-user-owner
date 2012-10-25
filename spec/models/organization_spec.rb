@@ -9,48 +9,24 @@ describe Organization do
   it { should respond_to(:default_locale) }
 
   context "Logic" do
-    it "checks if the organization is approved or not" do
-      org = FactoryGirl.create(:organization)
-      org.should_not be_approved
-      org.status = Organization::Status::APPROVED
-      org.should be_approved
-    end
-
-    it "checks if the organization is rejected or not" do
-      org = FactoryGirl.create(:organization)
-      org.should_not be_rejected
-      org.status = Organization::Status::REJECTED
-      org.should be_rejected
+    it "checks if the organization is active or not" do
+      org = FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE)
+      org.status = Organization::Status::ACTIVE
+      org.should be_active
     end
   end
 
   context "status change" do
-    it "allows a new organization to be approved" do
-      org = FactoryGirl.create(:organization, :status => Organization::Status::PENDING)
-      org.approve!.should be_true
-      org.reload.status.should eq Organization::Status::APPROVED
+    it "allows an organization to be activated" do
+      org = FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE)
+      org.activate.should be_true
+      org.reload.status.should eq Organization::Status::ACTIVE
     end
 
-    it "does not allow to approve an already rejected organization" do
-      rejected_org = FactoryGirl.create(:organization, :status => Organization::Status::REJECTED)
-      lambda{
-        rejected_org.approve!
-      }.should raise_error(StandardError, "A rejected organization cannot be approved")
-      rejected_org.reload.status.should eq Organization::Status::REJECTED
-    end
-
-    it "does not allow to approve an already rejected organization" do
-      rejected_org = FactoryGirl.create(:organization, :status => Organization::Status::APPROVED)
-      lambda{
-        rejected_org.reject!
-      }.should raise_error(StandardError, "A approved organization cannot be rejected")
-      rejected_org.reload.status.should eq Organization::Status::APPROVED
-    end
-
-    it "allows to reject a new organization" do
-      org = FactoryGirl.create(:organization, :status => Organization::Status::PENDING)
-      org.reject!.should be_true
-      org.reload.status.should eq Organization::Status::REJECTED
+    it "allows an organization to be deactivated" do
+      org = FactoryGirl.create(:organization, :status => Organization::Status::ACTIVE)
+      org.deactivate.should be_true
+      org.reload.status.should eq Organization::Status::INACTIVE
     end
   end
 
@@ -97,10 +73,10 @@ describe Organization do
     end
   end
 
-  it "returns a list of approved organizations" do
-    org = FactoryGirl.create(:organization, :status => Organization::Status::APPROVED)
-    another_org = FactoryGirl.create(:organization, :status => Organization::Status::PENDING)
-    Organization.approved_organizations.should include org
-    Organization.approved_organizations.should_not include another_org
+  it "returns a list of active organizations" do
+    org = FactoryGirl.create(:organization, :status => Organization::Status::ACTIVE)
+    another_org = FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE)
+    Organization.active_organizations.should include org
+    Organization.active_organizations.should_not include another_org
   end
 end

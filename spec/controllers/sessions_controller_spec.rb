@@ -23,7 +23,7 @@ describe SessionsController do
 
   context "POST 'create'" do
     context "user exists" do
-      let(:user) { FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => 'approved')) }
+      let(:user) { FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => Organization::Status::ACTIVE)) }
       context "email/password combination is correct" do
         it "logs in the user" do
           post :create, :user => { :email => user.email, :password => user.password}
@@ -37,10 +37,10 @@ describe SessionsController do
           response.should redirect_to("http://google.com")
         end
 
-        it "doesn't allow the user to log in if his organization is not approved" do
-          user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization))
+        it "doesn't allow the user to log in if his organization is not active" do
+          user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE))
           post :create, :user => { :email => user.email, :password => user.password }
-          response.should redirect_to pending_path
+          response.should redirect_to rejected_path
         end
 
         it "redirects to the root path if user is admin" do

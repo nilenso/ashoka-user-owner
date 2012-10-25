@@ -5,7 +5,7 @@ module Api
       respond_to :json
 
       def index
-        organizations = Organization.approved_organizations
+        organizations = Organization.active_organizations
         respond_with organizations.to_json(:only => [:id, :name])
       end
     end

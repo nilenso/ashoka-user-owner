@@ -5,30 +5,18 @@ class Organization < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_inclusion_of :default_locale, :in => I18n.available_locales.map(&:to_s)
 
-  def approved?
-    status == Organization::Status::APPROVED
+  def active?
+    status == Organization::Status::ACTIVE
   end
 
-  def rejected?
-    status == Organization::Status::REJECTED
+  def activate
+    self.status = Status::ACTIVE
+    self.save
   end
 
-  def approve!
-    if status == Status::REJECTED
-      raise StandardError, "A rejected organization cannot be approved"
-    else
-      self.status = Status::APPROVED
-      save!
-    end
-  end
-
-  def reject!
-    if status == Status::APPROVED
-      raise StandardError, "A approved organization cannot be rejected"
-    else
-      self.status = Status::REJECTED
-      save!
-    end
+  def deactivate
+    self.status = Status::INACTIVE
+    self.save
   end
 
   def field_agents
@@ -47,13 +35,13 @@ class Organization < ActiveRecord::Base
     organization
   end
 
-  def self.approved_organizations
-    where(:status => Status::APPROVED)
+  def self.active_organizations
+    where(:status => Status::ACTIVE)
   end
 
   module Status
-    APPROVED = "approved"
-    PENDING = "pending"
-    REJECTED = 'rejected'
+    ACTIVE   = "active"
+    INACTIVE = "inactive"
   end
+
 end
