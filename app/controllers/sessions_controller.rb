@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_filter :organization_approved, :only => :create
+  before_filter :organization_active, :only => :create
   def new
     @user = User.new
     session[:return_to] = params[:return_to] if params[:return_to]
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def organization_approved
+  def organization_active
     user = User.find_by_email(params[:user][:email])
     if user.present?
       redirect_to(deactivated_path) unless  user.admin? || user.organization.active?

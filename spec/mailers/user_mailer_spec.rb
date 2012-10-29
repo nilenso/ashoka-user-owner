@@ -11,7 +11,7 @@ describe UserMailer do
     lambda { UserMailer.activation_mail(user, 'en').deliver }.should change(ActionMailer::Base.deliveries,:size).by(1)
   end
 
-  it "sends a rejection mail to the user" do
+  it "sends a deactivation mail to the user" do
     org = FactoryGirl.create(:organization)
     user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
     lambda { UserMailer.deactivation_mail(user, 'en') }.should_not raise_error
@@ -51,7 +51,7 @@ describe UserMailer do
     email.should deliver_from("\"User Owner Robot\" <friendly_robot@user-owner-staging.herokuapp.com>")
   end
 
-  it "should include the rejection message in the body" do
+  it "should include the deactivation message in the body" do
     org = FactoryGirl.create(:organization)
     user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
     email = UserMailer.deactivation_mail(user, 'en', "someuniquemessage")
@@ -66,7 +66,7 @@ describe UserMailer do
       email.should have_body_text("Bienvenue au service")
     end
 
-    it "sends a rejection mail in the correct locale" do
+    it "sends a deactivation mail in the correct locale" do
       org = FactoryGirl.create(:organization, :default_locale => 'fr')
       user = FactoryGirl.create(:user, :email => "baz@foo.com", :organization => org)
       email = UserMailer.deactivation_mail(user, 'fr', "Deactivated!")

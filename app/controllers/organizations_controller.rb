@@ -8,7 +8,7 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = Organization.build(params[:organization][:name], 
+    @organization = Organization.build(params[:organization][:name],
                                        params[:organization][:users])
 
     @organization.default_locale = I18n.locale.to_s
@@ -37,7 +37,7 @@ class OrganizationsController < ApplicationController
   def deactivate
     organization = Organization.find(params[:organization_id])
     organization.deactivate
-    UserMailer.deactivation_mail(organization.cso_admin, organization.default_locale, params[:rejection_message]).deliver
+    UserMailer.deactivation_mail(organization.cso_admin, organization.default_locale, params[:deactivate_message]).deliver
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end

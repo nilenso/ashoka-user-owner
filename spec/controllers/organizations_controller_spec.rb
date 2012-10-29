@@ -16,7 +16,7 @@ describe OrganizationsController do
     context "when organization created successfully" do
 
       let(:user) { FactoryGirl.attributes_for(:user) }
-      
+
       before(:each) do
         @organization = FactoryGirl.attributes_for(:organization)
         @organization[:users] = FactoryGirl.attributes_for(:user)
@@ -110,7 +110,7 @@ describe OrganizationsController do
     context "when not logged in" do
       it "does not allow anyone other than admin to activate an organization" do
         org = FactoryGirl.create(:organization)
-        user = FactoryGirl.create(:cso_admin_user, :organization => org, :status => 'approved')
+        user = FactoryGirl.create(:cso_admin_user, :organization => org, :status => 'active')
         sign_in_as(user)
         put :activate, :organization_id => org.id
         response.should redirect_to(root_path)

@@ -30,12 +30,12 @@ fr:
   user_mailer:
     activation_mail:
       welcome_message: "Bienvenue au service du propriétaire utilisateur, %{user_name}"
-      approved_message: "Votre organisation, %{organization_name} a été approuvé :)"
+      activated_message: "Votre organisation, %{organization_name} a été approuvé :)"
       thanks_for_joining: Merci de nous avoir rejoints et ont un grand jour!
 
     deactivation_mail:
       sorry_message: "Désolé,  %{user_name}"
-      rejected_message: "Votre organisation %{organization_name} a été rejeté :("
+      deactivated_message: "Votre organisation %{organization_name} a été rejeté :("
       admin_message: Ceci est un message de l'administrateur
       thanks_for_trying: Merci d'essayer de nous rejoindre et avoir un grand jour!
 
@@ -50,14 +50,14 @@ fr:
       user_info: Information de l'Utilisateur
 
     index:
-      no_organizations: In french: There are no organizations
-      list_of_organizations: In french: List of Organizations
-      actions: In french: Actions
-      activate: In french: Activate
-      active: In french: Active
-      deactivate: In french: Deactivate
-      inactive: In french: Inactive
-      deactivate_prompt_message: In french: Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
+      no_organizations: In french- There are no organizations
+      list_of_organizations: In french- List of Organizations
+      actions: In french- Actions
+      activate: In french- Activate
+      active: In french- Active
+      deactivate: In french- Deactivate
+      inactive: In french- Inactive
+      deactivate_prompt_message: In french- Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
 
   users:
     create:

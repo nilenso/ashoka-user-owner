@@ -30,12 +30,12 @@ en:
   user_mailer:
     activation_mail:
       welcome_message: "Welcome to User Owner Service, %{user_name}"
-      approved_message: "Your organization, %{organization_name} has been approved! :)"
+      activated_message: "Your organization, %{organization_name} has been approved! :)"
       thanks_for_joining: Thanks for joining us and have a great day!
 
     deactivation_mail:
       sorry_message: "Sorry, %{user_name}"
-      rejected_message: "Your organization %{organization_name} has been rejected! :("
+      deactivated_message: "Your organization %{organization_name} has been rejected! :("
       admin_message: This is a message from the administrator
       thanks_for_trying: Thanks for trying to join us and have a great day!
 
