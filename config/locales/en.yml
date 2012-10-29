@@ -1,7 +1,7 @@
 en:
   language:
     name: English
-    
+
   log_in: Log In
   log_out: Log Out
   register: Register
@@ -53,14 +53,12 @@ en:
     index:
       no_organizations: There are no organizations
       list_of_organizations: List of Organizations
-      pending: Pending
       actions: Actions
-      approve: Approve
-      approved: Approved
-      reject: Reject
-      rejected: Rejected
-      reject_prompt_message: Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
-      or: or
+      activate: Activate
+      active: Active
+      deactivate: Deactivate
+      inactive: Inactive
+      deactivate_prompt_message: Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
 
   users:
     create:

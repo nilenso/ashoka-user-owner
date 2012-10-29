@@ -1,56 +1,54 @@
 <%= stylesheet_link_tag 'admin_page' %>
 <div id="admin">
   <p>
-    <%= t(".no_organizations") if @organizations.empty? %>
-  </p>
+    <%= t(".no_organizations") if @organizations.empty? %></p>
 
   <% unless @organizations.empty? %>
-    <h1><%= t ".list_of_organizations" %></h1>
-    <table>
-      <h2><%= t ".pending" %></h2>
-      <% @organizations.select{ |org| org.status == Organization::Status::PENDING}.each do |organization|%>
-        <tr>
-          <td> <%= organization.name %> </td>
-          <td> (<%= I18n.name_for_locale(organization.default_locale.to_sym) %>) </td>
-          <td>
-            <%= form_tag organization_reject_path(organization.id), :method => :put do %>
-              <%= hidden_field_tag 'rejection_message' %>
-              <div class="actions">
-                <%= hidden_field_tag t(".reject")%>
-              </div>
-            <% end %>
+  <h1>
+    <%= t ".list_of_organizations" %></h1>
+  <table>
+    <h2>
+      <%= t ".active" %></h2>
+    <% @organizations.select{ |org| org.status == Organization::Status::ACTIVE}.each do |organization|%>
+    <tr>
+      <td>
+        <%= organization.name %></td>
+      <td>
+        (
+        <%= I18n.name_for_locale(organization.default_locale.to_sym) %>)</td>
+      <td>
+        <%= form_tag organization_deactivate_path(organization.id), :method =>
+        :put do %>
+        <%= hidden_field_tag 'deactivate_message' %>
+        <div class="actions">
+          <%= hidden_field_tag t(".deactivate")%></div>
+        <% end %>
 
-            <div id="action_links">
-              <%= link_to t('.approve'), organization_approve_path(organization.id), :method => :put, :confirm => t(:confirm) %> <%= t('.or') %>
-              <%= link_to t('.reject'), '#', :class => 'reject'  %>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-    </table>
+        <div id="action_links">
+          <%= link_to t('.deactivate'), '#', :class =>'deactivate'  %></div>
+      </td>
+    </tr>
+    <% end %></table>
 
-    <table>
-      <h2><%= t ".approved" %></h2>
-      <% @organizations.select{ |org| org.status == Organization::Status::APPROVED}.each do |organization|%>
-        <tr><td> <%= organization.name %> </td> </tr>
-      <% end %>
-    </table>
+  <table>
+    <h2>
+      <%= t ".inactive" %></h2>
+    <% @organizations.select{ |org| org.status == Organization::Status::INACTIVE}.each do |organization|%>
+    <tr>
+      <td><%= organization.name %></td>
+      <td><%= link_to t('.activate'), organization_activate_path(organization.id), :method =>
+      :put, :confirm => t(:confirm) %></td>
+    </tr>
 
-    <table>
-      <h2><%= t ".rejected" %></h2>
-      <% @organizations.select{ |org| org.status == Organization::Status::REJECTED}.each do |organization|%>
-        <tr><td> <%= organization.name %> </td> </tr>
-      <% end %>
-    </table>
-  <% end %>
-</div>
+    <% end %></table>
+  <% end %></div>
 
 <script type="text/javascript">
   $(function(){
-    $(".reject").click(function(){
-      var reject_message = <%= raw("prompt(\"") + t(".reject_prompt_message") + raw("\");")%>
-      if(reject_message != null) {
-        $("#rejection_message").val(reject_message);
+    $(".deactivate").click(function(){
+      var deactivate_message = <%= raw("prompt(\"") + t(".deactivate_prompt_message") + raw("\");")%>
+      if(deactivate_message != null) {
+        $("#deactivate_message").val(deactivate_message);
         document.forms[0].submit();
       }
     });

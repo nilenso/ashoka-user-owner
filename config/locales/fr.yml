@@ -50,16 +50,14 @@ fr:
       user_info: Information de l'Utilisateur
 
     index:
-      no_organizations: Il n'y a pas d'organisations
-      list_of_organizations: Liste des organisations
-      pending: En attente
-      actions: Actions
-      approve: Approuver
-      approved: Approuvé
-      reject: Rejeter
-      rejected: Rejeté
-      reject_prompt_message: Inclure un message personnel à l'administrateur de cette organisation ici. Appuyez sur Annuler pour rejeter sans un message.
-      or: ou
+      no_organizations: In french: There are no organizations
+      list_of_organizations: In french: List of Organizations
+      actions: In french: Actions
+      activate: In french: Activate
+      active: In french: Active
+      deactivate: In french: Deactivate
+      inactive: In french: Inactive
+      deactivate_prompt_message: In french: Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
 
   users:
     create:
