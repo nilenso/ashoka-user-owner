@@ -67,7 +67,7 @@ fr:
     success: Mot de passe a été réinitialisé!
 
   wrong_email_password: Email / mot de passe est incorrect
-  pending_approval_message: Votre organisation est en attente d'approbation. Vous pouvez vous connecter et utiliser l'application que lorsque l'organisme est agréé. Vous recevrez un e-mail concernant l'approbation / rejet.
+  successful_create_message: Your organization has been created(FR).
   creation_failed: Création Organisation échoué
   status_changed: "Est %{organization_name} %{status}!"
   please_login: S'il vous plaît connectez

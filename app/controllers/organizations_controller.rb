@@ -15,7 +15,7 @@ class OrganizationsController < ApplicationController
 
     if @organization.save
       redirect_to root_path
-      flash[:notice] = t("pending_approval_message")
+      flash[:notice] = t("successful_create_message")
     else
       flash[:error] = t("creation_failed")
       render :new

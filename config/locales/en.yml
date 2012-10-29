@@ -68,7 +68,7 @@ en:
     success: Password has been reset!
 
   wrong_email_password: Email/Password is wrong
-  pending_approval_message: Your organization is pending approval. You can login and use the app only when the organization is approved. You will recieve a mail regarding the approval/rejection.
+  successful_create_message: Your organization has been created.
   creation_failed: Organization creation failed
   status_changed: "%{organization_name} is %{status}!"
   please_login: Please login
