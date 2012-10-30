@@ -25,7 +25,7 @@
         <% end %>
 
         <div id="action_links">
-          <%= link_to t('.deactivate'), '#', :class =>'deactivate'  %></div>
+          <%= link_to t('.deactivate'), '#', :class =>'deactivate' if can? :manage, @organization %></div>
       </td>
     </tr>
     <% end %></table>
@@ -36,8 +36,8 @@
     <% @organizations.select{ |org| org.status == Organization::Status::INACTIVE}.each do |organization|%>
     <tr>
       <td><%= organization.name %></td>
-      <td><%= link_to t('.activate'), organization_activate_path(organization.id), :method =>
-      :put, :confirm => t(:confirm) %></td>
+      <td><%= button_to t('.activate'), organization_activate_path(organization.id), :method =>
+      :put, :confirm => t(:confirm) if can? :manage, @organization %></td>
     </tr>
 
     <% end %></table>
