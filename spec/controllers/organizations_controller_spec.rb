@@ -55,25 +55,20 @@ describe OrganizationsController do
   end
 
   context "GET 'index'" do
-    it "lists all the organizations" do
+    it "allows users to see their organization only" do
+      not_admin = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization))
+      sign_in_as(not_admin)
       get :index
-      response.should redirect_to(login_path)
+      response.should be_ok
+      assigns(:organizations).should == [not_admin.organization]
     end
 
-    it "can be accessed by the admin" do
+    it "all organizations can be managed by the admin" do
       admin = FactoryGirl.create(:admin_user, :role => "admin")
       sign_in_as(admin)
       get :index
       response.should be_ok
-      assigns(:organizations).should_not be_nil
-    end
-
-    it "can not be accessed by anyone other than admin" do
-      not_admin = FactoryGirl.create(:user)
-      sign_in_as(not_admin)
-      get :index
-      response.should redirect_to(root_path)
-      flash[:error].should_not be_nil
+      assigns(:organizations).should == Organization.all
     end
   end
 
@@ -106,17 +101,6 @@ describe OrganizationsController do
         flash[:notice].should_not be_nil
       end
     end
-
-    context "when not logged in" do
-      it "does not allow anyone other than admin to activate an organization" do
-        org = FactoryGirl.create(:organization)
-        user = FactoryGirl.create(:cso_admin_user, :organization => org, :status => 'active')
-        sign_in_as(user)
-        put :activate, :organization_id => org.id
-        response.should redirect_to(root_path)
-        flash[:error].should_not be_nil
-      end
-    end
   end
 
   context "PUT 'deactivate'" do
@@ -145,16 +129,6 @@ describe OrganizationsController do
         org.reload.should_not be_active
         response.should redirect_to organizations_path
         flash[:notice].should_not be_nil
-      end
-    end
-
-    context "when not logged in" do
-      it "does not allow anyone other than admin to deactivate an organization" do
-        org = FactoryGirl.create(:organization)
-        put :deactivate, :organization_id => org.id
-
-        response.should redirect_to login_path
-        flash[:error].should_not be_nil
       end
     end
   end

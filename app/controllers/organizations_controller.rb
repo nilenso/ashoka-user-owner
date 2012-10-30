@@ -1,6 +1,5 @@
 class OrganizationsController < ApplicationController
-
-  before_filter :require_admin, :only => [ :index, :activate, :deactivate ]
+  load_and_authorize_resource :except => :create
 
   def new
     @organization = Organization.new
@@ -40,17 +39,5 @@ class OrganizationsController < ApplicationController
     UserMailer.deactivation_mail(organization.cso_admin, organization.default_locale, params[:deactivate_message]).deliver
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
-  end
-
-  private
-
-  def require_admin
-    if !has_signed_in_user?
-      flash[:error] = t "please_login"
-      redirect_to(login_path)
-    elsif !current_user.admin?
-      flash[:error] = t "not_authorized"
-      redirect_to(root_path)
-    end
   end
 end
