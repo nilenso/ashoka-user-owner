@@ -4,13 +4,18 @@ describe "Abilities" do
   subject { ability }
   let(:ability){ Ability.new(user) }
 
+  context "when not logged in" do
+    let(:user) { nil }
+    it { should be_able_to :create, Organization }
+  end
+
   context "for Users" do
+
     context "when is an admin" do
       let(:user) { FactoryGirl.create :admin_user  }
 
       it { should be_able_to :manage, Organization.new }
       it { should_not be_able_to :manage, User.new }
-
     end
 
     context "when is a cso_admin" do
