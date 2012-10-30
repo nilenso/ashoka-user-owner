@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :admin_belongs_to_current_org?
-
   def new
     @user = User.new
   end
@@ -23,10 +21,5 @@ class UsersController < ApplicationController
     else
       render :new
     end
-  end
-
-  private
-  def admin_belongs_to_current_org?
-    redirect_to(root_path) unless current_user.organization_id.to_s == params[:organization_id]
   end
 end
