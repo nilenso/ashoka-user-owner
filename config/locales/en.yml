@@ -10,7 +10,7 @@ en:
 
   header:
     home: Home
-    pending_approvals: Pending Approvals
+    organizations: Organizations
     create_a_user: Create a new user
     add_applications: Add a new application
     log_in: Log In
