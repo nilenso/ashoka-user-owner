@@ -1,6 +1,7 @@
 module Api
   module V1
     class OrganizationsController < ActionController::Base
+      skip_authorize_resource
       doorkeeper_for :all
       respond_to :json
 
