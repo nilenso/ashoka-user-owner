@@ -16,6 +16,7 @@ en:
     log_in: Log In
     log_out: Log Out
     register: Register
+    list_users: Users
 
   static_pages:
     home:

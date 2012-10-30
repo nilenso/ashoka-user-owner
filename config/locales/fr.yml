@@ -10,12 +10,13 @@ fr:
 
   header:
     home: Maison
-    pending_approvals: Approbations en attente
+    organizations: fr Organizations
     create_a_user: Créer un nouvel utilisateur
     add_applications: Ajouter une nouvelle application
     log_in: Connexion
     log_out: Déconnexion
     register: Inscrivez-vous
+    list_users: fr Users
 
   static_pages:
     home:
