@@ -14,5 +14,6 @@ class Ability
     else
       can :create, Organization
     end
+    can :me, User, :id => user.id
   end
 end
