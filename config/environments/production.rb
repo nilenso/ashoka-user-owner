@@ -9,8 +9,6 @@ ActionMailer::Base.smtp_settings = {
 
 ActionMailer::Base.delivery_method = :smtp
 
-require 'rack-cache'
-
 UserService::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -20,6 +18,7 @@ UserService::Application.configure do
       :entitystore  => 'file:tmp/cache/rack/body',
       :allow_reload => false
   }
+  #
   # Add HTTP headers to cache static assets for an hour
   config.static_cache_control = "public, max-age=2592000"
 
