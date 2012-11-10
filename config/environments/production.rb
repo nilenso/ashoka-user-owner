@@ -1,4 +1,3 @@
-require 'rake-cache'
 ActionMailer::Base.smtp_settings = {
   :address        => 'smtp.sendgrid.net',
   :port           => '587',
@@ -9,6 +8,8 @@ ActionMailer::Base.smtp_settings = {
 }
 
 ActionMailer::Base.delivery_method = :smtp
+
+require 'rack-cache'
 
 UserService::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
