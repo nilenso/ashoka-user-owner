@@ -14,6 +14,7 @@ gem 'rails-i18n'
 gem 'highline'
 gem 'pry-rails'
 gem 'airbrake'
+gem 'dalli'
 
 # Gems used only for assets and not required
 # in production environments by default.

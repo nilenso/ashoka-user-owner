@@ -15,12 +15,13 @@ UserService::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Enable Rack::Cache
-  config.middleware.use Rack::Cache,
-  :metastore => "memcached://#{ENV['MEMCACHE_SERVERS']}/meta",
-  :entitystore => "memcached://#{ENV['MEMCACHE_SERVERS']}/body"
-
+  config.action_dispatch.rack_cache = {
+      :metastore    => Dalli::Client.new,
+      :entitystore  => 'file:tmp/cache/rack/body',
+      :allow_reload => false
+  }
   # Add HTTP headers to cache static assets for an hour
-  config.static_cache_control = "public, max-age=3600"
+  config.static_cache_control = "public, max-age=2592000"
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -30,7 +31,7 @@ UserService::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
