@@ -25,7 +25,7 @@
         <% end %>
 
         <div id="action_links">
-          <%= link_to t('.deactivate'), '#', :class =>'deactivate' if can? :manage, @organization %></div>
+          <%= link_to t('.deactivate'), '#', :class =>'deactivate' if can? :deactivate, Organization %></div>
       </td>
     </tr>
     <% end %></table>
