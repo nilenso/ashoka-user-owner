@@ -1,0 +1,54 @@
+html,body,input,select,textarea{font-family: 'ptsans', 'Gill sans', 'Trebuchet MS', sans;}
+
+html, body{
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+h1, h2, h3, h4{margin: 10px 0 4px 0; color: $black; font-weight: 700;}
+
+h2{font-size: 18px;}
+h3{font-size: 16px;}
+h4{font-size: 13px;}
+h2 span, h3 span, h4 span{font-weight: normal; color: $gray; display: block;}
+
+header{
+  h2, h3{color: $primary-color;}
+  h2{font-weight: 300; font-size: 24px; line-height: 30px;}
+  h4{font-weight: 400;}
+  h4 a{font-weight: 700;}
+}
+
+form h2{
+  color: $primary-color;
+  font-weight: 300;
+  font-size: 24px;
+  padding-bottom: 4px;
+  border-bottom: solid 1px $gray-xlight;
+}
+
+div[role="complementary"]{
+  h2, h3, h4{color: $gray-dark; margin: 8px 10px 4px 10px;}
+  div{
+    margin: 4px 10px;
+    h2, h3, h4{margin: 4px 0;}
+  }
+  h2{
+    text-transform: uppercase;
+    font-weight: 300;
+    border-bottom: solid 1px $gray-light;
+
+    a.view-all{
+      float: right;
+      text-transform: none;
+      font-size: 13px;
+      font-weight: 400;
+    }
+  }
+  h3{font-size: 15px;}
+}
+
+a{color: $primary-color; text-decoration: none;}
+a:hover{border-bottom: dotted 1px;}
+

@@ -24,6 +24,8 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'susy'
+  gem 'compass-normalize', '~> 1.1.2'
+  gem 'formalize-rails', '~> 0.1.3'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

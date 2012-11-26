@@ -1,0 +1,175 @@
+@font-face {
+  font-family: "SSSocial";
+  src: image-url('fonts/ss-social-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SSBlock";
+  src: image-url('fonts/ss-symbolicons-block.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SSStandard";
+  src: image-url('fonts/ss-standard.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+a.icon, a.button, p.form-actions a, input[type=button], input[type=submit], span.button{
+  display: block;
+  float: right;
+
+  padding: 0 10px;
+  margin-left: 8px;
+  line-height: 200%;
+
+  background: $primary-color;
+  color: $white;
+  border: none;
+
+  @include border-radius(4px);
+  
+  &:hover{ border: none; background-color: $primary-color-light;}
+  
+  &.selected{background: $secondary-color;}
+
+  &.small, &.subtle{line-height: 140%; font-size: 12px;}
+  &.subtle{
+    background: $gray-xlight;
+    color: $primary-color;
+    &.selected{background: $primary-color; color: $white;}
+  }
+  
+  &.toggle{
+    background: $gray-xlight;
+    color: $primary-color;
+    float: left;
+    margin: 0 8px 0 0;
+    
+    &:hover, &.selected{ @include box-shadow(inset 1px 1px 4px rgba(0,0,0,0.4) );}
+    &.selected{background: $gray-light;}
+  }
+}
+
+/*
+a.button.disabled, a.button.disabled:hover,
+span.button, span.button:hover{background: $gray-dark;}
+*/
+
+input[type=submit], input[type=button]{
+  font-size: 16px;
+  font-weight: 400;
+  @include text-shadow(none);
+  padding: 0 10px;
+  font-size: 13px;
+
+  &:hover{
+    background-image: none;
+  }
+}
+
+p.form-actions a{
+  float: left;
+  background: $gray;
+  margin: 0 8px 0 0;
+}
+
+a.icon, input[type=button].icon, #create ul li a{
+  padding-left: 30px;
+  position: relative;
+  
+  &:before,&:after{
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    text-indent: 0;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    content: "";
+    color: $white;
+    font-family: "SSBlock";
+  }
+  
+  &.follow:before{content: "\22C6"; color: $yellow;}
+  &.unfollow:before{content: "\22C6";}
+  &.add{content: "\002B";}
+}
+
+a.remove, div.tagsinput span.tag a{
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  color: transparent;
+  background: none;
+  
+  &:hover{border: none;}
+  
+  &:before{
+    display: inline-block;
+    text-align: center;
+    content: "\2421";
+    width: 24px;
+    height: 24px;
+    line-height: 26px;
+    font-size: 16px;
+    color: $gray-dark;
+    font-family: "SSBlock";
+  }
+}
+
+ul.social{
+  display: block;
+  margin: 0;
+  padding: 0;
+  
+  li{
+    list-style: none;
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 30px; height: 30px;
+    margin: 0;
+    padding: 0;
+    
+    a{
+      display: block;
+      overflow: hidden;
+      width: 30px; height: 30px;
+      
+      &:before{
+        width: 28px; height: 28px; display: block; text-align: center;
+        padding: 0; margin: 0;
+        float: left;
+
+        font-size: 16px;
+        line-height: 32px;
+
+        background: $primary-color;
+        color: $white;
+        @include border-radius(2px);
+        font-family: 'SSSocial';
+      }
+      &.facebook:before{content: "\F610"; background: #3B5998;}
+      &.twitter:before{ content: "\F611"; background: #60BDF3;}
+      &.linkedin:before{content: "\F612"; background: #3974B3;}
+      &.skype:before{   content: "\F6A0"; background: #59B0F1;}
+      &.video:before{   content: "\F630"; background: #AD3128;}
+      &.changemakers:before{ content: "CM"; background: #DE8753;
+                            font-size: 16px;
+                            line-height: 30px;
+                            font-family: 'proxima-nova';
+                            font-weight: 600;}
+      &:hover:before{color: $black;}
+    }
+  }
+}
