@@ -2,8 +2,8 @@
   <ul>
   	<li><%= link_to t("header.home"), root_path, :class => 'home' %></li>
     <% if can? :manage, Organization %>
-      <li><%= link_to t("header.organizations"), organizations_path, :class=>'organizations'  %></li>
-      <li><%= link_to t("header.add_applications"), "/oauth/applications/new", :class => 'add_application' %></li>
+      <li><%= link_to t("header.organizations"), organizations_path, :class=>'organization'  %></li>
+      <li><%= link_to t("header.add_applications"), "/oauth/applications/new", :class => 'add' %></li>
     <% end %>
     <% if can? :manage, User %>
       <li><%= link_to t("header.create_a_user"), new_organization_user_path(current_user.organization_id), :class => 'add' %></li>

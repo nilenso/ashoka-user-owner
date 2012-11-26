@@ -12,6 +12,8 @@ div#banner{
       display: block;
       position: relative;
       float: right;
+      width: 80px;
+      margin: 0; padding: 0;
       border-bottom: solid 1px $secondary-color-dark;
 
       &:last-child{border-bottom: none;}
@@ -19,8 +21,8 @@ div#banner{
       a{
         display: block;
         position: relative;
-        width: 60px;
-        margin: 10px 0; padding: 44px 0 0 0;
+        width: 80px;
+        margin: 10px 0; padding: 40px 0 0 0;
 
         color: $cream-dark;
         text-align: center;
@@ -31,7 +33,7 @@ div#banner{
         &:after{
           display: block;
           position: absolute;
-          width: 60px; height: 48px; line-height: 48px;
+          width: 80px; height: 48px; line-height: 48px;
           left: 0; top: 0;
           text-align: center;
           font-size: 36px;
@@ -40,9 +42,12 @@ div#banner{
         }
 
         &.home:after{ content: "\f015";}
-        &.add:after{ content: "+"; font-weight: bold;}
+        &.add:after{ content: "\f067";}
         &.users:after{ content: "\f007";}
-        &.logout:after, &.signin:after{ content: "\f011";}
+        &.organization:after{ content: "\f0c0";}
+        &.signin:after{ content: "\f090";}
+        &.logout:after{ content: "\f08b";}
+        &.register:after{ content: "\f040";}
       }
     }
   }
