@@ -56,12 +56,11 @@ h2 span, h3 span, h4 span{font-weight: normal; color: $gray; display: block;}
 header{
   padding: 10px 20px;
   background: $secondary-color-light;
-  h2, h3{color: $primary-color;}
+  h2, h3, h2 span, h3 span{color: $primary-color-light;}
   h2{font-weight: 300; font-size: 24px; line-height: 30px;}
   h4{font-weight: 400;}
   h4 a{font-weight: 700;}
 
-  h2 span{color: $primary-color;}
 }
 
 form h2{
