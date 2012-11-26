@@ -1,7 +1,8 @@
-<%= stylesheet_link_tag 'register_page' %>
-
 <div id="register">
-  <h1><%= "Register User" %></h1>
+  <header>
+    <h2><%= "Register User" %></h2>
+  </header>
+
   <%= semantic_form_for @user, :url => organization_users_path do |f| %>
     <%= f.inputs do %>
       <%= f.input :name %>

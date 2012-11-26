@@ -54,6 +54,8 @@ h4{font-size: 13px;}
 h2 span, h3 span, h4 span{font-weight: normal; color: $gray; display: block;}
 
 header{
+  padding: 10px 20px;
+  background: $secondary-color;
   h2, h3{color: $primary-color;}
   h2{font-weight: 300; font-size: 24px; line-height: 30px;}
   h4{font-weight: 400;}

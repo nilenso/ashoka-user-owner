@@ -1,7 +1,10 @@
 <%= stylesheet_link_tag 'register_page' %>
 
 <div id="register">
-  <h1><%= t ".register_organization" %></h1>
+  <header>
+    <h2><%= t ".register_organization" %></h2>
+  </header>
+
   <%= semantic_form_for @organization do |f| %>
     <%= f.inputs :name => t(".organization_info") do %>
       <% f.input :name, :label => Organization.human_attribute_name(:name) %>

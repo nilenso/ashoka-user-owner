@@ -1,5 +1,5 @@
 html{
-  background: $secondary-color;
+  background: $primary-color;
   margin: 0; padding: 1px;
 }
 
@@ -16,6 +16,6 @@ div#content{
   background: $white;
   @include span-columns(10 omega);
   min-height: 400px;
-  @include border-radius(4px);
+  // @include border-radius(4px);
   @include box-shadow(0 0 10px rgba($black, 0.2));
 }
