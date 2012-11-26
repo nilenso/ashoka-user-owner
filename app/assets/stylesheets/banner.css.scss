@@ -24,11 +24,11 @@ div#banner{
         width: 80px;
         margin: 10px 0; padding: 40px 0 0 0;
 
-        color: $cream-dark;
+        color: $secondary-color;
         text-align: center;
         text-transform: lowercase;
 
-        &:hover{border: none; color: $cream;}
+        &:hover{border: none; color: $secondary-color-light;}
 
         &:after{
           display: block;

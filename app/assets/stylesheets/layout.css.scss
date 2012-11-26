@@ -32,7 +32,7 @@ div#content{
 
   h3.welcome{
     background: $primary-color;
-    color: $secondary-color;
+    color: $secondary-color-light;
     padding: 10px 20px;
     margin: 0;
     font-size: 16px; 
@@ -52,8 +52,8 @@ div#content{
 
 table{
   width: 100%;
-  border-top: solid 1px $secondary-color;
+  border-top: solid 1px $secondary-color-light;
 
-  tr td{border-bottom: solid 1px $secondary-color; padding: 4px 0;}
+  tr td{border-bottom: solid 1px $secondary-color-light; padding: 4px 0;}
   form{margin: 0; padding: 0;}
 }
