@@ -16,14 +16,36 @@ div#content{
   background: $white;
   @include span-columns(10 omega);
   min-height: 400px;
-  // @include border-radius(4px);
   @include box-shadow(0 0 10px rgba($black, 0.2));
 
-  #flash_messages{
+  div div{padding: 10px 20px;}
+
+  p.flash{
     display: block;
     background: $primary-color;
-    color: $secondary-color;
     margin: 0; padding: 10px 20px;
     font-size: 16px;
+
+    &.alert, &.error{background: $danger-light; color: $danger;}
+    &.notice{background: $highlight; color: $primary-color;}
+  }
+
+  h3.welcome{
+    background: $primary-color;
+    color: $secondary-color;
+    padding: 10px 20px;
+    margin: 0;
+    font-size: 16px; 
+    font-weight: normal;
+  }
+}
+
+#user_list{
+  ul li a{
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 6px;
+    color: $primary-color;
+    background: $secondary-color-light;
   }
 }

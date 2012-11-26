@@ -60,6 +60,8 @@ header{
   h2{font-weight: 300; font-size: 24px; line-height: 30px;}
   h4{font-weight: 400;}
   h4 a{font-weight: 700;}
+
+  h2 span{color: $primary-color;}
 }
 
 form h2{

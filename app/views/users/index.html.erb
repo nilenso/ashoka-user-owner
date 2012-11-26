@@ -1,29 +1,33 @@
-<%= stylesheet_link_tag 'user_list' %>
 <div id="user_list">
-  <p>
-    <%= t(".no_users") if @users.empty? %>
-  </p>
-
   <% unless @users.empty? %>
-    <h1><%= t ".list_of_users" %></h1>
-    <table>
-      <h2><%= t ".pending" %></h2>
-      <% @users.select{ |user| user.status == "pending"}.each do |user|%>
-        <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
-        </tr>
-      <% end %>
-    </table>
+    <header>
+      <h2><%= t ".list_of_users" %></h2>
+    </header>
 
-    <table>
+    <div>
+      <h2><%= t ".pending" %></h2>
+      <ul>
+        <% @users.select{ |user| user.status == "pending"}.each do |user|%>
+          <li>
+            <%= user.name %>
+            <%= mail_to user.email %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
       <h2><%= t ".accepted" %></h2>
-      <% @users.select{ |org| org.status == "accepted"}.each do |user|%>
-        <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
-        </tr>
-      <% end %>
-    </table>
+      <ul>
+        <% @users.select{ |user| user.status == "accepted"}.each do |user|%>
+          <li>
+            <%= user.name %>
+            <%= mail_to user.email %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <p><%= t(".no_users") %></p>
   <% end %>
 </div>

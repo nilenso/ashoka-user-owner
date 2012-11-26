@@ -1,8 +1,12 @@
 <div id="login">
 <% if has_signed_in_user? %>
-  <h2><%= t ".welcome", :username => current_user.name %></h2>
-  <div class = "application_list" >
+    <h3 class="welcome"><%= t ".welcome", :username => current_user.name %></h4>
+
+  <header>
     <h3> List of applications you can use </h3>
+  </header>
+
+  <div class = "application_list" >
     <ul>
       <% @applications.each do |application| %>
         <li><%= link_to application.name, application_url(application.redirect_uri) %></li>
@@ -10,7 +14,6 @@
     </ul>
   </div>
 <% else %>
-
   <header>
     <h2><%= t("sign_in")%></h2>
   </header>
