@@ -1,3 +1,43 @@
+@font-face {
+    font-family: 'ptsans';
+    src: image-url('font/PTS76F-webfont.eot');
+    src: image-url('font/PTS76F-webfont.eot?#iefix') format('embedded-opentype'),
+         image-url('font/PTS76F-webfont.woff') format('woff'),
+         image-url('font/PTS76F-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ptsans';
+    src: image-url('font/PTS75F-webfont.eot');
+    src: image-url('font/PTS75F-webfont.eot?#iefix') format('embedded-opentype'),
+         image-url('font/PTS75F-webfont.woff') format('woff'),
+         image-url('font/PTS75F-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ptsans';
+    src: image-url('font/PTS56F-webfont.eot');
+    src: image-url('font/PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
+         image-url('font/PTS56F-webfont.woff') format('woff'),
+         image-url('font/PTS56F-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ptsans';
+    src: image-url('font/PTS55F-webfont.eot');
+    src: image-url('font/PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
+         image-url('font/PTS55F-webfont.woff') format('woff'),
+         image-url('font/PTS55F-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html,body,input,select,textarea{font-family: 'ptsans', 'Gill sans', 'Trebuchet MS', sans;}
 
 html, body{

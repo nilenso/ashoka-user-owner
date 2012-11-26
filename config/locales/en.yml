@@ -11,8 +11,8 @@ en:
   header:
     home: Home
     organizations: Organizations
-    create_a_user: Create a new user
-    add_applications: Add a new application
+    create_a_user: New User
+    add_applications: New application
     log_in: Log In
     log_out: Log Out
     register: Register

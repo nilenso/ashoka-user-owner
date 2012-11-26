@@ -1,0 +1,21 @@
+html{
+  background: $secondary-color;
+  margin: 0; padding: 1px;
+}
+
+body{background: transparent;}
+
+#page{
+  display: block;
+  @include container;
+  margin-top: 40px;
+}
+
+div#content{
+  display: block;
+  background: $white;
+  @include span-columns(10 omega);
+  min-height: 400px;
+  @include border-radius(4px);
+  @include box-shadow(0 0 10px rgba($black, 0.2));
+}

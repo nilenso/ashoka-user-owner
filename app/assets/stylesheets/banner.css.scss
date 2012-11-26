@@ -1,0 +1,51 @@
+div#banner{
+  display: block;
+  color: $white;
+  @include span-columns(1);
+  @include prefix(1);
+
+  ul{
+    margin: 20px 0 0 0; padding: 0;
+    list-style: none;
+
+    li{
+      display: block;
+      position: relative;
+      float: right;
+      border-bottom: solid 1px $secondary-color-dark;
+
+      &:last-child{border-bottom: none;}
+
+      a{
+        display: block;
+        position: relative;
+        width: 60px;
+        margin: 10px 0; padding: 44px 0 0 0;
+
+        color: $cream-dark;
+        text-align: center;
+        text-transform: lowercase;
+
+        &:hover{border: none; color: $cream;}
+
+        &:after{
+          display: block;
+          position: absolute;
+          width: 60px; height: 48px; line-height: 48px;
+          left: 0; top: 0;
+          text-align: center;
+          font-size: 36px;
+          font-family: "FontAwesome";
+          -webkit-font-smoothing: antialiased;
+        }
+
+        &.home:after{ content: "\f015";}
+        &.add:after{ content: "+"; font-weight: bold;}
+        &.users:after{ content: "\f007";}
+        &.logout:after, &.signin:after{ content: "\f011";}
+      }
+    }
+  }
+
+  a{color: $white;}
+}
