@@ -1,47 +1,43 @@
-<%= stylesheet_link_tag 'admin_page' %>
 <div id="admin">
-  <p>
-    <%= t(".no_organizations") if @organizations.empty? %></p>
-
   <% unless @organizations.empty? %>
-  <h1>
-    <%= t ".list_of_organizations" %></h1>
-  <table>
-    <h2>
-      <%= t ".active" %></h2>
-    <% @organizations.select{ |org| org.status == Organization::Status::ACTIVE}.each do |organization|%>
-    <tr>
-      <td>
-        <%= organization.name %></td>
-      <td>
-        (
-        <%= I18n.name_for_locale(organization.default_locale.to_sym) %>)</td>
-      <td>
-        <%= form_tag organization_deactivate_path(organization.id), :method =>
-        :put do %>
-        <%= hidden_field_tag 'deactivate_message' %>
-        <div class="actions">
-          <%= hidden_field_tag t(".deactivate")%></div>
-        <% end %>
+  <header>
+    <h2><%= t ".list_of_organizations" %></h2>
+  </header>
 
-        <div id="action_links">
+  <div>
+    <h2><%= t ".active" %></h2>
+    <table>
+      <% @organizations.select{ |org| org.status == Organization::Status::ACTIVE}.each do |organization|%>
+      <tr>
+        <td><%= organization.name %></td>
+        <td>
+          (<%= I18n.name_for_locale(organization.default_locale.to_sym) %>)</td>
+        <td>
+          <%= form_tag organization_deactivate_path(organization.id), :method =>
+          :put do %>
+            <%= hidden_field_tag 'deactivate_message' %>
+            <%= hidden_field_tag t(".deactivate")%>
+          <% end %>
+
           <%= link_to t('.deactivate'), '#', :class =>'deactivate' if can? :deactivate, Organization %></div>
-      </td>
-    </tr>
-    <% end %></table>
+      </tr>
+      <% end %></table>
 
-  <table>
-    <h2>
-      <%= t ".inactive" %></h2>
-    <% @organizations.select{ |org| org.status == Organization::Status::INACTIVE}.each do |organization|%>
-    <tr>
-      <td><%= organization.name %></td>
-      <td><%= button_to t('.activate'), organization_activate_path(organization.id), :method =>
-      :put, :confirm => t(:confirm) if can? :manage, @organization %></td>
-    </tr>
+    <h2><%= t ".inactive" %></h2>
+    <table>
+      <% @organizations.select{ |org| org.status == Organization::Status::INACTIVE}.each do |organization|%>
+      <tr>
+        <td><%= organization.name %></td>
+        <td><%= button_to t('.activate'), organization_activate_path(organization.id), :method =>
+        :put, :confirm => t(:confirm) if can? :manage, @organization %></td>
+      </tr>
 
-    <% end %></table>
-  <% end %></div>
+      <% end %></table>
+    </div>
+  <% else %>
+    <p><%= t(".no_organizations") if @organizations.empty? %></p>
+  <% end %>
+</div>
 
 <script type="text/javascript">
   $(function(){

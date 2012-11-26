@@ -49,3 +49,11 @@ div#content{
     background: $secondary-color-light;
   }
 }
+
+table{
+  width: 100%;
+  border-top: solid 1px $secondary-color;
+
+  tr td{border-bottom: solid 1px $secondary-color; padding: 4px 0;}
+  form{margin: 0; padding: 0;}
+}
