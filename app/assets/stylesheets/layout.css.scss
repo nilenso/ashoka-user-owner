@@ -8,7 +8,6 @@ body{background: transparent;}
 #page{
   display: block;
   @include container;
-  margin-top: 40px;
 }
 
 div#content{
@@ -56,4 +55,11 @@ table{
 
   tr td{border-bottom: solid 1px $secondary-color-light; padding: 4px 0;}
   form{margin: 0; padding: 0;}
+}
+
+.change_locale{
+  display: block; clear: both;
+  padding: 10px 0;
+  color: $secondary-color-light; text-align: right;
+  a{color: white;}
 }

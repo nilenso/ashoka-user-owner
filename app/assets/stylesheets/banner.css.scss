@@ -1,6 +1,7 @@
 div#banner{
   display: block;
   color: $white;
+  padding-top: 80px;
   @include span-columns(1);
   @include prefix(1);
 
@@ -28,7 +29,7 @@ div#banner{
         text-align: center;
         text-transform: lowercase;
 
-        &:hover{border: none; color: $secondary-color-light;}
+        &:hover{border: none; color: $white;}
 
         &:after{
           display: block;
@@ -53,4 +54,12 @@ div#banner{
   }
 
   a{color: $white;}
+}
+
+h1{
+  @include span-columns(10 omega);
+  height: 80px; line-height: 80px;
+  font-weight: 300;
+
+  a{color: $secondary-color-light;}
 }
