@@ -9,11 +9,13 @@
 <body>
 	<div id="page">
 		<%= render "layouts/header" %>
+		
 		<div id="content" role="content">
 			<%= render "layouts/flash", :flash => flash if flash.count > 0 %>
 			<%= yield %>
 		</div>
-		<%= render "layouts/change_locale" %>
+		
+		<%= render "layouts/footer" %>
 	</div>
 </body>
 </html>
