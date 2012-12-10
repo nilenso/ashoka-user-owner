@@ -2,9 +2,6 @@ user-owner [![Build Status](https://secure.travis-ci.org/c42/user-owner.png?bran
 ==========
  
 Setup
------
-
-Setup
 =====
 
 Database
