@@ -17,28 +17,26 @@ For example, the `database.yml` will look something like this if you're using Po
 ```YAML
 development:
   adapter: postgresql
-  encoding: utf8
-  database: survey_web_dev
-  pool: 5
-  username: 
-  password: 
-  host: localhost
-
-test:
-  adapter: postgresql
-  encoding: utf8
-  database: survey_web_test
+  encoding: unicode
+  database: user_service_development
   pool: 5
   username: 
   password:
-  host: localhost
+  
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: user_service_test
+  pool: 5
+  username: 
+  password:
 
 production:
   adapter: postgresql
-  encoding: utf8
-  database: survey_web_prod 
+  encoding: unicode
+  database: user_service_production
   pool: 5
-  username:
+  username: 
   password:
 ```
 
