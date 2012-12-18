@@ -27,22 +27,22 @@ module Api
         it "returns names and ids for the users of the current_user's organization in JSON" do
           controller.stub(:current_user) { @cso_admin }
           get :index, :organization_id => @organization.id, :format => :json
-          response.body.should include @user.to_json(:only => [:id, :name])
-          response.body.should include @cso_admin.to_json(:only => [:id, :name])
+          response.body.should include @user.to_json(:only => [:id, :name, :role])
+          response.body.should include @cso_admin.to_json(:only => [:id, :name, :role])
         end
 
         it "for a normal user returns only his information" do
           controller.stub(:current_user) { @user }
           get :index, :organization_id => @organization.id, :format => :json
-          response.body.should include @user.to_json(:only => [:id, :name])
+          response.body.should include @user.to_json(:only => [:id, :name, :role])
           JSON.parse(response.body).length.should == 1
         end
 
         it "returns names and ids for specific users of an organization if their user_ids are given" do
           controller.stub(:current_user) { @cso_admin }
           get :index, :organization_id => @organization.id, :user_ids => [@another_user.id.to_s], :format => :json
-          response.body.should include @another_user.to_json(:only => [:id, :name])
-          response.body.should_not include @user.to_json(:only => [:id, :name])
+          response.body.should include @another_user.to_json(:only => [:id, :name, :role])
+          response.body.should_not include @user.to_json(:only => [:id, :name, :role])
         end
       end
     end
