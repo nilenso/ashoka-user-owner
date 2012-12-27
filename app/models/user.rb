@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :password_confirmation, :on => :create
   validates_email_format_of :email
   validate :role_is_valid
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email,:case_sensitive => false
   belongs_to :organization
   before_validation :default_values
 

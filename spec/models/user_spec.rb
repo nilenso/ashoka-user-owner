@@ -25,6 +25,13 @@ describe User do
       user = FactoryGirl.build(:admin_user, :role => 'xyz')
       user.should_not be_valid
     end
+
+    it "validtaes uniqueness of email with case insensitive" do
+      user = FactoryGirl.create(:user, :email => "abc@test.com")
+      another_user = FactoryGirl.build(:user)
+      another_user.email = "Abc@test.com"
+      another_user.should_not be_valid
+    end
   end
 
   context "logic" do
@@ -70,7 +77,7 @@ describe User do
       user.generate_password
       user.authenticate("xyz").should be_false
     end
-    
+
     it "changes the status from pending  to accepted if the password is reset" do
       user = FactoryGirl.create(:user, :status => User::Status::PENDING, :organization => org)
       user.generate_password_reset_token

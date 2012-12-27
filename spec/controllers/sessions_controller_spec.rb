@@ -53,6 +53,12 @@ describe SessionsController do
           post :create, :user => { :email => user.email, :password => user.password}
           flash[:notice].should_not be_nil
         end
+
+        it "allows case insentive email address" do
+          post :create, :user => { :email => user.email.upcase, :password => user.password}
+          response.should redirect_to(root_path)
+          session[:user_id].should == user.id
+        end
       end
     end
 
