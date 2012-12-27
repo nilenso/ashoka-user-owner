@@ -60,6 +60,12 @@ describe UsersController do
         end.to change { User.count }.by(1)
       end
 
+      it "saves the user's email in lower case irrespective of the case" do
+        user = FactoryGirl.attributes_for(:user, :email => "ABC@test.com")
+        post :create, :organization_id => @organization.id, :user => user
+        User.last.email.should == "abc@test.com"
+      end
+
       it "assigns the proper organization ID for the user" do
 
         user = FactoryGirl.attributes_for(:user)

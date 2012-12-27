@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email,:case_sensitive => false
   belongs_to :organization
   before_validation :default_values
+  before_save :convert_email_to_lower_case
 
   ROLES = %w(admin cso_admin field_agent)
 
@@ -48,6 +49,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def convert_email_to_lower_case
+    self.email = self.email.downcase
+  end
 
   def role_is_valid
     errors.add(:role, "Invalid role specified") unless ROLES.include? role

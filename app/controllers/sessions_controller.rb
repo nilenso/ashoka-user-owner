@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   private
 
   def organization_active
-    user = User.find_by_email(params[:user][:email])
+    user = User.find_by_email(params[:user][:email].downcase)
     if user.present?
       redirect_to(deactivated_path) unless  user.admin? || user.organization.active?
     end

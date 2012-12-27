@@ -97,4 +97,10 @@ describe User do
       user.reload.status.should == User::Status::PENDING
     end
   end
+
+  it "converts the user email to downcase before saving" do
+    user = FactoryGirl.build(:user, :email => "ABC@test.com", :organization => FactoryGirl.create(:organization))
+    user.save
+    user.reload.email.should == "abc@test.com"
+  end
 end
