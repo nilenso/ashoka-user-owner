@@ -17,6 +17,12 @@ module Api
         respond_with @users.to_json(:only => [:id, :name, :role])
       end
 
+      def names_for_ids
+        user_ids = params[:user_ids]
+        users = User.where(:id => user_ids) if user_ids
+        respond_with users.to_json(:only => [:id, :name])
+      end
+
       private
 
       def current_user
