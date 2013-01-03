@@ -12,7 +12,6 @@ module Api
 
       def index
         user_ids = params[:user_ids]
-        organization = Organization.find(params[:organization_id])
         @users = @users.where(:id => user_ids) if user_ids
         respond_with @users.to_json(:only => [:id, :name, :role])
       end
