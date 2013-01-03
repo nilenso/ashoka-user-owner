@@ -17,7 +17,7 @@ module Api
       end
 
       def names_for_ids
-        user_ids = params[:user_ids]
+        user_ids = JSON.parse params[:user_ids]
         users = User.where(:id => user_ids) if user_ids
         respond_with users.to_json(:only => [:id, :name])
       end

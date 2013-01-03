@@ -53,7 +53,7 @@ module Api
         token = stub(:accessible? => true)
         controller.stub(:doorkeeper_token) { token }
         users = FactoryGirl.create_list(:user, 5)
-        get :names_for_ids, :user_ids => users.map(&:id), :format => :json
+        get :names_for_ids, :user_ids => users.map(&:id).to_json, :format => :json
         response.body.should include users.map {|user| {:id => user.id, :name => user.name} }.to_json
       end
     end
