@@ -57,9 +57,19 @@ div#banner{
 }
 
 h1{
-  @include span-columns(10 omega);
+  @include span-columns(6);
   height: 80px; line-height: 80px;
   font-weight: 300;
 
   a{color: $secondary-color-light;}
+}
+
+h3#welcome{
+  @include span-columns(4 omega);
+  font-size: 18px;
+  line-height: 80px;
+  font-weight: 400;
+  color: $secondary-color-light;
+  text-align: right;
+  span{color: $secondary-color;}
 }
