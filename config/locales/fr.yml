@@ -9,6 +9,7 @@ fr:
   confirm: Etes-vous sûr?
 
   header:
+    application_title : User Service
     home: Maison
     organizations: fr Organizations
     create_a_user: Créer un nouvel utilisateur

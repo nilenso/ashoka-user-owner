@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>UserService</title>
+	<title><%= t('header.application_title') %></title>
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<%= javascript_include_tag "application" %>
 	<%= csrf_meta_tags %>
@@ -9,12 +9,12 @@
 <body>
 	<div id="page">
 		<%= render "layouts/header" %>
-		
+
 		<div id="content" role="content">
 			<%= render "layouts/flash", :flash => flash if flash.count > 0 %>
 			<%= yield %>
 		</div>
-		
+
 		<%= render "layouts/footer" %>
 	</div>
 </body>
