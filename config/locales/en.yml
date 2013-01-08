@@ -9,6 +9,7 @@ en:
   confirm: Are you sure?
 
   header:
+    application_title : User Service
     home: Home
     organizations: Organizations
     create_a_user: New User
