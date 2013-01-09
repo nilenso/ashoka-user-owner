@@ -17,9 +17,9 @@ module Api
       context "when asking for users of the organization " do
         before(:each) do
           @organization = FactoryGirl.create(:organization)
-          @cso_admin = FactoryGirl.create(:cso_admin_user, :organization => @organization)
-          @user = FactoryGirl.create(:user, :organization => @organization, :role => 'user')
-          @another_user = FactoryGirl.create(:user, :organization => @organization, :role => 'user')
+          @cso_admin = FactoryGirl.create(:cso_admin_user, :organization => @organization, :status => User::Status::ACCEPTED)
+          @user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACCEPTED)
+          @another_user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACCEPTED)
           token = stub(:accessible? => true)
           controller.stub(:doorkeeper_token) { token }
         end

@@ -33,8 +33,8 @@ describe UsersController do
       response.should render_template :index
     end
     it "lists all the user of the given organization" do
-      user = FactoryGirl.create(:user, :organization => @organization, :role => 'user')
-      another_user = FactoryGirl.create(:cso_admin_user, :organization => @organization)
+      user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACCEPTED)
+      another_user = FactoryGirl.create(:cso_admin_user, :organization => @organization, :status => User::Status::ACCEPTED)
       get :index, :organization_id => @organization
       response.should be_ok
       assigns(:users).should include user
