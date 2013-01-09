@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :organization
   before_validation :default_values
   before_save :convert_email_to_lower_case
-
+  scope :accepted_users, where(:status => 'accepted')
   ROLES = %w(admin cso_admin field_agent)
 
   def admin?

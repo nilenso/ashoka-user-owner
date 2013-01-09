@@ -4,6 +4,7 @@ module Api
     class UsersController < ActionController::Base
       doorkeeper_for :all
       load_and_authorize_resource :user, :parent => false
+      before_filter :active_users, :only => :index
       respond_to :json
 
       def me
@@ -23,6 +24,10 @@ module Api
       end
 
       private
+
+      def active_users
+        @users = @users.accepted_users
+      end
 
       def current_user
         @current_user ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token

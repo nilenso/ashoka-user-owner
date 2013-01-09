@@ -103,4 +103,10 @@ describe User do
     user.save
     user.reload.email.should == "abc@test.com"
   end
+
+  it "returns only the accepted users" do
+    FactoryGirl.create(:user, :status => User::Status::PENDING)
+    user = FactoryGirl.create(:user, :status => User::Status::ACCEPTED)
+    User.accepted_users.should include(user)
+  end
 end
