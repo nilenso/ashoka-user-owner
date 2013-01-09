@@ -22,4 +22,6 @@
   <a href="/"><%= t('header.application_title') %></a>
 </h1>
 
-<h3 id="welcome"><%= t "header.welcome", :username => current_user.name %></h3>
+<% if current_user %>
+  <h3 id="welcome"><%= t "header.welcome", :username => current_user.name %></h3>
+<% end %>
