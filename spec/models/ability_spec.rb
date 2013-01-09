@@ -11,9 +11,11 @@ describe "Abilities" do
 
   context "for Users" do
 
+
     context "when is an admin" do
       let(:user) { FactoryGirl.create :admin_user  }
 
+      it { should be_able_to :names_for_ids, User }
       it { should be_able_to :manage, Organization.new }
       it { should_not be_able_to :manage, User.new }
     end
@@ -24,6 +26,8 @@ describe "Abilities" do
 
       it { should_not be_able_to :manage, Organization.new }
       it { should be_able_to :read, organization }
+
+      it { should be_able_to :names_for_ids, User }
 
       it { should be_able_to :manage, FactoryGirl.create(:user, :organization_id => organization.id) }
       it { should_not be_able_to :manage, FactoryGirl.create(:user, :organization_id => 2342342) }
@@ -36,6 +40,8 @@ describe "Abilities" do
 
       it { should be_able_to :read, organization }
       it { should_not be_able_to :manage, Organization.new }
+
+      it { should be_able_to :names_for_ids, User }
 
       it { should be_able_to :read, user }
       it { should_not be_able_to :read, User.new }
