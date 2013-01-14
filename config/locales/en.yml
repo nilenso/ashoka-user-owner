@@ -29,6 +29,7 @@ en:
       email: Email
       password: Password
       welcome: "Hi, %{username}!"
+      reset_password: "Reset Password"
 
   user_mailer:
     activation_mail:

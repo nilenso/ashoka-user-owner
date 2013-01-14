@@ -28,6 +28,7 @@ fr:
       email: Email
       password: Mot de passe
       welcome: "Bonjour, %{username}!"
+      reset_password: "Reset Password"
 
   user_mailer:
     activation_mail:
