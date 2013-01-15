@@ -29,6 +29,22 @@ describe ApplicationController do
     end
   end
 
+  context "when a Cancan::AccessDenied exception is raised" do
+    controller(ApplicationController) do
+      def create
+        raise CanCan::AccessDenied.new("Not authorized!", :create, Organization)
+      end
+    end
+
+    it "redirects to the root page and shows a flash error" do
+      user = FactoryGirl.create(:user)
+      sign_in_as(user)
+      post :create
+      response.should redirect_to('/')
+      flash[:error].should_not be_nil
+    end
+  end
+
   it "returns the current user" do
     user = FactoryGirl.create(:user)
     sign_in_as user

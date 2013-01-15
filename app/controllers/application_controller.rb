@@ -16,6 +16,12 @@ class ApplicationController < ActionController::Base
     current_user.present?
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    logger.debug "CanCan::AccessDenied exception. Exception: #{exception.inspect}"
+    flash[:error] = exception.message
+    redirect_to root_url
+  end
+
   private
 
   def set_locale
