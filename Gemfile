@@ -17,6 +17,7 @@ gem 'airbrake'
 gem 'dalli'
 gem 'turbolinks'
 gem 'thin'
+gem 'feature'
 
 # Gems used only for assets and not required
 # in production environments by default.

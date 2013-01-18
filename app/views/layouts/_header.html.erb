@@ -13,7 +13,9 @@
       <li><%= link_to t("header.log_out"), logout_path, :class => 'logout' %></li>
     <% else %>
       <li><%= link_to t("header.log_in"), login_path, :class => 'signin' %></li>
-      <li><%= link_to t("header.register"), register_path, :class => 'register' %></li>
+      <% if Feature.active?(:register_link) %>
+        <li><%= link_to t("header.register"), register_path, :class => 'register' %></li>
+      <% end %>
     <% end %>
   </ul>
 </div>
