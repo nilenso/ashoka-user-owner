@@ -56,12 +56,18 @@ div#banner{
   a{color: $white;}
 }
 
-h1{
-  @include span-columns(6);
+h1#logo{
   height: 80px; line-height: 80px;
   font-weight: 300;
-
-  a{color: $secondary-color-light;}
+  @include span-columns(6);
+  a{
+    display: block;
+    height: 80px;
+    line-height: 80px;
+    color: $secondary-color-light;
+    padding-left: 80px;
+    background: transparent image-url('logo.png') no-repeat left center;
+  }
 }
 
 h3#welcome{
