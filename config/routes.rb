@@ -22,6 +22,7 @@ UserService::Application.routes.draw do
     scope :module => :v1 do
       get 'me', :to => "users#me"
       get 'users/names_for_ids', :to => "users#names_for_ids"
+      get 'users/validate_users', :to => "users#validate_users"
       resources :organizations, :shallow => true, :only => [:index] do
         resources :users, :shallow => true, :only => [:index]
       end

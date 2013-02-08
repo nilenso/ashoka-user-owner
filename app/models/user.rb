@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
     PENDING = "pending"
   end
 
+  def self.valid_ids?(user_ids)
+    user_ids.all? { |user_id| exists?(user_id) }
+  end
+
   private
 
   def convert_email_to_lower_case

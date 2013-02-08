@@ -109,4 +109,15 @@ describe User do
     user = FactoryGirl.create(:user, :status => User::Status::ACCEPTED)
     User.accepted_users.should include(user)
   end
+
+  it "returns true if users exists for given user_ids" do
+    user = FactoryGirl.create(:user)
+    another_user = FactoryGirl.create(:user)
+    User.valid_ids?([user, another_user]).should be_true
+  end
+
+  it "returns false if a user doesn't exist for given user_ids" do
+    user = FactoryGirl.create(:user)
+    User.valid_ids?([user, 3]).should be_false
+  end
 end

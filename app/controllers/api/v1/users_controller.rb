@@ -23,6 +23,11 @@ module Api
         respond_with users.to_json(:only => [:id, :name])
       end
 
+     def validate_users
+       user_ids = JSON.parse(params[:user_ids])
+       respond_with User.valid_ids?(user_ids).to_json
+     end
+
       private
 
       def active_users

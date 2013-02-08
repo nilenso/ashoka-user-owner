@@ -46,15 +46,33 @@ module Api
         end
       end
 
-      it "returns the names and ids of users for all the ids passed in " do
-        @organization = FactoryGirl.create(:organization)
-        @cso_admin = FactoryGirl.create(:cso_admin_user, :organization => @organization)
-        controller.stub(:current_user) { @cso_admin }
-        token = stub(:accessible? => true)
-        controller.stub(:doorkeeper_token) { token }
-        users = FactoryGirl.create_list(:user, 5)
-        get :names_for_ids, :user_ids => users.map(&:id).to_json, :format => :json
-        response.body.should include users.map {|user| {:id => user.id, :name => user.name} }.to_json
+      context "given user ids" do
+        before(:each) do
+          @organization = FactoryGirl.create(:organization)
+          @cso_admin = FactoryGirl.create(:cso_admin_user, :organization => @organization)
+          controller.stub(:current_user) { @cso_admin }
+          token = stub(:accessible? => true)
+          controller.stub(:doorkeeper_token) { token }
+      end
+
+        it "returns the names and ids of users" do
+          users = FactoryGirl.create_list(:user, 5)
+          get :names_for_ids, :user_ids => users.map(&:id).to_json, :format => :json
+          response.body.should include users.map {|user| {:id => user.id, :name => user.name} }.to_json
+        end
+
+        it "returns true if all the ids exist in the user model" do
+          users = FactoryGirl.create_list(:user, 5)
+          get :validate_users, :user_ids => users.map(&:id).to_json, :format => :json
+          response.body.should == "true"
+        end
+
+        it "returns false if one of the id doesn't exist in the user model" do
+          user = FactoryGirl.create(:user)
+          users = [1,2,3, user.id]
+          get :validate_users, :user_ids => users.to_json, :format => :json
+          response.body.should == "false"
+        end
       end
     end
   end
