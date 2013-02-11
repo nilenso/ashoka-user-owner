@@ -39,6 +39,10 @@ class Organization < ActiveRecord::Base
     where(:status => Status::ACTIVE)
   end
 
+  def self.valid_ids?(org_ids)
+    org_ids.all? { |org_id| exists?(org_id) }
+  end
+
   module Status
     ACTIVE   = "active"
     INACTIVE = "inactive"

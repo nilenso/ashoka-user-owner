@@ -79,4 +79,15 @@ describe Organization do
     Organization.active_organizations.should include org
     Organization.active_organizations.should_not include another_org
   end
+
+  it "returns true if organizations exists for given user_ids" do
+    organization = FactoryGirl.create(:organization)
+    another_organization = FactoryGirl.create(:organization)
+    Organization.valid_ids?([organization, another_organization]).should be_true
+  end
+
+  it "returns false if a organization doesn't exist for given user_ids" do
+    organization = FactoryGirl.create(:organization)
+    Organization.valid_ids?([organization, 3]).should be_false
+  end
 end
