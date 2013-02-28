@@ -63,10 +63,10 @@ describe Organization do
 
   context "when creating an organization" do
     it "creates an Organization and the cso admin for it" do\
-      org_params = {:name => "my_org"}
+      org_params = {:name => "my_org", :org_type => "CSO"}
       cso_admin_params = {:name => "cso_admin_user", :email => "xyz@abc.com", :password => "abc",
                      :password_confirmation => 'abc'}
-      organization = Organization.build(org_params[:name], cso_admin_params)
+      organization = Organization.build(org_params, cso_admin_params)
       organization.save
       organization.reload.name.should == "my_org"
       organization.cso_admin.name.should == "cso_admin_user"
@@ -89,5 +89,9 @@ describe Organization do
   it "returns false if a organization doesn't exist for given user_ids" do
     organization = FactoryGirl.create(:organization)
     Organization.valid_ids?([organization, 3]).should be_false
+  end
+
+  it "returns all the organization listed in the yml file" do
+    Organization.types.should =~ ['CSO', 'Financial Institution']
   end
 end

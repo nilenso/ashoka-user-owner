@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    @organization = Organization.build(params[:organization][:name],
+    @organization = Organization.build(params[:organization],
                                        params[:organization][:users])
 
     @organization.default_locale = I18n.locale.to_s

@@ -5,7 +5,9 @@
 
   <%= semantic_form_for @organization do |f| %>
     <%= f.inputs :name => t(".organization_info") do %>
-      <% f.input :name, :label => Organization.human_attribute_name(:name) %>
+      <%= f.input :name, :label => Organization.human_attribute_name(:name) %>
+      <%= f.input :org_type, :label => Organization.human_attribute_name(:org_type),
+        :as => :select, :collection => Organization.types %>
     <% end %>
 
     <%= f.semantic_fields_for :users do |user| %>

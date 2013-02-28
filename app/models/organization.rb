@@ -4,6 +4,7 @@ class Organization < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   validates_inclusion_of :default_locale, :in => I18n.available_locales.map(&:to_s)
+  validates_inclusion_of :org_type, :in => proc { Organization.types }
 
   def active?
     status == Organization::Status::ACTIVE
@@ -27,8 +28,14 @@ class Organization < ActiveRecord::Base
     users.find_by_role('cso_admin')
   end
 
-  def self.build(org_name, cso_admin_params)
-    organization = Organization.new(:name => org_name)
+  def self.types
+    organization = YAML.load_file("#{Rails.root}/config/organization_types.yml")
+    organization["types"].split(',').map(&:strip)
+  end
+
+  def self.build(org_params, cso_admin_params)
+    organization = Organization.new(:name => org_params[:name])
+    organization.org_type = org_params[:org_type]
     cso_admin = User.new(cso_admin_params)
     cso_admin.role = "cso_admin"
     organization.users <<  cso_admin
