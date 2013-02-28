@@ -6,17 +6,19 @@ module Api
       render_views
 
       it "returns all the info for the logged in user in JSON excluding password" do
-        user = FactoryGirl.create(:user)
+        organization = FactoryGirl.create(:organization, :org_type => "CSO")
+        user = FactoryGirl.create(:user, :organization => organization)
         token = stub(:accessible? => true)
         controller.stub(:current_user) { user }
         controller.stub(:doorkeeper_token) { token }
         get :me, :format => :json
-        response.body.should == user.to_json(:except => :password_digest)
+        response.body.should == user.to_json(:except => :password_digest,
+                                            :include => { :organization => { :only => :org_type }})
       end
 
       context "when asking for users of the organization " do
         before(:each) do
-          @organization = FactoryGirl.create(:organization)
+          @organization = FactoryGirl.create(:organization, :org_type => "CSO")
           @cso_admin = FactoryGirl.create(:cso_admin_user, :organization => @organization, :status => User::Status::ACCEPTED)
           @user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACCEPTED)
           @another_user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACCEPTED)
