@@ -7,11 +7,12 @@
     <div>
       <h2><%= t ".pending" %></h2>
       <ul>
-        <% @users.select{ |user| user.status == "pending"}.each do |user|%>
+        <% @users.where("status = 'pending'").each do |user|%>
           <li>
             <%= user.name %>
             <%= mail_to user.email %>
-          </li>
+            <%= link_to :edit, edit_organization_user_path(user.organization_id, user.id) %>
+            </li>
         <% end %>
       </ul>
     </div>
@@ -19,10 +20,11 @@
     <div>
       <h2><%= t ".accepted" %></h2>
       <ul>
-        <% @users.select{ |user| user.status == "accepted"}.each do |user|%>
+        <% @users.where("status = 'accepted'").each do |user|%>
           <li>
             <%= user.name %>
             <%= mail_to user.email %>
+            <%= link_to :edit, edit_organization_user_path(user.organization_id, user.id) %>
           </li>
         <% end %>
       </ul>
