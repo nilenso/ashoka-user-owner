@@ -31,7 +31,7 @@ describe User do
       user.should_not be_valid
     end
 
-    it "validtaes uniqueness of email with case insensitive" do
+    it "validates uniqueness of email with case insensitive" do
       user = FactoryGirl.create(:user, :email => "abc@test.com")
       another_user = FactoryGirl.build(:user)
       another_user.email = "Abc@test.com"
@@ -40,12 +40,14 @@ describe User do
   end
 
   context "logic" do
-    it "checks if user is an admin" do
-      user = FactoryGirl.build(:admin_user, :organization => FactoryGirl.create(:organization))
-      user.should_not be_admin
-      user.role = 'admin'
-      user.save
-      user.should be_admin
+    roles = User::ROLES
+
+    roles.each do |role|
+      it "checks if the user is a #{role}" do
+        user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization))
+        user.update_column :role, role
+        user.should send("be_#{role}")
+      end
     end
   end
 

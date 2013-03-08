@@ -10,10 +10,12 @@ class User < ActiveRecord::Base
   before_validation :default_values
   before_save :convert_email_to_lower_case
   scope :accepted_users, where(:status => 'accepted')
-  ROLES = %w(admin cso_admin field_agent)
+  ROLES = %w(viewer field_agent supervisor designer manager admin cso_admin super_admin)
 
-  def admin?
-    role == 'admin'
+  ROLES.each do |role|
+    define_method((role + "?").to_sym) do
+      self.role == role
+    end
   end
 
   def send_password_reset
