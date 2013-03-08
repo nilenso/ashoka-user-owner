@@ -66,6 +66,8 @@ fr:
     create:
       user_created_successfully: Nouvel utilisateur a été créé et vous recevrez un mail concernant le mot de passe
 
+    update:
+      user_updated: "Utilisateur mis à jour."
   password_resets:
     success: Mot de passe a été réinitialisé!
 

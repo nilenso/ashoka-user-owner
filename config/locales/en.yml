@@ -68,6 +68,8 @@ en:
     create:
       user_created_successfully: New User has been created and will receive a mail regarding the password
 
+    update:
+      user_updated: "Successfully updated user."
   password_resets:
     success: Password has been reset!
 

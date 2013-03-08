@@ -135,6 +135,13 @@ describe UsersController do
       assigns(:user).should == user
     end
 
+    it "assigns the organization" do
+      user = FactoryGirl.create(:user, :organization => @organization)
+      get :edit, :id => user.id, :organization_id => @organization.id
+      response.should be_ok
+      assigns(:organization).should == @organization
+    end
+
     it "renders the edit page" do
       user = FactoryGirl.create(:user, :organization => @organization)
       get :edit, :id => user.id, :organization_id => @organization.id
@@ -153,6 +160,7 @@ describe UsersController do
       user = FactoryGirl.create(:user, :organization => @organization, :role => "field_agent")
       put :update, :id => user.id, :organization_id => @organization.id, :user => {:role => "cso_admin"}
       response.should redirect_to organization_users_path :organization_id => @organization.id
+      flash[:notice].should_not be_nil
     end
 
     it "renders the :edit page if there's an error" do
