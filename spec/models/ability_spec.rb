@@ -44,7 +44,7 @@ describe "Abilities" do
       it { should be_able_to :names_for_ids, User }
 
       it { should be_able_to :read, user }
-      it { should_not be_able_to :read, User.new }
+      it { should_not be_able_to :manage, User.new }
     end
   end
 end
