@@ -70,6 +70,8 @@ en:
 
     update:
       user_updated: "Successfully updated user."
+    edit:
+      update_button: "Update User"
   password_resets:
     success: Password has been reset!
 

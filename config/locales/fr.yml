@@ -68,6 +68,8 @@ fr:
 
     update:
       user_updated: "Utilisateur mis à jour."
+    edit:
+      update_button: "Mettre à jour l'utilisateur"
   password_resets:
     success: Mot de passe a été réinitialisé!
 

@@ -1,0 +1,11 @@
+<%= semantic_form_for @user, :url => organization_user_path(@organization.id, @user.id) do |f| %>
+    <%= f.inputs do %>
+        <%= f.input :name %>
+        <%=  f.label :role %>
+        <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+    <% end %>
+
+    <%= f.actions do %>
+        <% f.action :submit, :label => t(".update_button"), :as => :button %>
+    <% end %>
+<% end %>
