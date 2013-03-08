@@ -11,7 +11,7 @@ UserService::Application.routes.draw do
     resources :sessions
     resources :password_resets
     resources :organizations do
-      resources :users, :only => [:create, :new, :index]
+      resources :users, :except => [:destroy]
       put 'activate', 'deactivate'
     end
 

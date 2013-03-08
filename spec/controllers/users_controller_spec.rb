@@ -126,4 +126,40 @@ describe UsersController do
       end
     end
   end
+
+  context "GET 'edit'" do
+    it "assigns the user" do
+      user = FactoryGirl.create(:user, :organization => @organization)
+      get :edit, :id => user.id, :organization_id => @organization.id
+      response.should be_ok
+      assigns(:user).should == user
+    end
+
+    it "renders the edit page" do
+      user = FactoryGirl.create(:user, :organization => @organization)
+      get :edit, :id => user.id, :organization_id => @organization.id
+      response.should render_template :edit
+    end
+  end
+
+  context "PUT 'update'" do
+    it "updates the user" do
+      user = FactoryGirl.create(:user, :organization => @organization, :role => "field_agent")
+      put :update, :id => user.id, :organization_id => @organization.id, :user => {:role => "cso_admin"}
+      user.reload.role.should == "cso_admin"
+    end
+
+    it "redirects to the users' index page on success" do
+      user = FactoryGirl.create(:user, :organization => @organization, :role => "field_agent")
+      put :update, :id => user.id, :organization_id => @organization.id, :user => {:role => "cso_admin"}
+      response.should redirect_to organization_users_path :organization_id => @organization.id
+    end
+
+    it "renders the :edit page if there's an error" do
+      user = FactoryGirl.create(:user, :organization => @organization, :role => "field_agent")
+      put :update, :id => user.id, :organization_id => @organization.id, :user => {:email => nil}
+      response.should render_template :edit
+      flash[:error].should_not be_nil
+    end
+  end
 end

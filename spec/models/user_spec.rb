@@ -6,6 +6,11 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should belong_to(:organization) }
+  it { should allow_mass_assignment_of(:role) }
+  it { should allow_mass_assignment_of(:email) }
+  it { should allow_mass_assignment_of(:name) }
+  it { should allow_mass_assignment_of(:password) }
+  it { should allow_mass_assignment_of(:password_confirmation) }
 
   context "validations" do
     subject { FactoryGirl.create(:admin_user, :organization => FactoryGirl.create(:organization)) }
