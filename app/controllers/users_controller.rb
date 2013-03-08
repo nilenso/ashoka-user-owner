@@ -30,11 +30,12 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by_id(params[:id])
+    @organization = @user.organization
     if @user.update_attributes(params[:user])
       flash[:notice] = t "users.update.user_updated"
       redirect_to organization_users_path, :organization_id => @user.organization_id
     else
-      flash[:error] = @user.errors
+      flash[:error] = @user.errors.full_messages
       render :edit
     end
   end
