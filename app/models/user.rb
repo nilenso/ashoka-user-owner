@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   before_validation :default_values
   before_save :convert_email_to_lower_case
   scope :accepted_users, where(:status => 'accepted')
-  ROLES = %w(viewer field_agent supervisor designer manager admin cso_admin super_admin)
+  ROLES = %w(viewer field_agent supervisor designer manager cso_admin admin)
 
   ROLES.each do |role|
     define_method((role + "?").to_sym) do
@@ -52,6 +52,14 @@ class User < ActiveRecord::Base
 
   def self.valid_ids?(user_ids)
     user_ids.all? { |user_id| exists?(user_id) }
+  end
+
+  def available_roles
+    if role == "admin"
+      ROLES
+    else
+      ROLES.reject { |role| role == 'admin' }
+    end
   end
 
   private

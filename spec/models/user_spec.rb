@@ -127,4 +127,16 @@ describe User do
     user = FactoryGirl.create(:user)
     User.valid_ids?([user, 3]).should be_false
   end
+
+  context "when fetching a list of available roles that a user is allowed to create" do
+    it "includes all roles for an admin user" do
+      user = FactoryGirl.create(:admin_user)
+      user.available_roles.should == User::ROLES
+    end
+
+    it "does not include 'admin' for other users" do
+      user = FactoryGirl.create(:cso_admin_user)
+      user.available_roles.should_not include "admin"
+    end
+  end
 end
