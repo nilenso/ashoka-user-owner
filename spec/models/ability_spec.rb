@@ -10,7 +10,7 @@ describe "Abilities" do
   end
 
   context "for Users" do
-
+    let(:organization) { FactoryGirl.create(:organization)}
 
     context "when is an admin" do
       let(:user) { FactoryGirl.create :admin_user  }
@@ -21,7 +21,6 @@ describe "Abilities" do
     end
 
     context "when is a cso_admin" do
-      let(:organization) { FactoryGirl.create(:organization)}
       let(:user) { FactoryGirl.create :cso_admin_user, :organization => organization  }
 
       it { should_not be_able_to :manage, Organization.new }
@@ -35,7 +34,6 @@ describe "Abilities" do
     end
 
     context "when is a user" do
-      let(:organization) { FactoryGirl.create(:organization)}
       let(:user) { FactoryGirl.create :user, :organization => organization  }
 
       it { should be_able_to :read, organization }
@@ -45,6 +43,15 @@ describe "Abilities" do
 
       it { should be_able_to :read, user }
       it { should_not be_able_to :manage, User.new }
+    end
+
+    %w(viewer field_agent supervisor designer manager).each do |role|
+      context "when is a #{role}" do
+        let(:user) { FactoryGirl.create("#{role}_user".to_sym)}
+
+        it { should_not be_able_to :manage, User }
+        it { should_not be_able_to :manage, Organization }
+      end
     end
   end
 end

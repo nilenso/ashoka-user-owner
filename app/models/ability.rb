@@ -4,15 +4,16 @@ class Ability
   def initialize(user)
     can :names_for_ids, User if user
     user ||= User.new
-    if user.role == 'admin'
+    case user.role
+    when 'admin'
       can :manage, Organization
-    elsif user.role == 'cso_admin'
+    when 'cso_admin'
       can :manage, User, :organization_id => user.organization_id
       can :read, Organization, :id => user.organization_id
-    elsif user.role == 'field_agent'
+    when 'field_agent'
       can :read, User, :id => user.id
       can :read, Organization, :id => user.organization_id
-    else
+    when nil
       can :create, Organization
     end
     can :me, User, :id => user.id

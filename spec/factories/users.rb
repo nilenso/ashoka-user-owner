@@ -8,12 +8,11 @@ FactoryGirl.define do
     password_confirmation "foo"
     before(:create) { |user| user.role = 'field_agent' }
 
-    factory :admin_user do
-      before(:create) { |user| user.role = 'admin' }
-    end
-
-    factory :cso_admin_user do
-      before(:create) { |user| user.role = 'cso_admin' }
+    User::ROLES.each do |role|
+      x = ("#{role}_user").to_sym
+      factory x do
+        before(:create) { |user| user.role = role }
+      end
     end
   end
 end
