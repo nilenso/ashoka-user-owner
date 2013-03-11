@@ -22,7 +22,6 @@ class OrganizationsController < ApplicationController
   end
 
   def index
-    @organizations = Organization.all
   end
 
   def activate
