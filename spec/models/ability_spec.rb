@@ -1,6 +1,6 @@
 require "cancan/matchers"
 
-describe "Abilities" do
+describe Ability do
   subject { ability }
   let(:ability){ Ability.new(user) }
 
@@ -47,10 +47,14 @@ describe "Abilities" do
 
     %w(viewer field_agent supervisor designer manager).each do |role|
       context "when is a #{role}" do
-        let(:user) { FactoryGirl.create("#{role}_user".to_sym)}
+        let(:user) { FactoryGirl.create("#{role}_user".to_sym, :organization_id => 5)}
+        let(:user_in_other_org) { FactoryGirl.create("#{role}_user".to_sym, :organization_id => 6)}
 
         it { should_not be_able_to :manage, User }
         it { should_not be_able_to :manage, Organization }
+
+        it { should be_able_to :read, user }
+        it { should_not be_able_to :read, user_in_other_org }
       end
     end
   end
