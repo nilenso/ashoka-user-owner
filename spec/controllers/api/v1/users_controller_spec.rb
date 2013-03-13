@@ -75,6 +75,13 @@ module Api
           get :validate_users, :user_ids => users.to_json, :format => :json
           response.body.should == "false"
         end
+
+        it "returns a bad response if not logged in" do
+          controller.stub(:current_user) { nil }
+          users = [1,2,3]
+          expect { get :validate_users, :user_ids => users.to_json, :format => :json }.
+              to raise_error(CanCan::AccessDenied)
+        end
       end
     end
   end

@@ -3,7 +3,7 @@ module Api
   module V1
     class UsersController < ActionController::Base
       doorkeeper_for :all
-      load_and_authorize_resource :user, :parent => false
+      load_and_authorize_resource :user, :parent => false, :except => :validate_users
       before_filter :active_users, :only => :index
       respond_to :json
 
@@ -25,6 +25,7 @@ module Api
       end
 
      def validate_users
+       authorize! :read, User
        user_ids = JSON.parse(params[:user_ids])
        respond_with User.valid_ids?(user_ids).to_json
      end
