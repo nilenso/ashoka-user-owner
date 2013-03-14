@@ -5,7 +5,7 @@ class Ability
     can :names_for_ids, User if user
     user ||= User.new
     case user.role
-    when 'admin'
+    when 'super_admin'
       can :manage, Organization
     when 'cso_admin'
       can :manage, User, :organization_id => user.organization_id

@@ -43,8 +43,8 @@ describe SessionsController do
           response.should redirect_to deactivated_path
         end
 
-        it "redirects to the root path if user is admin" do
-          user = FactoryGirl.create(:admin_user, :organization => FactoryGirl.create(:organization), :role => 'admin')
+        it "redirects to the root path if user is super_admin" do
+          user = FactoryGirl.create(:super_admin_user, :organization => FactoryGirl.create(:organization), :role => 'super_admin')
           post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to root_path
         end

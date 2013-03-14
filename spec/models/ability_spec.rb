@@ -12,8 +12,8 @@ describe Ability do
   context "for Users" do
     let(:organization) { FactoryGirl.create(:organization)}
 
-    context "when is an admin" do
-      let(:user) { FactoryGirl.create :admin_user  }
+    context "when is an super_admin" do
+      let(:user) { FactoryGirl.create :super_admin_user  }
 
       it { should be_able_to :names_for_ids, User }
       it { should be_able_to :manage, Organization.new }

@@ -53,10 +53,10 @@ Gems
 Users
 -----
 
-- Create an admin user for user-owner by running the following. This step is required.
+- Create an super_admin user for user-owner by running the following. This step is required.
 
 ```bash
-$ rake db:admin
+$ rake db:super_admin
 ```
 
 - You can generate a CSO Admin and a Field agent as well by running the following. This is optional.

@@ -18,7 +18,7 @@ Doorkeeper.configure do
     # to call them on routes object eg.
     # routes.new_admin_session_path
     (session[:user_id].present? &&
-    User.find_by_id(session[:user_id]).role == 'admin') ||
+    User.find_by_id(session[:user_id]).role == 'super_admin') ||
       redirect_to(routes.root_path)
   end
 

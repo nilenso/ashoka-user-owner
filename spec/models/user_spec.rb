@@ -13,7 +13,7 @@ describe User do
   it { should allow_mass_assignment_of(:password_confirmation) }
 
   context "validations" do
-    subject { FactoryGirl.create(:admin_user, :organization => FactoryGirl.create(:organization)) }
+    subject { FactoryGirl.create(:super_admin_user, :organization => FactoryGirl.create(:organization)) }
 
     it { should validate_presence_of(:email)}
     it { should validate_presence_of(:name)}
@@ -27,7 +27,7 @@ describe User do
     end
 
     it "doesn't allow an invalid role" do
-      user = FactoryGirl.build(:admin_user, :role => 'xyz')
+      user = FactoryGirl.build(:super_admin_user, :role => 'xyz')
       user.should_not be_valid
     end
 
@@ -129,14 +129,14 @@ describe User do
   end
 
   context "when fetching a list of available roles that a user is allowed to create" do
-    it "includes all roles for an admin user" do
-      user = FactoryGirl.create(:admin_user)
+    it "includes all roles for an super_admin user" do
+      user = FactoryGirl.create(:super_admin_user)
       user.available_roles.should == User::ROLES
     end
 
-    it "does not include 'admin' for other users" do
+    it "does not include 'super_admin' for other users" do
       user = FactoryGirl.create(:cso_admin_user)
-      user.available_roles.should_not include "admin"
+      user.available_roles.should_not include "super_admin"
     end
   end
 end

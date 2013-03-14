@@ -63,9 +63,9 @@ describe OrganizationsController do
       assigns(:organizations).should == [not_admin.organization]
     end
 
-    it "all organizations can be managed by the admin" do
-      admin = FactoryGirl.create(:admin_user, :role => "admin")
-      sign_in_as(admin)
+    it "all organizations can be managed by the super_admin" do
+      super_admin = FactoryGirl.create(:super_admin_user, :role => "super_admin")
+      sign_in_as(super_admin)
       get :index
       response.should be_ok
       assigns(:organizations).should == Organization.all
@@ -73,10 +73,10 @@ describe OrganizationsController do
   end
 
   context "PUT 'activate'" do
-    context "when admin is logged in" do
+    context "when super_admin is logged in" do
       before(:each) do
-        admin = FactoryGirl.create(:admin_user)
-        sign_in_as(admin)
+        super_admin = FactoryGirl.create(:super_admin_user)
+        sign_in_as(super_admin)
         ActionMailer::Base.deliveries.clear
       end
 
@@ -104,10 +104,10 @@ describe OrganizationsController do
   end
 
   context "PUT 'deactivate'" do
-    context "when admin is logged in" do
+    context "when super_admin is logged in" do
       before(:each) do
-        admin = FactoryGirl.create(:admin_user)
-        sign_in_as(admin)
+        super_admin = FactoryGirl.create(:super_admin_user)
+        sign_in_as(super_admin)
         ActionMailer::Base.deliveries.clear
       end
 

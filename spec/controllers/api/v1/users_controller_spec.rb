@@ -60,7 +60,7 @@ module Api
         it "returns the names and ids of users" do
           users = FactoryGirl.create_list(:user, 5)
           get :names_for_ids, :user_ids => users.map(&:id).to_json, :format => :json
-          response.body.should include users.map {|user| {:id => user.id, :name => user.name} }.to_json
+          JSON.parse(response.body).should =~ users.map {|user| {:id => user.id, :name => user.name} }.as_json
         end
 
         it "returns true if all the ids exist in the user model" do
