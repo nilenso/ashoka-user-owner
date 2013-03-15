@@ -24,6 +24,10 @@ class OrganizationsController < ApplicationController
   def index
   end
 
+  def show
+    @organization = Organization.find_by_id(params[:id])
+  end
+
   def activate
     organization = Organization.find(params[:organization_id])
     organization.activate

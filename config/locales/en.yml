@@ -64,6 +64,7 @@ en:
       inactive: Inactive
       deactivate_prompt_message: Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
       create_a_user: Create a User
+      view_organization: View Organization
 
   users:
     create:

@@ -132,4 +132,23 @@ describe OrganizationsController do
       end
     end
   end
+
+  context "GET 'show'" do
+    before(:each) do
+      admin = FactoryGirl.create(:admin_user)
+      sign_in_as(admin)
+    end
+    it "assigns the organization" do
+      organization = FactoryGirl.create(:organization)
+      get :show, :id => organization.id
+      response.should be_ok
+      assigns(:organization).should == organization
+    end
+
+    it "renders the show page" do
+      organization = FactoryGirl.create(:organization)
+      get :show, :id => organization.id
+      response.should render_template(:show)
+    end
+  end
 end
