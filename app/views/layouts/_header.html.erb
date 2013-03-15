@@ -5,7 +5,7 @@
       <li><%= link_to t("header.organizations"), organizations_path, :class=>'organization'  %></li>
       <li><%= link_to t("header.add_applications"), "/oauth/applications/new", :class => 'add' %></li>
     <% end %>
-    <% if can? :manage, User %>
+    <% if can? :manage, User  && current_user.organization %>
       <li><%= link_to t("header.create_a_user"), new_organization_user_path(current_user.organization_id), :class => 'add' %></li>
       <li><%= link_to t("header.list_users"), organization_users_path(current_user.organization_id), :class => 'users' %></li>
     <% end %>
