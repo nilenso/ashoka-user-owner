@@ -14,6 +14,15 @@ module Api
         org_ids = JSON.parse(params[:org_ids])
         respond_with Organization.valid_ids?(org_ids).to_json
       end
+
+      def show
+        organization = Organization.find_by_id(params[:id])
+        if(organization)
+          respond_with organization.to_json(:only => [:id, :name])
+        else
+          render :nothing => true, :status => :bad_request
+        end
+      end
     end
   end
 end

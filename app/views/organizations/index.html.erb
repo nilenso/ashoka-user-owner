@@ -19,7 +19,14 @@
             <%= hidden_field_tag t(".deactivate")%>
           <% end %>
 
-          <%= link_to t('.deactivate'), '#', :class =>'deactivate' if can? :deactivate, Organization %></div>
+          <%= link_to t('.deactivate'), '#', :class =>'deactivate' if can? :deactivate, Organization %>
+        </td>
+        <td>
+          <%= link_to t('.create_a_user'), new_organization_user_path(organization.id) if can? :manage, User %>
+        </td>
+        <td>
+          <%= link_to t('.view_organization'), organization_path(organization.id) %>
+        </td>
       </tr>
       <% end %></table>
 

@@ -61,6 +61,8 @@ fr:
       deactivate: In french- Deactivate
       inactive: In french- Inactive
       deactivate_prompt_message: In french- Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
+      create_a_user: Créer un utilisateur
+      view_organization: fr View Organization
 
   users:
     create:

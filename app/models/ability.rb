@@ -7,6 +7,7 @@ class Ability
     case user.role
     when 'super_admin'
       can :manage, Organization
+      can :manage, User
     when 'cso_admin'
       can :manage, User, :organization_id => user.organization_id
       can :read, Organization, :id => user.organization_id

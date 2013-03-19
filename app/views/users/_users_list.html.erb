@@ -1,0 +1,35 @@
+<div id="user_list">
+  <% unless users.empty? %>
+    <header>
+      <h2><%= t ".list_of_users" %></h2>
+    </header>
+
+    <div>
+      <h2><%= t ".pending" %></h2>
+      <ul>
+        <% users.where("status = 'pending'").each do |user|%>
+          <li>
+            <%= user.name %>
+            <%= mail_to user.email %>
+            <%= link_to :edit, edit_organization_user_path(user.organization_id, user.id) %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <h2><%= t ".accepted" %></h2>
+      <ul>
+        <% users.where("status = 'accepted'").each do |user|%>
+          <li>
+            <%= user.name %>
+            <%= mail_to user.email %>
+            <%= link_to :edit, edit_organization_user_path(user.organization_id, user.id) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <p><%= t(".no_users") %></p>
+  <% end %>
+</div>
