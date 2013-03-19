@@ -13,8 +13,7 @@
         <td>
           (<%= I18n.name_for_locale(organization.default_locale.to_sym) %>)</td>
         <td>
-          <%= form_tag organization_deactivate_path(organization.id), :method =>
-          :put do %>
+          <%= form_tag organization_deactivate_path(organization.id), :method => :put do %>
             <%= hidden_field_tag 'deactivate_message' %>
             <%= hidden_field_tag t(".deactivate")%>
           <% end %>
@@ -48,11 +47,11 @@
 
 <script type="text/javascript">
   $(function(){
-    $(".deactivate").click(function(){
+    $(".deactivate").click(function(e){
       var deactivate_message = <%= raw("prompt(\"") + t(".deactivate_prompt_message") + raw("\");")%>
       if(deactivate_message != null) {
         $("#deactivate_message").val(deactivate_message);
-        document.forms[0].submit();
+        $(e.target).prev('form').submit();
       }
     });
   });
