@@ -4,6 +4,7 @@
 <div>
   <div>
     <h2>Status - <%= @organization.status %></h2>
+    <h2>Type - <%= @organization.org_type %></h2>
     <h2>Default Locale - <%= I18n.name_for_locale(@organization.default_locale.to_sym) %></h2>
   </div>
 </div>
