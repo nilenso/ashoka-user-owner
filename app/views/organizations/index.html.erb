@@ -35,7 +35,7 @@
       <tr>
         <td><%= organization.name %></td>
         <td><%= button_to t('.activate'), organization_activate_path(organization.id), :method =>
-        :put, :confirm => t(:confirm) if can? :manage, @organization %></td>
+        :put, :confirm => t(:confirm) if can? :manage, organization %></td>
       </tr>
 
       <% end %></table>
