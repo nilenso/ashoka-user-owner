@@ -69,6 +69,8 @@ fr:
       user_created_successfully: Nouvel utilisateur a été créé et vous recevrez un mail concernant le mot de passe
     users_list:
       active: Actif
+      pending: En Attendant
+      inactive: Inactif
     update:
       user_updated: "Utilisateur mis à jour."
     edit:

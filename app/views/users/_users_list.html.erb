@@ -21,7 +21,7 @@
 
     <% if users.inactive_users.count > 0 %>
       <div>
-        <h2><span><%= t ".inactive" %></span></h2>
+        <h2><%= t ".inactive" %></h2>
         <table>
           <% users.inactive_users.each do |user|%>
             <tr>
