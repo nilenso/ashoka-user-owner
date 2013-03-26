@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :organization
   before_validation :default_values
   before_save :convert_email_to_lower_case
+  delegate :active?, :to => :organization, :prefix => true
 
   ROLES = %w(viewer field_agent supervisor designer manager cso_admin super_admin)
 
@@ -22,10 +23,18 @@ class User < ActiveRecord::Base
   scope :pending_users,  where(:status => Status::PENDING)
   scope :inactive_users, where(:status => Status::INACTIVE)
 
+  def self.maybe(user)
+    user || NullUser.new
+  end
+
   ROLES.each do |role|
     define_method((role + "?").to_sym) do
       self.role == role
     end
+  end
+
+  def active?
+    status == Status::ACTIVE
   end
 
   def send_password_reset
@@ -80,5 +89,17 @@ class User < ActiveRecord::Base
   def default_values
     self.role ||= "field_agent"
     self.status ||= User::Status::PENDING
+  end
+end
+
+class NullUser
+  %w(super_admin? active? organization_active?).each do |method|
+    define_method(method.to_sym) do
+      true
+    end
+  end
+
+  def authenticate(*args)
+    false
   end
 end

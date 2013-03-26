@@ -50,6 +50,13 @@ describe User do
         user.should send("be_#{role}")
       end
     end
+
+    it "checks if the user is active" do
+      user = FactoryGirl.create(:user, :status => User::Status::ACTIVE)
+      another_user = FactoryGirl.create(:user, :status => User::Status::INACTIVE)
+      user.should be_active
+      another_user.should_not be_active
+    end
   end
 
   context "password reset" do
@@ -152,6 +159,17 @@ describe User do
     it "does not include 'super_admin' for other users" do
       user = FactoryGirl.create(:cso_admin_user)
       user.available_roles.should_not include "super_admin"
+    end
+  end
+
+  context "#maybe" do
+    it "returns the user that was passed in if it exists" do
+      user = stub
+      User.maybe(user).should == user
+    end
+
+    it "returns a NullUser if the passed in user doesn't exist" do
+      User.maybe(nil).should be_a NullUser
     end
   end
 end

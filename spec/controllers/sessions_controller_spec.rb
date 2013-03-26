@@ -23,7 +23,7 @@ describe SessionsController do
 
   context "POST 'create'" do
     context "user exists" do
-      let(:user) { FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => Organization::Status::ACTIVE)) }
+      let(:user) { FactoryGirl.create(:user, :status => User::Status::ACTIVE, :organization => FactoryGirl.create(:organization, :status => Organization::Status::ACTIVE)) }
       context "email/password combination is correct" do
         it "logs in the user" do
           post :create, :user => { :email => user.email, :password => user.password}
@@ -41,6 +41,13 @@ describe SessionsController do
           user = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE))
           post :create, :user => { :email => user.email, :password => user.password }
           response.should redirect_to deactivated_path
+        end
+
+        it "doesn't allow the user to log in if he is not active" do
+          user = FactoryGirl.create(:user, :status => User::Status::INACTIVE, :organization => FactoryGirl.create(:organization))
+          post :create, :user => { :email => user.email, :password => user.password }
+          response.should redirect_to root_path
+          flash[:error].should_not be_empty
         end
 
         it "redirects to the root path if user is super_admin" do
