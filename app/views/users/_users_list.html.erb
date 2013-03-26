@@ -38,14 +38,16 @@
 
     <% if users.active_users.count > 0 %>
       <div>
-      <h2><span><%= t ".active" %></span></h2>
+      <h2><%= t ".active" %></h2>
       <ul>
         <% users.active_users.each do |user|%>
           <li>
             <%= user.name %>
             <%= mail_to user.email %>            
 
-            <%= link_to :deactivate, organization_user_path(user.organization_id, user.id, :user => { :status => User::Status::INACTIVE }), :method => 'PUT' %>
+            <% unless user == current_user %>
+              <%= link_to :deactivate, organization_user_path(user.organization_id, user.id, :user => { :status => User::Status::INACTIVE }), :method => 'PUT' %>
+            <% end %>
             <%= link_to :edit, edit_organization_user_path(user.organization_id, user.id) %>
           </li>
         <% end %>
