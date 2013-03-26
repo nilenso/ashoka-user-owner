@@ -71,6 +71,15 @@ describe Organization do
       organization.reload.name.should == "my_org"
       organization.cso_admin.name.should == "cso_admin_user"
     end
+
+    it "creates an active cso_admin" do
+      org_params = {:name => "my_org", :org_type => "CSO"}
+      cso_admin_params = {:name => "cso_admin_user", :email => "xyz@abc.com", :password => "abc",
+                     :password_confirmation => 'abc'}
+      organization = Organization.build(org_params, cso_admin_params)
+      organization.save
+      organization.cso_admin.status.should == 'active'
+    end
   end
 
   it "returns a list of active organizations" do

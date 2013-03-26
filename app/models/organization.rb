@@ -38,6 +38,7 @@ class Organization < ActiveRecord::Base
     organization.org_type = org_params[:org_type]
     cso_admin = User.new(cso_admin_params)
     cso_admin.role = "cso_admin"
+    cso_admin.status = User::Status::ACTIVE
     organization.users <<  cso_admin
     organization
   end
