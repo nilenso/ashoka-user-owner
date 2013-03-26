@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :role
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :status
   has_secure_password
   validates_presence_of :email, :name
   validates_presence_of :password, :password_confirmation, :on => :create
@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   before_validation :default_values
   before_save :convert_email_to_lower_case
   scope :active_users, where(:status => 'active')
+  scope :inactive_users, where(:status => 'inactive')
   ROLES = %w(viewer field_agent supervisor designer manager cso_admin super_admin)
 
   ROLES.each do |role|
@@ -48,6 +49,7 @@ class User < ActiveRecord::Base
   module Status
     ACTIVE = "active"
     PENDING = "pending"
+    INACTIVE = "inactive"
   end
 
   def self.valid_ids?(user_ids)

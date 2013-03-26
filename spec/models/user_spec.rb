@@ -11,6 +11,7 @@ describe User do
   it { should allow_mass_assignment_of(:name) }
   it { should allow_mass_assignment_of(:password) }
   it { should allow_mass_assignment_of(:password_confirmation) }
+  it { should allow_mass_assignment_of(:status) }
 
   context "validations" do
     subject { FactoryGirl.create(:super_admin_user, :organization => FactoryGirl.create(:organization)) }
@@ -115,6 +116,13 @@ describe User do
     FactoryGirl.create(:user, :status => User::Status::PENDING)
     user = FactoryGirl.create(:user, :status => User::Status::ACTIVE)
     User.active_users.should include(user)
+  end
+
+  it "returns only the inactive users" do
+    FactoryGirl.create(:user, :status => User::Status::PENDING)
+    FactoryGirl.create(:user, :status => User::Status::ACTIVE)
+    user = FactoryGirl.create(:user, :status => User::Status::INACTIVE)
+    User.inactive_users.should == [user]
   end
 
   it "returns true if users exists for given user_ids" do
