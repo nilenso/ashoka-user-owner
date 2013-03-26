@@ -33,7 +33,7 @@ module Api
       private
 
       def active_users
-        @users = @users.accepted_users
+        @users = @users.active_users
       end
 
       def current_user

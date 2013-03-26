@@ -85,12 +85,12 @@ describe User do
       user.authenticate("xyz").should be_false
     end
 
-    it "changes the status from pending  to accepted if the password is reset" do
+    it "changes the status from pending  to active if the password is reset" do
       user = FactoryGirl.create(:user, :status => User::Status::PENDING, :organization => org)
       user.generate_password_reset_token
       user.status.should == User::Status::PENDING
       user.reset_password("xyz","xyz")
-      user.status.should == User::Status::ACCEPTED
+      user.status.should == User::Status::ACTIVE
     end
   end
 
@@ -111,10 +111,10 @@ describe User do
     user.reload.email.should == "abc@test.com"
   end
 
-  it "returns only the accepted users" do
+  it "returns only the active users" do
     FactoryGirl.create(:user, :status => User::Status::PENDING)
-    user = FactoryGirl.create(:user, :status => User::Status::ACCEPTED)
-    User.accepted_users.should include(user)
+    user = FactoryGirl.create(:user, :status => User::Status::ACTIVE)
+    User.active_users.should include(user)
   end
 
   it "returns true if users exists for given user_ids" do

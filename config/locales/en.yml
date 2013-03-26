@@ -69,7 +69,8 @@ en:
   users:
     create:
       user_created_successfully: New User has been created and will receive a mail regarding the password
-
+    users_list:
+      active: Active
     update:
       user_updated: "Successfully updated user."
     edit:

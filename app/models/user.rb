@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :organization
   before_validation :default_values
   before_save :convert_email_to_lower_case
-  scope :accepted_users, where(:status => 'accepted')
+  scope :active_users, where(:status => 'active')
   ROLES = %w(viewer field_agent supervisor designer manager cso_admin super_admin)
 
   ROLES.each do |role|
@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     self.password = password
     self.password_confirmation = password_confirmation
     self.password_reset_token = nil
-    self.status = Status::ACCEPTED
+    self.status = Status::ACTIVE
     save
   end
 
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   module Status
-    ACCEPTED = "accepted"
+    ACTIVE = "active"
     PENDING = "pending"
   end
 
