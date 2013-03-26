@@ -9,9 +9,18 @@ class User < ActiveRecord::Base
   belongs_to :organization
   before_validation :default_values
   before_save :convert_email_to_lower_case
-  scope :active_users, where(:status => 'active')
-  scope :inactive_users, where(:status => 'inactive')
+
   ROLES = %w(viewer field_agent supervisor designer manager cso_admin super_admin)
+
+  module Status
+    ACTIVE = "active"
+    PENDING = "pending"
+    INACTIVE = "inactive"
+  end
+
+  scope :active_users,   where(:status => Status::ACTIVE)
+  scope :pending_users,  where(:status => Status::PENDING)
+  scope :inactive_users, where(:status => Status::INACTIVE)
 
   ROLES.each do |role|
     define_method((role + "?").to_sym) do
@@ -44,12 +53,6 @@ class User < ActiveRecord::Base
     token = SecureRandom.urlsafe_base64
     self.password = token
     self.password_confirmation = token
-  end
-
-  module Status
-    ACTIVE = "active"
-    PENDING = "pending"
-    INACTIVE = "inactive"
   end
 
   def self.valid_ids?(user_ids)

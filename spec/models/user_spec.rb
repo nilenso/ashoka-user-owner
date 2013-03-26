@@ -125,6 +125,13 @@ describe User do
     User.inactive_users.should == [user]
   end
 
+  it "returns only the pending users" do
+    user = FactoryGirl.create(:user, :status => User::Status::PENDING)
+    FactoryGirl.create(:user, :status => User::Status::ACTIVE)
+    FactoryGirl.create(:user, :status => User::Status::INACTIVE)
+    User.pending_users.should == [user]
+  end
+
   it "returns true if users exists for given user_ids" do
     user = FactoryGirl.create(:user)
     another_user = FactoryGirl.create(:user)
