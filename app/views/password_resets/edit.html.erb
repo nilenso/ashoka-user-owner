@@ -1,7 +1,11 @@
 <div id="register">
   <%= semantic_form_for @user, :url => password_reset_path(params[:id]) do |f| %>
-    <%= f.input :password %>
-    <%= f.input :password_confirmation %>
+    <fieldset>
+      <ol>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+      </ol>
+    </fieldset>
     <%= f.actions do %>
       <% f.action :submit, :label => "Change Password", :as => :button %>
     <% end %>
