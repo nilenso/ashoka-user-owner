@@ -2,7 +2,7 @@
     <%= f.inputs do %>
         <%= f.input :name %>
         <%=  f.label :role %>
-        <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+        <%= f.collection_select :role, current_user.available_roles, :to_s, :humanize %>
     <% end %>
 
     <%= f.actions do %>
