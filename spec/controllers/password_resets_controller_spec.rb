@@ -11,7 +11,7 @@ describe PasswordResetsController do
   end
 
   context "POST 'create'" do
-    context "when save is successful" do
+    context "when user exists" do
       it "creates the password with the new one" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:user, :password_reset_token => nil, :organization => org)
@@ -30,9 +30,18 @@ describe PasswordResetsController do
         email = ActionMailer::Base.deliveries.first
         email.to.should include(user.email)
       end
+
+      it "renders the reset password page with error if user is inactive" do
+        org = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :password_reset_token => nil,
+                                  :organization => org, :status => User::Status::INACTIVE)
+        post :create, :email => user.email
+        response.should redirect_to new_password_reset_path
+        flash[:error].should_not be_nil
+      end
     end
 
-    context "when save unsuccessful" do
+    context "when user doesn't exist" do
       it "renders the reset password page again" do
         post :create, :email => "xyz@abc.com"
         response.should redirect_to new_password_reset_path

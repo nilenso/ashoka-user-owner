@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     status == Status::ACTIVE
   end
 
+  def inactive?
+    status == Status::INACTIVE
+  end
+
   def send_password_reset
     generate_password_reset_token
     UserMailer.password_reset_mail(self).deliver
