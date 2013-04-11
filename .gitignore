@@ -29,3 +29,6 @@ pickle-email-*.html
 /config/database.yml
 bin/
 .rvmrc
+zeus.json
+custom_plan.rb
+a.log
