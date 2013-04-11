@@ -11,6 +11,7 @@ namespace :db do
 
     user = User.new(:name => username, :password => password, :password_confirmation => password_confirm, :email => email)
     user.role = 'super_admin'
+    user.status = 'active'
     
     if user.save
       puts "Admin user created."
