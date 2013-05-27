@@ -32,8 +32,9 @@ describe UsersController do
       response.should be_ok
       response.should render_template :index
     end
+
     it "lists all the users of the given organization" do
-      user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACTIVE)
+      user = FactoryGirl.create(:user, :organization => @organization, :status => User::Status::ACTIVE)
       get :index, :organization_id => @organization
       response.should be_ok
       assigns(:users).should == @organization.users
@@ -43,7 +44,6 @@ describe UsersController do
   context "POST 'create'" do
 
     it  "assigns an instance variable for the user" do
-
       user = FactoryGirl.attributes_for(:user)
       post :create, :organization_id => @organization.id, :user => user
       assigns(:user).should be_a(User)
@@ -51,7 +51,6 @@ describe UsersController do
 
     context "when save is successful" do
       it "creates a new user" do
-
         user = FactoryGirl.attributes_for(:user)
         expect do
           post :create, :organization_id => @organization.id, :user => user

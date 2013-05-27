@@ -6,13 +6,38 @@ FactoryGirl.define do
     sequence(:email){ |n| "xyz#{n}@aa.com"}
     password "foo"
     password_confirmation "foo"
-    before(:create) { |user| user.role = 'field_agent' }
+    role 'field_agent'
 
-    User::ROLES.each do |role|
-      x = ("#{role}_user").to_sym
-      factory x do
-        before(:create) { |user| user.role = role }
-      end
+    trait :active do
+      status User::Status::ACTIVE
+    end
+
+    factory :viewer_user do
+      role 'viewer'
+    end
+
+    factory :field_agent_user do
+      role 'field_agent'
+    end
+
+    factory :supervisor_user do
+      role 'supervisor'
+    end
+
+    factory :designer_user do
+      role 'designer'
+    end
+
+    factory :manager_user do
+      role 'manager'
+    end
+
+    factory :cso_admin_user do
+      role 'cso_admin'
+    end
+
+    factory :super_admin_user do
+      role 'super_admin'
     end
   end
 end

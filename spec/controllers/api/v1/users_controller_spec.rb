@@ -3,8 +3,6 @@ require 'spec_helper'
 module Api
   module V1
     describe UsersController do
-      render_views
-
       it "returns all the info for the logged in user in JSON excluding password" do
         organization = FactoryGirl.create(:organization, :org_type => "CSO")
         user = FactoryGirl.create(:user, :organization => organization)
@@ -13,15 +11,15 @@ module Api
         controller.stub(:doorkeeper_token) { token }
         get :me, :format => :json
         response.body.should == user.to_json(:except => :password_digest,
-                                            :include => { :organization => { :only => :org_type }})
+                                             :include => { :organization => { :only => :org_type }})
       end
 
       context "when asking for users of the organization " do
         before(:each) do
           @organization = FactoryGirl.create(:organization, :org_type => "CSO")
           @cso_admin = FactoryGirl.create(:cso_admin_user, :organization => @organization, :status => User::Status::ACTIVE)
-          @user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACTIVE)
-          @another_user = FactoryGirl.create(:user, :organization => @organization, :role => 'user', :status => User::Status::ACTIVE)
+          @user = FactoryGirl.create(:user, :organization => @organization, :status => User::Status::ACTIVE)
+          @another_user = FactoryGirl.create(:user, :organization => @organization, :status => User::Status::ACTIVE)
           token = stub(:accessible? => true)
           controller.stub(:doorkeeper_token) { token }
         end
@@ -31,6 +29,19 @@ module Api
           get :index, :organization_id => @organization.id, :format => :json
           response.body.should include @user.to_json(:only => [:id, :name, :role])
           response.body.should include @cso_admin.to_json(:only => [:id, :name, :role])
+        end
+
+        it "returns user information only for the requested organization when logged in as a super admin" do
+          super_admin = FactoryGirl.create(:super_admin_user)
+          controller.stub(:current_user) { super_admin }
+          organization_1 = FactoryGirl.create(:organization)
+          organization_2 = FactoryGirl.create(:organization)
+          user_1 = FactoryGirl.create(:user, :active, :organization => organization_1)
+          user_2 = FactoryGirl.create(:user, :active, :organization => organization_1)
+          user_3 = FactoryGirl.create(:user, :active, :organization => organization_2)
+          get :index, :organization_id => organization_1.id, :format => :json
+          response_hash = JSON.parse(response.body)
+          response_hash.map {|u| u["id"] }.should =~ [user_1.id, user_2.id]
         end
 
         it "for a normal user returns only his information" do
@@ -55,7 +66,7 @@ module Api
           controller.stub(:current_user) { @cso_admin }
           token = stub(:accessible? => true)
           controller.stub(:doorkeeper_token) { token }
-      end
+        end
 
         it "returns the names and ids of users" do
           users = FactoryGirl.create_list(:user, 5)
@@ -80,7 +91,7 @@ module Api
           controller.stub(:current_user) { nil }
           users = [1,2,3]
           expect { get :validate_users, :user_ids => users.to_json, :format => :json }.
-              to raise_error(CanCan::AccessDenied)
+            to raise_error(CanCan::AccessDenied)
         end
       end
     end
