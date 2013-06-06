@@ -11,7 +11,7 @@ module Api
         controller.stub(:doorkeeper_token) { token }
         get :me, :format => :json
         response.body.should == user.to_json(:except => :password_digest,
-                                             :include => { :organization => { :only => :org_type }})
+                                             :include => { :organization => { :only => [:org_type, :name] }})
       end
 
       context "when asking for users of the organization " do
