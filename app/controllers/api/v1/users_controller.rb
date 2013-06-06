@@ -8,7 +8,7 @@ module Api
 
       def me
         respond_with current_user.to_json(:except => :password_digest,
-                                          :include => { :organization => { :only => :org_type }})
+                                          :include => { :organization => { :only => [:org_type, :name] }})
       end
 
       def index
