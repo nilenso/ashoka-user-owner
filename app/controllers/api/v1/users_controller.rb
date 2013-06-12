@@ -17,7 +17,7 @@ module Api
         users = organization.users.active_users
         user_ids = params[:user_ids]
         users = users.where(:id => user_ids) if user_ids
-        respond_with users.to_json(:only => [:id, :name, :role])
+        respond_with users.to_json(:only => [:id, :name, :role, :email])
       end
 
       def names_for_ids
