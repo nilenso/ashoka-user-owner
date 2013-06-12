@@ -47,15 +47,17 @@ module Api
         it "for a normal user returns only his information" do
           controller.stub(:current_user) { @user }
           get :index, :organization_id => @organization.id, :format => :json
-          response.body.should include @user.to_json(:only => [:id, :name, :role, :email])
+          parsed_users = JSON.parse(response.body)
+          parsed_users.map { |user| user['id'] }.should include @user.id
           JSON.parse(response.body).length.should == @organization.users.size
         end
 
         it "returns names and ids for specific users of an organization if their user_ids are given" do
           controller.stub(:current_user) { @cso_admin }
           get :index, :organization_id => @organization.id, :user_ids => [@another_user.id.to_s], :format => :json
-          response.body.should include @another_user.to_json(:only => [:id, :name, :role, :email])
-          response.body.should_not include @user.to_json(:only => [:id, :name, :role, :email])
+          parsed_users = JSON.parse(response.body)
+          parsed_users.map { |user| user['id'] }.should include @another_user.id
+          parsed_users.map { |user| user['id'] }.should_not include @user.id
         end
       end
 
