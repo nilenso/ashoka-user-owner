@@ -1,4 +1,6 @@
 class Organization < ActiveRecord::Base
+  include SoftDeletable
+
   attr_accessible :name
   has_many :users
   validates_presence_of :name

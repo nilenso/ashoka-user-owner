@@ -45,6 +45,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 3.5.0'
   gem 'shoulda-matchers', '~> 1.2.0'
   gem 'email_spec', '~> 1.2.1'
+  gem 'timecop', '~> 0.6.1'
 end
 
 # To use ActiveModel has_secure_password

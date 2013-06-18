@@ -103,4 +103,8 @@ describe Organization do
   it "returns all the organization listed in the yml file" do
     Organization.types.should =~ ['CSO', 'Financial Institution']
   end
+
+  it_behaves_like "a soft-deletable element" do
+    let(:element) { FactoryGirl.create(:organization) }
+  end
 end

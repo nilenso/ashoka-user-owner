@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include SoftDeletable
+
   attr_accessible :email, :name, :password, :password_confirmation, :role, :status
   has_secure_password
   validates_presence_of :email, :name
