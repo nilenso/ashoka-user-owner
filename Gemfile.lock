@@ -56,6 +56,11 @@ GEM
     connection_pool (0.9.2)
     daemons (1.1.9)
     dalli (2.3.0)
+    delayed_job (3.0.5)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.3.3)
+      activerecord (>= 2.1.0, < 4)
+      delayed_job (~> 3.0)
     diff-lcs (1.1.3)
     doorkeeper (0.4.2)
       railties (~> 3.1)
@@ -208,36 +213,37 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
+  airbrake (~> 3.1.6)
   bcrypt-ruby (~> 3.0.0)
-  cancan
+  cancan (~> 1.6.8)
   coffee-rails (~> 3.2.1)
   compass-normalize (~> 1.1.2)
-  compass-rails
-  dalli
-  doorkeeper
-  email_spec
-  factory_girl_rails
-  feature
+  compass-rails (~> 1.0.3)
+  dalli (~> 2.3.0)
+  delayed_job_active_record
+  doorkeeper (~> 0.4.2)
+  email_spec (~> 1.2.1)
+  factory_girl_rails (~> 3.5.0)
+  feature (~> 0.5.0)
   formalize-rails (~> 0.1.3)
-  formtastic
-  growl
-  guard-livereload
-  guard-rspec
-  guard-spork
-  highline
-  jquery-rails
-  newrelic_rpm
-  pg
-  pry-rails
+  formtastic (~> 2.2.1)
+  growl (~> 1.0.3)
+  guard-livereload (~> 1.0.0)
+  guard-rspec (~> 1.2.1)
+  guard-spork (~> 1.1.0)
+  highline (~> 1.6.14)
+  jquery-rails (~> 2.1.1)
+  newrelic_rpm (~> 3.5.4.34)
+  pg (~> 0.14.0)
+  pry-rails (~> 0.2.1)
   rails (= 3.2.11)
-  rails-i18n
-  rspec-http
-  rspec-rails
+  rails-i18n (~> 0.6.5)
+  rspec-http (~> 0.10.0)
+  rspec-rails (~> 2.11.0)
   sass-rails (~> 3.2.3)
-  shoulda-matchers
-  susy
-  thin
-  turbolinks
+  shoulda-matchers (~> 1.2.0)
+  susy (~> 1.0)
+  thin (~> 1.4.1)
+  turbolinks (~> 0.5.1)
   uglifier (>= 1.0.3)
-  validates_email_format_of
+  validates_email_format_of (~> 1.5.3)
