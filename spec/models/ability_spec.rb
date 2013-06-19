@@ -25,6 +25,7 @@ describe Ability do
 
       it { should_not be_able_to :manage, Organization.new }
       it { should be_able_to :read, organization }
+      it { should be_able_to :destroy, organization }
 
       it { should be_able_to :names_for_ids, User }
 

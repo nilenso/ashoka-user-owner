@@ -12,4 +12,8 @@ module SoftDeletable
     self.deleted_at = Date.today
     self.save
   end
+
+  def soft_deleted?
+    self.deleted_at?
+  end
 end

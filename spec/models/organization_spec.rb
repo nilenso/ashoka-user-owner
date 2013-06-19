@@ -63,9 +63,9 @@ describe Organization do
 
   context "when creating an organization" do
     it "creates an Organization and the cso admin for it" do\
-      org_params = {:name => "my_org", :org_type => "CSO"}
+        org_params = {:name => "my_org", :org_type => "CSO"}
       cso_admin_params = {:name => "cso_admin_user", :email => "xyz@abc.com", :password => "abc",
-                     :password_confirmation => 'abc'}
+                          :password_confirmation => 'abc'}
       organization = Organization.build(org_params, cso_admin_params)
       organization.save
       organization.reload.name.should == "my_org"
@@ -75,7 +75,7 @@ describe Organization do
     it "creates an active cso_admin" do
       org_params = {:name => "my_org", :org_type => "CSO"}
       cso_admin_params = {:name => "cso_admin_user", :email => "xyz@abc.com", :password => "abc",
-                     :password_confirmation => 'abc'}
+                          :password_confirmation => 'abc'}
       organization = Organization.build(org_params, cso_admin_params)
       organization.save
       organization.cso_admin.status.should == 'active'
@@ -104,7 +104,20 @@ describe Organization do
     Organization.types.should =~ ['CSO', 'Financial Institution']
   end
 
-  it_behaves_like "a soft-deletable element" do
-    let(:element) { FactoryGirl.create(:organization) }
+  context "when soft deleting self and associated" do
+    it "soft-deletes the organization" do
+      organization = FactoryGirl.create(:organization)
+      organization.soft_delete_self_and_associated
+      organization.reload.should be_soft_deleted
+    end
+
+    it "soft-deletes the organization's users" do
+      organization = FactoryGirl.create(:organization)
+      user = FactoryGirl.create(:user, :organization => organization)
+      organization.soft_delete_self_and_associated
+      user.reload.should be_soft_deleted
+    end
   end
+
+  it_behaves_like "a soft-deletable element"
 end

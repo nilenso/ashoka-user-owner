@@ -151,4 +151,37 @@ describe OrganizationsController do
       response.should render_template(:show)
     end
   end
+
+  context "DELETE 'destroy'" do
+    before(:each) do
+      admin = FactoryGirl.create(:super_admin_user)
+      sign_in_as(admin)
+    end
+
+    it "soft-deletes the organization" do
+      organization = FactoryGirl.create(:organization)
+      delete :destroy, :id => organization.id
+      organization.reload.should be_soft_deleted
+    end
+
+    it "soft-deletes the organization's users" do
+      organization = FactoryGirl.create(:organization)
+      user = FactoryGirl.create(:user, :organization => organization)
+      delete :destroy, :id => organization.id
+      user.reload.should be_soft_deleted
+    end
+
+    it "logs the user out" do
+      organization = FactoryGirl.create(:organization)
+      delete :destroy, :id => organization.id
+      controller.current_user.should be_nil
+    end
+
+    it "redirects to the root page" do
+      organization = FactoryGirl.create(:organization)
+      delete :destroy, :id => organization.id
+      response.should redirect_to root_path
+      flash[:notice].should be_present
+    end
+  end
 end

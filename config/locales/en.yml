@@ -19,6 +19,8 @@ en:
     register: Register
     list_users: Users
     welcome: "Hi, %{username}!"
+    delete_organization: Delete Organization
+    confirm_delete_organization: Are you sure you want to delete your organization?
 
   static_pages:
     home:
@@ -66,6 +68,9 @@ en:
       deactivate_prompt_message: Include a personal message to the administrator of this organization here. Press cancel to reject without a message.
       create_a_user: Create a User
       view_organization: View Organization
+
+    destroy:
+      organization_to_be_deleted: Your organization has been deleted. Your survey/response data will be deleted within a week.
 
   users:
     create:

@@ -43,4 +43,13 @@ class OrganizationsController < ApplicationController
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end
+
+  def destroy
+    organization = Organization.find(params[:id])
+    organization.users.each(&:soft_delete)
+    organization.soft_delete
+    reset_session
+    flash[:notice] = I18n.t("organizations.destroy.organization_to_be_deleted")
+    redirect_to root_path
+  end
 end

@@ -58,4 +58,8 @@ class Organization < ActiveRecord::Base
     INACTIVE = "inactive"
   end
 
+  def soft_delete_self_and_associated
+    users.each(&:soft_delete)
+    self.soft_delete
+  end
 end

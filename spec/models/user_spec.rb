@@ -173,7 +173,5 @@ describe User do
     end
   end
 
-  it_behaves_like "a soft-deletable element" do
-    let(:element) { FactoryGirl.create(:user) }
-  end
+  it_behaves_like "a soft-deletable element"
 end
