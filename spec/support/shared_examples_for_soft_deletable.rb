@@ -13,6 +13,10 @@ shared_examples "a soft-deletable element" do
   end
 
   context "scopes" do
+    it "finds all the elements that are soft-deleted" do
+      described_class.unscoped.deleted.should == [deleted_element]
+    end
+
     it "finds all the elements that are not soft-deleted" do
       described_class.not_deleted.should == [element]
     end

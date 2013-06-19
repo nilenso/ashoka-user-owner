@@ -27,6 +27,7 @@ UserService::Application.routes.draw do
       resources :organizations, :shallow => true, :only => [:index, :show] do
         resources :users, :shallow => true, :only => [:index]
       end
+      resources :deleted_organizations, :shallow => true, :only => :index
     end
   end
 end

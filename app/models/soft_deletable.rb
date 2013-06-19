@@ -4,6 +4,7 @@ module SoftDeletable
   extend ActiveSupport::Concern
 
   included do
+    scope :deleted, where('deleted_at IS NOT NULL')
     scope :not_deleted, where('deleted_at IS NULL')
     default_scope where('deleted_at IS NULL')
   end
