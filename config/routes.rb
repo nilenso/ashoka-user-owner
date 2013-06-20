@@ -15,7 +15,7 @@ UserService::Application.routes.draw do
       put 'activate', 'deactivate'
     end
 
-    resources :documents, :only => [:new, :create]
+    resources :documents, :only => [:new, :create, :index]
 
     root :to => 'sessions#new'
   end

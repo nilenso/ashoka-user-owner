@@ -3,4 +3,8 @@ class TermsOfService < ActiveRecord::Base
 
   attr_accessible :document
   mount_uploader :document, DocumentUploader
+
+  def self.latest
+    order("created_at DESC").first
+  end
 end

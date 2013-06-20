@@ -17,11 +17,11 @@ describe DocumentsController do
         expect { post :create, :terms_of_service => { :document => tos_file }}.to change { TermsOfService.count }.by(1)
       end
 
-      it "redirects to the root page" do
+      it "redirects to the index page" do
         tos_file = fixture_file_upload('/documents/placeholder.pdf')
         post :create, :terms_of_service => { :document => tos_file }
         flash[:notice].should be_present
-        response.should redirect_to(root_path)
+        response.should redirect_to(documents_path)
       end
     end
 
@@ -40,6 +40,15 @@ describe DocumentsController do
         post :create, :terms_of_service => { :document => nil }
         assigns(:terms_of_service).should be_a TermsOfService
       end
+    end
+  end
+
+  context "GET 'index'" do
+    it "assigns the newest terms of service document" do
+      new_terms_of_service = Timecop.freeze(2.days.ago) { FactoryGirl.create(:terms_of_service) }
+      old_terms_of_service = Timecop.freeze(10.days.ago) { FactoryGirl.create(:terms_of_service) }
+      get :index
+      assigns(:terms_of_service).should == new_terms_of_service
     end
   end
 end
