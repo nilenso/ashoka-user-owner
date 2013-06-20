@@ -32,3 +32,6 @@ bin/
 zeus.json
 custom_plan.rb
 a.log
+
+# Ignore application configuration
+/config/application.yml

@@ -20,6 +20,8 @@ gem 'thin', '~> 1.4.1'
 gem 'feature', '~> 0.5.0'
 gem 'newrelic_rpm', '~> 3.5.4.34'
 gem 'delayed_job_active_record', '~> 0.3.3'
+gem 'carrierwave', '~> 0.7.1'
+gem 'fog', '~> 1.8.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -36,6 +38,8 @@ end
 gem 'jquery-rails', '~> 2.1.1'
 
 group :development, :test do
+  gem 'heroku', '~> 2.28.12'
+  gem 'figaro', '~> 0.4.1'
   gem 'rspec-rails', '~> 2.11.0'
   gem 'rspec-http', '~> 0.10.0'
   gem 'guard-spork', '~> 1.1.0'

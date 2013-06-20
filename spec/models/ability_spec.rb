@@ -18,6 +18,7 @@ describe Ability do
       it { should be_able_to :names_for_ids, User }
       it { should be_able_to :manage, Organization.new }
       it { should be_able_to :manage, User.new }
+      it { should be_able_to :manage, :document }
     end
 
     context "when is a cso_admin" do
