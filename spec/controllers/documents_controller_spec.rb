@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe DocumentsController do
   before(:each) { sign_in_as(FactoryGirl.create(:super_admin_user)) }
+
+  context "GET 'new'" do
+    it "assigns a terms of service object" do
+      get :new
+      assigns(:terms_of_service).should be_a TermsOfService
+    end
+  end
+
   context "POST create" do
     context "when creation is successful" do
       it "creates a new terms of service document" do
@@ -26,6 +34,11 @@ describe DocumentsController do
         post :create, :terms_of_service => { :document => nil }
         flash[:error].should be_present
         response.should render_template(:new)
+      end
+
+      it "assigns a terms of service object" do
+        post :create, :terms_of_service => { :document => nil }
+        assigns(:terms_of_service).should be_a TermsOfService
       end
     end
   end

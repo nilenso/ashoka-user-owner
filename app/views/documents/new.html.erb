@@ -1,1 +1,6 @@
-<p></p>
+<h1> Documents </h1>
+
+<%= form_for(@terms_of_service, :url => documents_path, :html => { :multipart => true }) do |f| %>
+  <%= f.file_field :document %>
+  <%= f.submit "Upload" %>
+<% end %>

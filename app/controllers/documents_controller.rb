@@ -1,6 +1,11 @@
 class DocumentsController < ApplicationController
   authorize_resource :class => false
 
+  def new
+    @terms_of_service = TermsOfService.new
+  end
+
+
   def create
     tos = TermsOfService.new(params[:terms_of_service])
     if tos.save
@@ -8,6 +13,7 @@ class DocumentsController < ApplicationController
       redirect_to root_path
     else
       flash[:error] = t('.failed_upload')
+      @terms_of_service = tos
       render :new
     end
   end
