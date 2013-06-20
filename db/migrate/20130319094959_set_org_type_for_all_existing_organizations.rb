@@ -1,6 +1,10 @@
 class SetOrgTypeForAllExistingOrganizations < ActiveRecord::Migration
+  class TempOrganization < ActiveRecord::Base
+    self.table_name = :organizations
+  end
+
   def up
-    organizations = Organization.where(:org_type => nil)
+    organizations = TempOrganization.where(:org_type => nil)
     organizations.each do |organization|
       organization.org_type = 'CSO'
       organization.save

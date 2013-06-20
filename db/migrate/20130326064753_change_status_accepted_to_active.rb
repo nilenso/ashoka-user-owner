@@ -1,13 +1,17 @@
 class ChangeStatusAcceptedToActive < ActiveRecord::Migration
+  class TempUser < ActiveRecord::Base
+    self.table_name = :users
+  end
+
   def up
-    User.where(:status => "accepted").each do |user|
+    TempUser.where(:status => "accepted").each do |user|
       user.update_column :status, 'active'
     end
   end
 
   def down
-    User.where(:status => "active").each do |user|
+    TempUser.where(:status => "active").each do |user|
       user.update_column :status, 'accepted'
-    end  
+    end
   end
 end

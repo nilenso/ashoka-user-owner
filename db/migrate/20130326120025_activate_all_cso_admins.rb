@@ -1,6 +1,10 @@
 class ActivateAllCsoAdmins < ActiveRecord::Migration
+  class TempUser < ActiveRecord::Base
+    self.table_name = :users
+  end
+
   def up
-    User.where(:role => 'cso_admin', :status => 'pending').each do |user|
+    TempUser.where(:role => 'cso_admin', :status => 'pending').each do |user|
       user.update_column(:status, 'active')
     end
   end

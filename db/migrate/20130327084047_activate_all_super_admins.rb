@@ -1,6 +1,10 @@
 class ActivateAllSuperAdmins < ActiveRecord::Migration
+  class TempUser < ActiveRecord::Base
+    self.table_name = :users
+  end
+
   def up
-    User.where(:role => 'super_admin', :status => 'pending').each do |user|
+    TempUser.where(:role => 'super_admin', :status => 'pending').each do |user|
       user.update_column(:status, 'active')
     end
   end
