@@ -1,6 +1,10 @@
 class ChangeAllAdminsToSuperAdmins < ActiveRecord::Migration
+  class TempUser < ActiveRecord::Base
+    self.table_name = :users
+  end
+
   def up
-    users = User.where(:role => "admin")
+    users = TempUser.where(:role => "admin")
     users.each do |user|
       user.role = 'super_admin'
       user.save
@@ -8,7 +12,7 @@ class ChangeAllAdminsToSuperAdmins < ActiveRecord::Migration
   end
 
   def down
-    users = User.where(:role => "super_admin")
+    users = TempUser.where(:role => "super_admin")
     users.each do |user|
       user.role = 'admin'
       user.save
