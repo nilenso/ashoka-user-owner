@@ -9,10 +9,10 @@ class DocumentsController < ApplicationController
   def create
     tos = TermsOfService.new(params[:terms_of_service])
     if tos.save
-      flash[:notice] = t('.document_uploaded')
+      flash[:notice] = t('documents.create.document_uploaded')
       redirect_to documents_path
     else
-      flash[:error] = t('.failed_upload')
+      flash[:error] = [t('documents.create.failed_upload')] + tos.errors.full_messages
       @terms_of_service = tos
       render :new
     end

@@ -1,5 +1,13 @@
 <% flash.each do |type, message| %>
-<p class='flash <%= type %>'>
-  <%= format_flash_message(message) %>
-</p>
+<div class='flash <%= type %>'>
+  <% if message.is_a?(Array) %>
+    <ul>
+      <% message.each do |m| %>
+        <li><%= m %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p><%= message %></p>
+  <% end %>
+</div>
 <% end %>

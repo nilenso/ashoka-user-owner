@@ -22,6 +22,11 @@ en:
     delete_organization: Delete Organization
     confirm_delete_organization: Are you sure you want to delete your organization?
 
+  documents:
+    create:
+      failed_upload: Your upload has failed.
+      document_uploaded: Successfully uploaded your documents
+
   static_pages:
     home:
       user_owner: User Owner

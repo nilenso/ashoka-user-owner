@@ -19,7 +19,7 @@ div#content{
 
   div div{padding: 10px 20px;}
 
-  p.flash{
+  div.flash{
     display: block;
     background: $primary-color;
     margin: 0; padding: 10px 20px;
@@ -34,7 +34,7 @@ div#content{
     color: $secondary-color-light;
     padding: 10px 20px;
     margin: 0;
-    font-size: 16px; 
+    font-size: 16px;
     font-weight: normal;
   }
 }

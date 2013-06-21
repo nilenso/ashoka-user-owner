@@ -1,3 +1,9 @@
 <h1> Current Documents </h1>
 
-<iframe src="<%= @terms_of_service.document_url %>"></iframe>
+
+<% if @terms_of_service.present? %>
+  <iframe src="<%= @terms_of_service.document_url %>"></iframe>
+<% else %>
+  <p>A terms of service document hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
+<% end %>
+
