@@ -1,5 +1,16 @@
-.upload-form {
-  .tos-error {
-    color: $danger;
+.documents {
+  .tos-error { color: $danger; }
+
+  h2.title {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  iframe {
+    width: 80%;
+    display: block;
+    margin: 20px auto;
+    height: 600px;
   }
 }

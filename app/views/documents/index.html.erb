@@ -1,9 +1,14 @@
-<h1> Current Documents </h1>
+<div class="documents">
+  <header>
+    <h2>Documents</h2>
+  </header>
 
+  <h2 class="title">Terms of Service</h2>
 
-<% if @terms_of_service.present? %>
-  <iframe src="<%= @terms_of_service.document_url %>"></iframe>
-<% else %>
-  <p>A terms of service document hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
-<% end %>
+  <% if @terms_of_service.present? %>
+    <iframe src="<%= @terms_of_service.document_url %>"></iframe>
+  <% else %>
+    <p>A terms of service document hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
+  <% end %>
 
+</div>
