@@ -1,6 +1,17 @@
-<h1> Documents </h1>
+<header>
+  <h2><%= t(".upload_documents") %></h2>
+</header>
 
-<%= form_for(@terms_of_service, :url => documents_path, :html => { :multipart => true }) do |f| %>
-  <%= f.file_field :document %>
-  <%= f.submit "Upload" %>
+<h2>Terms of Service</h2>
+
+<%= form_for(@terms_of_service, :url => documents_path, :html => { :class => "upload-form", :multipart => true }) do |f| %>
+  <%= f.file_field :document, :class => 'tos-upload-field', :accept => "application/pdf" %>
+  <p class="tos-error"></p>
+  <%= f.submit "Upload", :class => 'upload-action' %>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    new UserOwner.DocumentUploader($(".upload-form"))
+  });
+</script>

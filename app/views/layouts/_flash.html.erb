@@ -1,13 +1,13 @@
 <% flash.each do |type, message| %>
-<div class='flash <%= type %>'>
-  <% if message.is_a?(Array) %>
-    <ul>
-      <% message.each do |m| %>
-        <li><%= m %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p><%= message %></p>
-  <% end %>
-</div>
+  <div class='flash <%= type %>'>
+    <% if message.is_a?(Array) %>
+      <ul>
+        <% message.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p><%= message %></p>
+    <% end %>
+  </div>
 <% end %>
