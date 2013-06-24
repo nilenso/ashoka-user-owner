@@ -3,11 +3,12 @@ class DocumentsController < ApplicationController
 
   def new
     @terms_of_service = TermsOfService.new
+    @privacy_policy = PrivacyPolicy.new
   end
 
 
   def create
-    documents = DocumentCreator.new(params.slice(:terms_of_service, :privacy_policy))
+    documents = DocumentCreator.new(params[:documents])
 
     if documents.errors.all?(&:empty?)
       flash[:notice] = t('documents.create.document_uploaded')
@@ -20,5 +21,6 @@ class DocumentsController < ApplicationController
 
   def index
     @terms_of_service = TermsOfService.latest
+    @privacy_policy = PrivacyPolicy.latest
   end
 end

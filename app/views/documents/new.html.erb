@@ -2,11 +2,19 @@
   <h2><%= t(".upload_documents") %></h2>
 </header>
 
-<h2>Terms of Service</h2>
 
-<%= form_for(@terms_of_service, :url => documents_path, :html => { :class => "upload-form", :multipart => true }) do |f| %>
-  <%= f.file_field :document, :class => 'tos-upload-field', :accept => "application/pdf" %>
-  <p class="tos-error"></p>
+<%= form_for(:documents, :url => documents_path, :html => { :class => "upload-form", :multipart => true }) do |f| %>
+  <h2>Terms of Service</h2>
+  <%= f.fields_for @terms_of_service do |tos_form| %>
+    <%= tos_form.file_field :document, :class => 'upload-field', :accept => "application/pdf" %>
+  <% end %>
+
+  <h2>Privacy Policy</h2>
+  <%= f.fields_for @privacy_policy do |privacy_policy_form| %>
+    <%= privacy_policy_form.file_field :document, :class => 'upload-field', :accept => "application/pdf" %>
+  <% end %>
+
+  <p class="upload-error"></p>
   <%= f.submit "Upload", :class => 'upload-action' %>
 <% end %>
 

@@ -11,4 +11,12 @@
     <p>A terms of service document hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
   <% end %>
 
+  <h2 class="title">Privacy Policy</h2>
+
+  <% if @privacy_policy.present? %>
+    <iframe src="<%= @privacy_policy.document_url %>"></iframe>
+  <% else %>
+    <p>A privacy policy hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
+  <% end %>
+
 </div>
