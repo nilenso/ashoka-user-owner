@@ -62,6 +62,12 @@ ActiveRecord::Schema.define(:version => 20130620115646) do
     t.date     "deleted_at"
   end
 
+  create_table "privacy_policies", :force => true do |t|
+    t.string   "document"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "terms_of_services", :force => true do |t|
     t.string   "document"
     t.datetime "created_at", :null => false
