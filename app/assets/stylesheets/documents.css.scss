@@ -1,4 +1,4 @@
-.documents {
+div.documents {
   header > a {
     float: right;
     margin: 12px 0 12px 12px;
@@ -15,7 +15,17 @@
     }
   }
 
+  .form-section {
+    margin: 10px 5px;
+    padding: 10px;
+  }
+
+  .upload-action { margin-top: 30px; }
   .upload-error { color: $danger; }
+
+  .display-document {
+    margin: 20px;
+  }
 
   h2.title {
     margin: 20px 0;
@@ -27,6 +37,6 @@
     width: 80%;
     display: block;
     margin: 20px auto;
-    height: 600px;
+    height: 400px;
   }
 }

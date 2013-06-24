@@ -4,20 +4,21 @@
     <h2>Documents</h2>
   </header>
 
-  <h2 class="title">Terms of Service</h2>
+  <div class="display-document">
+    <h2 class="title">Terms of Service</h2>
+    <% if @terms_of_service.present? %>
+      <iframe src="<%= @terms_of_service.document_url %>"></iframe>
+    <% else %>
+      <p>A terms of service document hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
+    <% end %>
+  </div>
 
-  <% if @terms_of_service.present? %>
-    <iframe src="<%= @terms_of_service.document_url %>"></iframe>
-  <% else %>
-    <p>A terms of service document hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
-  <% end %>
-
-  <h2 class="title">Privacy Policy</h2>
-
-  <% if @privacy_policy.present? %>
-    <iframe src="<%= @privacy_policy.document_url %>"></iframe>
-  <% else %>
-    <p>A privacy policy hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
-  <% end %>
-
+  <div class="display-document">
+    <h2 class="title">Privacy Policy</h2>
+    <% if @privacy_policy.present? %>
+      <iframe src="<%= @privacy_policy.document_url %>"></iframe>
+    <% else %>
+      <p>A privacy policy hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
+    <% end %>
+  </div>
 </div>
