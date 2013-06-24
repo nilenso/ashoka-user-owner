@@ -26,6 +26,22 @@ en:
     create:
       failed_upload: Your upload has failed.
       document_uploaded: Successfully uploaded your documents
+    new:
+      upload_documents_title: "Upload Documents"
+      terms_of_service_title: "Terms of Service"
+      privacy_policy_title: "Privacy Policy"
+      upload_terms_of_service_message: "Upload a terms of service document"
+      upload_privacy_policy_message: "Upload a privacy policy"
+      upload_button_text: "Upload"
+      no_files_added_message: "You need to add some files"
+    index:
+      upload_documents_button: "Upload New Documents"
+      documents_title: "Documents"
+      terms_of_service_title: "Terms of Service"
+      privacy_policy_title: "Privacy Policy"
+      terms_of_service_not_uploaded_message: A terms of service document hasn't been uploaded.
+      privacy_policy_not_uploaded_message: A privacy policy hasn't been uploaded.
+
 
   static_pages:
     home:

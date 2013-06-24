@@ -1,24 +1,24 @@
 <div class="documents">
   <header>
-    <%= link_to "Upload New Documents", new_document_path %>
-    <h2>Documents</h2>
+    <%= link_to t(".upload_documents_button"), new_document_path %>
+    <h2><%= t(".documents_title") %></h2>
   </header>
 
   <div class="display-document">
-    <h2 class="title">Terms of Service</h2>
+    <h2 class="title"><%= t(".terms_of_service_title") %></h2>
     <% if @terms_of_service.present? %>
       <iframe src="<%= @terms_of_service.document_url %>"></iframe>
     <% else %>
-      <p>A terms of service document hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
+      <p><%= t(".terms_of_service_not_uploaded_message") %></p>
     <% end %>
   </div>
 
   <div class="display-document">
-    <h2 class="title">Privacy Policy</h2>
+    <h2 class="title"><%= t(".privacy_policy_title") %></h2>
     <% if @privacy_policy.present? %>
       <iframe src="<%= @privacy_policy.document_url %>"></iframe>
     <% else %>
-      <p>A privacy policy hasn't been uploaded. You can upload one <%= link_to "here", new_document_path %>.</p>
+      <p><%= t(".privacy_policy_not_uploaded_message") %></p>
     <% end %>
   </div>
 </div>

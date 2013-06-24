@@ -20,8 +20,11 @@ div.documents {
     padding: 10px;
   }
 
-  .upload-action { margin-top: 30px; }
-  .upload-error { color: $danger; }
+  .upload-action { margin: 30px 25px; }
+  .upload-error {
+    margin-left: 25px;
+    color: $danger;
+  }
 
   .display-document {
     margin: 20px;

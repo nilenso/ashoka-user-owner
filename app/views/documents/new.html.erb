@@ -1,28 +1,30 @@
 <div class="documents">
   <header>
-    <h2><%= t(".upload_documents") %></h2>
+    <h2><%= t(".upload_documents_title") %></h2>
   </header>
 
 
   <%= form_for(:documents, :url => documents_path, :html => { :class => "upload-form", :multipart => true }) do |f| %>
     <div class="form-section">
-      <h2>Terms of Service</h2>
+      <h2><%= t(".terms_of_service_title") %></h2>
       <%= f.fields_for @terms_of_service do |tos_form| %>
-        <%= tos_form.label "Upload a terms of service document" %>
+        <%= tos_form.label t('.upload_terms_of_service_message') %>
         <%= tos_form.file_field :document, :class => 'upload-field', :accept => "application/pdf" %>
       <% end %>
     </div>
 
     <div class="form-section">
-      <h2>Privacy Policy</h2>
+      <h2><%= t(".privacy_policy_title") %></h2>
       <%= f.fields_for @privacy_policy do |privacy_policy_form| %>
-        <%= privacy_policy_form.label "Upload a privacy policy" %>
+        <%= privacy_policy_form.label t(".upload_privacy_policy_message") %>
         <%= privacy_policy_form.file_field :document, :class => 'upload-field', :accept => "application/pdf" %>
       <% end %>
+    </div>
 
-
-    <p class="upload-error"></p>
-    <%= f.submit "Upload", :class => 'upload-action' %>
+    <p class="upload-error">
+      <%= t('.no_files_added_message') %>
+    </p>
+    <%= f.submit t(".upload_button_text"), :class => 'upload-action' %>
   <% end %>
 
   <script type="text/javascript">
