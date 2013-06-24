@@ -1,4 +1,20 @@
 .documents {
+  header > a {
+    float: right;
+    margin: 12px 0 12px 12px;
+    padding: 0 6px;
+    line-height: 24px;
+    background: $secondary-color;
+    color: $white;
+    @include border-radius(2px);
+
+    &:hover{
+      border: none;
+      background: $white;
+      color: $secondary-color;
+    }
+  }
+
   .upload-error { color: $danger; }
 
   h2.title {

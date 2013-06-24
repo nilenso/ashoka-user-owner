@@ -17,6 +17,10 @@
       <% end %>
     <% end %>
 
+    <% if can? :manage, :document %>
+      <li><%= link_to t("header.documents"), documents_path, :class => 'documents' %></li>
+    <% end %>
+
     <% if has_signed_in_user? %>
       <li><%= link_to t("header.log_out"), logout_path, :class => 'logout' %></li>
     <% else %>
