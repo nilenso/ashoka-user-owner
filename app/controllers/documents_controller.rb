@@ -7,13 +7,13 @@ class DocumentsController < ApplicationController
 
 
   def create
-    tos = TermsOfService.new(params[:terms_of_service])
-    if tos.save
+    documents = DocumentCreator.new(params.slice(:terms_of_service, :privacy_policy))
+
+    if documents.errors.all?(&:empty?)
       flash[:notice] = t('documents.create.document_uploaded')
       redirect_to documents_path
     else
-      flash[:error] = [t('documents.create.failed_upload')] + tos.errors.full_messages
-      @terms_of_service = tos
+      flash[:error] = [t('documents.create.failed_upload')] + documents.errors.map(&:full_messages).flatten
       render :new
     end
   end

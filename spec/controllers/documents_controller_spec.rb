@@ -17,6 +17,11 @@ describe DocumentsController do
         expect { post :create, :terms_of_service => { :document => tos_file }}.to change { TermsOfService.count }.by(1)
       end
 
+      it "creates a new privacy policy document" do
+        privacy_policy_file = fixture_file_upload('/documents/placeholder.pdf')
+        expect { post :create, :privacy_policy => { :document => privacy_policy_file }}.to change { PrivacyPolicy.count }.by(1)
+      end
+
       it "redirects to the index page" do
         tos_file = fixture_file_upload('/documents/placeholder.pdf')
         post :create, :terms_of_service => { :document => tos_file }
@@ -30,15 +35,14 @@ describe DocumentsController do
         expect { post :create, :terms_of_service => { :document => nil }}.not_to change { TermsOfService.count }
       end
 
+      it "doesn't create a new privacy policy document" do
+        expect { post :create, :privacy_policy => { :document => nil }}.not_to change { PrivacyPolicy.count }
+      end
+
       it "re-renders the new page with errors" do
         post :create, :terms_of_service => { :document => nil }
         flash[:error].should be_present
         response.should render_template(:new)
-      end
-
-      it "assigns a terms of service object" do
-        post :create, :terms_of_service => { :document => nil }
-        assigns(:terms_of_service).should be_a TermsOfService
       end
     end
   end
