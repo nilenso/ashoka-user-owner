@@ -8,13 +8,13 @@ class DocumentsController < ApplicationController
 
 
   def create
-    documents = DocumentCreator.new(params[:documents])
+    documents = DocumentPresenter.new(params[:documents])
 
-    if documents.errors.all?(&:empty?)
+    if documents.save
       flash[:notice] = t('documents.create.document_uploaded')
       redirect_to documents_path
     else
-      flash[:error] = [t('documents.create.failed_upload')] + documents.errors.map(&:full_messages).flatten
+      flash[:error] = [t('documents.create.failed_upload')] + documents.errors.full_messages.flatten
       render :new
     end
   end
