@@ -8,6 +8,20 @@ describe Organization do
   it { should respond_to(:status) }
   it { should respond_to(:default_locale) }
 
+  context "callbacks" do
+    it "sends emails to superadmins when an organization that allows sharing is created" do
+      expect do
+        FactoryGirl.create(:organization, :allow_sharing => true)
+      end.to change { Delayed::Job.where(:queue => "allow_sharing_email").count }.by(1)
+    end
+
+    it "doesn't send an email when an organization that doesn't allow sharing is created" do
+      expect do
+        FactoryGirl.create(:organization, :allow_sharing => false)
+      end.not_to change { Delayed::Job.count }
+    end
+  end
+
   it "checks if the organization is active or not" do
     org = FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE)
     org.status = Organization::Status::ACTIVE

@@ -8,6 +8,8 @@ class Organization < ActiveRecord::Base
   validates_inclusion_of :default_locale, :in => I18n.available_locales.map(&:to_s)
   validates_inclusion_of :org_type, :in => proc { Organization.types }
 
+  after_create :notify_super_admins_if_organization_allows_sharing
+
   def active?
     status == Organization::Status::ACTIVE
   end
@@ -62,5 +64,11 @@ class Organization < ActiveRecord::Base
   def soft_delete_self_and_associated
     users.each(&:soft_delete)
     self.soft_delete
+  end
+
+  private
+
+  def notify_super_admins_if_organization_allows_sharing
+    OrganizationMailer.delay(:queue => "allow_sharing_email").notify_super_admins_of_organization_that_allows_sharing(self.name) if self.allow_sharing?
   end
 end
