@@ -22,6 +22,7 @@ gem 'newrelic_rpm', '~> 3.5.4.34'
 gem 'delayed_job_active_record', '~> 0.3.3'
 gem 'carrierwave', '~> 0.7.1'
 gem 'fog', '~> 1.8.0'
+gem 'draper', '~> 1.2.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
