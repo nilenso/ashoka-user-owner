@@ -1,6 +1,6 @@
 class UserOwner.Registration
   constructor: (container) ->
-    @legal_item_checkboxes = container.find(".organization-legal-item-checkbox")
+    @legal_item_checkboxes = container.find(".mandatory .organization-legal-item-checkbox")
     @register_button = container.find(".organization-register-button")
     @legal_item_checkboxes.click(@toggle_register_button)
 

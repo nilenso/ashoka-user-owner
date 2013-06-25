@@ -21,13 +21,19 @@
 
     <fieldset>
       <legend><%= t(".legal_heading") %></legend>
-      <div class="organization-legal-item">
-        <%= check_box_tag 'terms_of_service', '0', false, :class => 'organization-legal-item-checkbox' %>
+      <div class="organization-legal-item mandatory">
+        <%= check_box_tag 'terms_of_service', nil, false, :class => 'organization-legal-item-checkbox' %>
         <%= label_tag 'terms_of_service', @organization.label_for_terms_of_service, :class => 'organization-legal-item-label' %>
       </div>
-      <div class="organization-legal-item">
-        <%= check_box_tag 'privacy_policy', '0', false, :class => 'organization-legal-item-checkbox' %>
+
+      <div class="organization-legal-item mandatory">
+        <%= check_box_tag 'privacy_policy', nil, false, :class => 'organization-legal-item-checkbox' %>
         <%= label_tag 'privacy_policy', @organization.label_for_privacy_policy, :class => 'organization-legal-item-label' %>
+      </div>
+
+      <div class="organization-legal-item">
+        <%= f.check_box :allow_sharing, :class => 'organization-legal-item-checkbox' %>
+        <%= f.label :allow_sharing, t(".sharing_agreement"), :class => 'organization-legal-item-label' %>
       </div>
     </fieldset>
 

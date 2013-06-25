@@ -8,12 +8,10 @@ describe Organization do
   it { should respond_to(:status) }
   it { should respond_to(:default_locale) }
 
-  context "Logic" do
-    it "checks if the organization is active or not" do
-      org = FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE)
-      org.status = Organization::Status::ACTIVE
-      org.should be_active
-    end
+  it "checks if the organization is active or not" do
+    org = FactoryGirl.create(:organization, :status => Organization::Status::INACTIVE)
+    org.status = Organization::Status::ACTIVE
+    org.should be_active
   end
 
   context "status change" do
@@ -62,20 +60,26 @@ describe Organization do
   end
 
   context "when creating an organization" do
-    it "creates an Organization and the cso admin for it" do\
-        org_params = {:name => "my_org", :org_type => "CSO"}
-      cso_admin_params = {:name => "cso_admin_user", :email => "xyz@abc.com", :password => "abc",
-                          :password_confirmation => 'abc'}
+    it "creates an Organization and the cso admin for it" do
+      org_params = FactoryGirl.attributes_for(:organization, :name => "my_org")
+      cso_admin_params = FactoryGirl.attributes_for(:cso_admin_user, :name => "cso_admin_user")
       organization = Organization.build(org_params, cso_admin_params)
       organization.save
       organization.reload.name.should == "my_org"
       organization.cso_admin.name.should == "cso_admin_user"
     end
 
+    it "sets the allow_sharing field" do
+      org_params = FactoryGirl.attributes_for(:organization, :allow_sharing => true)
+      cso_admin_params = FactoryGirl.attributes_for(:cso_admin_user)
+      organization = Organization.build(org_params, cso_admin_params)
+      organization.save
+      organization.reload.allow_sharing.should be_true
+    end
+
     it "creates an active cso_admin" do
-      org_params = {:name => "my_org", :org_type => "CSO"}
-      cso_admin_params = {:name => "cso_admin_user", :email => "xyz@abc.com", :password => "abc",
-                          :password_confirmation => 'abc'}
+      org_params = FactoryGirl.attributes_for(:organization)
+      cso_admin_params = FactoryGirl.attributes_for(:cso_admin_user)
       organization = Organization.build(org_params, cso_admin_params)
       organization.save
       organization.cso_admin.status.should == 'active'

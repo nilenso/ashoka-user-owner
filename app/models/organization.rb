@@ -38,6 +38,7 @@ class Organization < ActiveRecord::Base
   def self.build(org_params, cso_admin_params)
     organization = Organization.new(:name => org_params[:name])
     organization.org_type = org_params[:org_type]
+    organization.allow_sharing = org_params[:allow_sharing]
     cso_admin = User.new(cso_admin_params)
     cso_admin.role = "cso_admin"
     cso_admin.status = User::Status::ACTIVE
