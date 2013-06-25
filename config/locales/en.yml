@@ -77,6 +77,10 @@ en:
       register_organization: Register your Organization
       organization_info: Organization Information
       user_info: User Information
+      accept_legal_prefix: I accept the
+      terms_of_service: Terms of Service
+      privacy_policy: Privacy Policy
+      legal_heading: Legal
 
     index:
       no_organizations: There are no organizations

@@ -2,8 +2,8 @@ class OrganizationsController < ApplicationController
   load_and_authorize_resource :except => :create
 
   def new
-    @organization = Organization.new
-    @organization.users << User.new
+    @organization = Organization.new.decorate
+    @organization.users.new
   end
 
   def create
@@ -16,6 +16,7 @@ class OrganizationsController < ApplicationController
       redirect_to root_path
       flash[:notice] = t("successful_create_message")
     else
+      @organization = @organization.decorate
       flash[:error] = t("creation_failed")
       render :new
     end
