@@ -40,6 +40,14 @@ describe User do
     end
   end
 
+  context "scopes" do
+    it "returns the super admins" do
+      super_admin_user = FactoryGirl.create(:super_admin_user)
+      cso_admin_user = FactoryGirl.create(:cso_admin_user)
+      User.super_admins.should == [super_admin_user]
+    end
+  end
+
   context "logic" do
     roles = User::ROLES
 

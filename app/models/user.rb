@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   before_save :convert_email_to_lower_case
   delegate :active?, :to => :organization, :prefix => true
 
+  scope :super_admins, where(:role => "super_admin")
+
   ROLES = %w(viewer field_agent supervisor designer manager cso_admin super_admin)
 
   module Status

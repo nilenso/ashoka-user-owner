@@ -72,6 +72,12 @@ en:
       welcome_message: "You have been invited to join %{organization_name}. Please use the link below to set your password."
       password_reset_message: "We are sorry you are having trouble with your password. Click on the link to reset your password."
 
+  organization_mailer:
+    notify_super_admins_of_organization_that_allows_sharing:
+      subject: "%{organization_name} has allowed sharing during registration"
+      salutation: Hello!
+      body: "%{organization_name} has just been registered. The CSO Admin has opted to share its data with the administrators."
+
   organizations:
     new:
       register_organization: Register your Organization
