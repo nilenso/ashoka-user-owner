@@ -22,17 +22,23 @@
     <fieldset>
       <legend><%= t(".legal_heading") %></legend>
       <div class="organization-legal-item">
-        <%= check_box_tag 'terms_of_service', '0', false %>
+        <%= check_box_tag 'terms_of_service', '0', false, :class => 'organization-legal-item-checkbox' %>
         <%= label_tag 'terms_of_service', @organization.label_for_terms_of_service, :class => 'organization-legal-item-label' %>
       </div>
       <div class="organization-legal-item">
-        <%= check_box_tag 'privacy_policy', '0', false %>
+        <%= check_box_tag 'privacy_policy', '0', false, :class => 'organization-legal-item-checkbox' %>
         <%= label_tag 'privacy_policy', @organization.label_for_privacy_policy, :class => 'organization-legal-item-label' %>
       </div>
     </fieldset>
 
     <%= f.actions do %>
-      <% f.action :submit, :label => t("register"), :as => :button %>
+      <% f.action :submit, :label => t("register"), :as => :button, :button_html => { :disabled => true, :class => "organization-register-button" } %>
     <% end %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    new UserOwner.Registration($("#register"));
+  });
+</script>
