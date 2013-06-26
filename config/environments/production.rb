@@ -84,5 +84,9 @@ UserService::Application.configure do
     :domain         => 'heroku.com'
   }
   config.action_mailer.delivery_method = :smtp
+
+  config.after_initialize do
+    Delayed::Job.scaler = :heroku_cedar
+  end
 end
 

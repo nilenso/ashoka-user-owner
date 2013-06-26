@@ -21,6 +21,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'jquery-rails', '~> 2.1.1'
 gem 'pry-rails', '~> 0.2.1'
 gem 'newrelic_rpm', '~> 3.5.4.34'
+gem 'workless', '~> 1.1.1'
 
 group :assets do
   gem 'compass-rails', '~> 1.0.3'
