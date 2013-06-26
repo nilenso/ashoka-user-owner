@@ -1,4 +1,4 @@
 module ReqConf
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
   end
 end

@@ -1,32 +1,33 @@
+<!-- All *_path methods in this file need to be called on `main_app` because this file could be rendered from an engine -->
 <div id="banner" role="banner">
   <ul>
-  	<li><%= link_to t("header.home"), root_path, :class => 'home' %></li>
+  	<li><%= link_to t("header.home"), main_app.root_path, :class => 'home' %></li>
     <% if can? :manage, Organization %>
-      <li><%= link_to t("header.organizations"), organizations_path, :class=>'organization'  %></li>
+      <li><%= link_to t("header.organizations"), main_app.organizations_path, :class=>'organization'  %></li>
       <li><%= link_to t("header.add_applications"), "/oauth/applications/new", :class => 'add' %></li>
     <% end %>
 
     <% if current_user && current_user.organization %>
       <% if can?(:manage, User) %>
-        <li><%= link_to t("header.create_a_user"), new_organization_user_path(current_user.organization_id), :class => 'add' %></li>
-        <li><%= link_to t("header.list_users"), organization_users_path(current_user.organization_id), :class => 'users' %></li>
+        <li><%= link_to t("header.create_a_user"), main_app.new_organization_user_path(current_user.organization_id), :class => 'add' %></li>
+        <li><%= link_to t("header.list_users"), main_app.organization_users_path(current_user.organization_id), :class => 'users' %></li>
       <% end %>
 
       <% if can?(:destroy, current_user.organization) %>
-        <li><%= link_to t("header.delete_organization"), organization_path(current_user.organization), :method => :delete, :class => 'remove', :confirm => t("header.confirm_delete_organization") %></li>
+        <li><%= link_to t("header.delete_organization"), main_app.organization_path(current_user.organization), :method => :delete, :class => 'remove', :confirm => t("header.confirm_delete_organization") %></li>
       <% end %>
     <% end %>
 
     <% if can? :manage, :document %>
-      <li><%= link_to t("header.documents"), documents_path, :class => 'documents' %></li>
+      <li><%= link_to t("header.documents"), main_app.documents_path, :class => 'documents' %></li>
     <% end %>
 
     <% if has_signed_in_user? %>
-      <li><%= link_to t("header.log_out"), logout_path, :class => 'logout' %></li>
+      <li><%= link_to t("header.log_out"), main_app.logout_path, :class => 'logout' %></li>
     <% else %>
-      <li><%= link_to t("header.log_in"), login_path, :class => 'signin' %></li>
+      <li><%= link_to t("header.log_in"), main_app.login_path, :class => 'signin' %></li>
       <% if Feature.active?(:register_link) %>
-        <li><%= link_to t("header.register"), register_path, :class => 'register' %></li>
+        <li><%= link_to t("header.register"), main_app.register_path, :class => 'register' %></li>
       <% end %>
     <% end %>
   </ul>
