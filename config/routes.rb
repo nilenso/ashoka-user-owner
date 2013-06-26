@@ -1,6 +1,7 @@
 UserService::Application.routes.draw do
   scope "(:locale)", :locale => /#{I18n.available_locales.join('|')}/ do
     mount Doorkeeper::Engine => '/oauth'
+    mount ReqConf::Engine => '/rconf'
 
     get 'register', :to => 'organizations#new', :as => 'register'
     get 'login', :to => 'sessions#new', :as => 'login'

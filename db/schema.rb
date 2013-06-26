@@ -29,6 +29,12 @@ ActiveRecord::Schema.define(:version => 20130625114753) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "fruits", :force => true do |t|
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false
     t.integer  "application_id",    :null => false
