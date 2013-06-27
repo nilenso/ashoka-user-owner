@@ -154,34 +154,50 @@ describe OrganizationsController do
 
   context "DELETE 'destroy'" do
     before(:each) do
-      admin = FactoryGirl.create(:super_admin_user)
+      admin = FactoryGirl.create(:super_admin_user, :password => "foo", :password_confirmation => "foo")
       sign_in_as(admin)
     end
 
-    it "soft-deletes the organization" do
-      organization = FactoryGirl.create(:organization)
-      delete :destroy, :id => organization.id
-      organization.reload.should be_soft_deleted
+    context "when authentication passes" do
+      it "soft-deletes the organization" do
+        organization = FactoryGirl.create(:organization)
+        delete :destroy, :id => organization.id, :password => "foo"
+        organization.reload.should be_soft_deleted
+      end
+
+      it "soft-deletes the organization's users" do
+        organization = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:user, :organization => organization)
+        delete :destroy, :id => organization.id, :password => "foo"
+        user.reload.should be_soft_deleted
+      end
+
+      it "logs the user out" do
+        organization = FactoryGirl.create(:organization)
+        delete :destroy, :id => organization.id, :password => "foo"
+        controller.current_user.should be_nil
+      end
+
+      it "redirects to the root page" do
+        organization = FactoryGirl.create(:organization)
+        delete :destroy, :id => organization.id, :password => "foo"
+        response.should redirect_to root_path
+        flash[:notice].should be_present
+      end
     end
 
-    it "soft-deletes the organization's users" do
-      organization = FactoryGirl.create(:organization)
-      user = FactoryGirl.create(:user, :organization => organization)
-      delete :destroy, :id => organization.id
-      user.reload.should be_soft_deleted
-    end
+    context "when authentication fails" do
+      it "redirects to confirmation page if no password is provided" do
+        organization = FactoryGirl.create(:organization)
+        delete :destroy, :id => organization.id
+        response.should redirect_to_path(controller.sudo_mode.new_confirmation_url)
+      end
 
-    it "logs the user out" do
-      organization = FactoryGirl.create(:organization)
-      delete :destroy, :id => organization.id
-      controller.current_user.should be_nil
-    end
-
-    it "redirects to the root page" do
-      organization = FactoryGirl.create(:organization)
-      delete :destroy, :id => organization.id
-      response.should redirect_to root_path
-      flash[:notice].should be_present
+      it "redirects to confirmation page if password is invalid" do
+        organization = FactoryGirl.create(:organization)
+        delete :destroy, :id => organization.id, :password => "wrong!"
+        response.should redirect_to_path(controller.sudo_mode.new_confirmation_url)
+      end
     end
   end
 end

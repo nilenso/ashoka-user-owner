@@ -1,5 +1,6 @@
 class OrganizationsController < ApplicationController
   load_and_authorize_resource :except => :create
+  require_password_confirmation_for :destroy
 
   def new
     @organization = Organization.new.decorate
