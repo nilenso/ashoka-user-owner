@@ -137,9 +137,3 @@ en:
         password: Password
         password_confirmation: Confirm password
 
-  req_conf:
-    confirmation:
-      new:
-        confirmation_heading: "Confirm your Password"
-        check_password_button: "Check"
-
