@@ -12,9 +12,8 @@ module ReqConf
       end
 
       def check_password
-        if params[:password].present?
-        else
-          redirect_to req_conf.new_confirmation_path
+        unless current_user.authenticate(params[:password])
+          redirect_to req_conf.new_confirmation_path(:redirect_to => request.fullpath, :method => request.request_method)
         end
       end
     end
