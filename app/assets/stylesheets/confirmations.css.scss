@@ -1,0 +1,30 @@
+div.confirmation {
+  width: 50%;
+  margin: 50px auto;
+}
+
+form.confirmation-form {
+  border: 1px solid $gray-light;
+  @include border-radius(10px);
+  padding: 10px 20px;
+}
+
+div.confirmation-fieldset {
+  overflow: hidden;
+}
+
+.confirmation-label {
+  float: left;
+  font-size: 16px;
+  line-height: 1.5em;
+}
+
+input.confirmation-password {
+  width: 70%;
+  float:right;
+}
+
+input.confirmation-submit {
+  float:right;
+  margin-right: 20px;
+}

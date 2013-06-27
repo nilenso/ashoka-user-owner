@@ -1,2 +1,13 @@
-<h1>Confirmation#new</h1>
-<p>Find me in app/views/req_conf/confirmation/new.html.erb</p>
+<header>
+  <h2><%= t ".confirmation_heading" %></h2>
+</header>
+
+<div class="confirmation">
+  <%= form_tag main_app.organizations_path, :class => "confirmation-form" do %>
+    <div class="confirmation-fieldset">
+      <%= label_tag :password, "Password", :class => "confirmation-label" %>
+      <%= password_field_tag :password, nil, :class => "confirmation-password" %>
+    </div>
+    <%= submit_tag t(".check_password_button"), :class => "confirmation-submit" %>
+  <% end %>
+</div>
