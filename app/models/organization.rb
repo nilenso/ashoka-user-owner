@@ -69,6 +69,6 @@ class Organization < ActiveRecord::Base
   private
 
   def notify_super_admins_if_organization_allows_sharing
-    OrganizationMailer.delay(:queue => "allow_sharing_email", :run_at => 1.minutes.from_now).notify_super_admins_of_organization_that_allows_sharing(self.name) if self.allow_sharing?
+    OrganizationMailer.delay(:queue => "allow_sharing_email").notify_super_admins_of_organization_that_allows_sharing(self.name) if self.allow_sharing?
   end
 end
