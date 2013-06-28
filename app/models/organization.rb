@@ -63,7 +63,7 @@ class Organization < ActiveRecord::Base
 
   def soft_delete_self_and_associated
     users.each(&:soft_delete)
-    self.soft_delete
+    self.delay(:queue => "deregister_organization", :run_at => 48.hours.from_now).soft_delete
   end
 
   private

@@ -159,9 +159,17 @@ describe OrganizationsController do
     end
 
     context "when authentication passes" do
-      it "soft-deletes the organization" do
+      let(:worker) { Delayed::Worker.new }
+
+      it "creates a delayed job" do
+        organization = FactoryGirl.create(:organization)
+        expect { delete :destroy, :id => organization.id, :password => "foo" }.to change { Delayed::Job.count }.by(1)
+      end
+
+      it "soft-deletes the organization in 48 hours" do
         organization = FactoryGirl.create(:organization)
         delete :destroy, :id => organization.id, :password => "foo"
+        Timecop.freeze(48.hours.from_now) { worker.work_off }
         organization.reload.should be_soft_deleted
       end
 

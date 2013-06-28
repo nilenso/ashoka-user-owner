@@ -123,10 +123,18 @@ describe Organization do
   end
 
   context "when soft deleting self and associated" do
-    it "soft-deletes the organization" do
+    it "spins up a delayed job" do
+      organization = FactoryGirl.create(:organization)
+      expect { organization.soft_delete_self_and_associated }.to change { Delayed::Job.count }.by(1)
+    end
+
+    it "soft-deletes the organization in 48 hours" do
       organization = FactoryGirl.create(:organization)
       organization.soft_delete_self_and_associated
-      organization.reload.should be_soft_deleted
+      Timecop.travel(47.hours.from_now)
+      expect { Delayed::Worker.new.work_off }.not_to change { organization.reload.deleted_at }
+      Timecop.travel(1.hours.from_now)
+      expect { Delayed::Worker.new.work_off }.to change { organization.reload.deleted_at }
     end
 
     it "soft-deletes the organization's users" do

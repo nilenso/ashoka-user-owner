@@ -48,8 +48,7 @@ class OrganizationsController < ApplicationController
 
   def destroy
     organization = Organization.find(params[:id])
-    organization.users.each(&:soft_delete)
-    organization.soft_delete
+    organization.soft_delete_self_and_associated
     reset_session
     flash[:notice] = I18n.t("organizations.destroy.organization_to_be_deleted")
     redirect_to root_path
