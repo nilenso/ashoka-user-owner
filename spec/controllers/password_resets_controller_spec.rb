@@ -16,6 +16,7 @@ describe PasswordResetsController do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:user, :password_reset_token => nil, :organization => org)
         post :create, :email => user.email
+        Delayed::Worker.new.work_off
         response.should be_redirect
         user.reload.password_reset_token.should_not be_nil
         flash[:notice].should_not be_nil
@@ -26,6 +27,7 @@ describe PasswordResetsController do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:user, :password_reset_token => nil, :organization => org)
         post :create, :email => user.email
+        Delayed::Worker.new.work_off
         ActionMailer::Base.deliveries.should_not be_empty
         email = ActionMailer::Base.deliveries.first
         email.to.should include(user.email)

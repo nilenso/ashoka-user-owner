@@ -108,6 +108,7 @@ describe UsersController do
         ActionMailer::Base.deliveries.clear
         user = FactoryGirl.attributes_for(:user)
         post :create, :organization_id => @organization.id, :user => user
+        Delayed::Worker.new.work_off
         ActionMailer::Base.deliveries.should_not be_empty
         email = ActionMailer::Base.deliveries.first
         email.to.should include(user[:email])

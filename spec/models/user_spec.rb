@@ -88,8 +88,13 @@ describe User do
       user.reload.password_reset_token.should_not be_nil
     end
 
+    it "creates a delayed job to send an email" do
+      expect { user.send_password_reset }.to change { Delayed::Job.where(:queue => "password_reset_mail").count }.by(1)
+    end
+
     it "sends a email to the user with the password token " do
       user.send_password_reset
+      Delayed::Worker.new.work_off
       ActionMailer::Base.deliveries.should_not be_empty
       email = ActionMailer::Base.deliveries.last
       email.to.should include(user.email)
