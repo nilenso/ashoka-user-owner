@@ -41,7 +41,7 @@ class OrganizationsController < ApplicationController
   def deactivate
     organization = Organization.find(params[:organization_id])
     organization.deactivate
-    UserMailer.deactivation_mail(organization.cso_admin, organization.default_locale, params[:deactivate_message]).deliver
+    UserMailer.delay(:queue => "organization_deactivation_mail").deactivation_mail(organization.cso_admin, organization.default_locale, params[:deactivate_message])
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end

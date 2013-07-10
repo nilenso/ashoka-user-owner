@@ -124,22 +124,36 @@ describe OrganizationsController do
         ActionMailer::Base.deliveries.clear
       end
 
+      it "deactivates the organization" do
+        organization = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:cso_admin_user, :organization_id => organization.id)
+        put :deactivate, :organization_id => organization.id
+        organization.reload.should_not be_active
+      end
+
+      it "creates a delayed job to send an email" do
+        organization = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:cso_admin_user, :organization_id => organization.id)
+        expect do
+          put :deactivate, :organization_id => organization.id
+        end.to change { Delayed::Job.where(:queue => "organization_deactivation_mail").count }.by(1)
+      end
+
       it "sends an deactivation mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
         put :deactivate, :organization_id => org.id
+        Delayed::Worker.new.work_off
         ActionMailer::Base.deliveries.should_not be_empty
         email = ActionMailer::Base.deliveries.first
         email.to.should include(user.email)
-        org.reload.should_not be_active
       end
 
-      it "deactivates the organization with a flash notice" do
+      it "redirects to the organizations index page with a flash notice" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization_id => org.id)
         put :deactivate, :organization_id => org.id
 
-        org.reload.should_not be_active
         response.should redirect_to organizations_path
         flash[:notice].should_not be_nil
       end
