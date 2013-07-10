@@ -36,6 +36,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'zeus', '~> 0.13.3'
   gem 'heroku', '~> 2.28.12'
   gem 'figaro', '~> 0.4.1'
   gem 'rspec-rails', '~> 2.11.0'
