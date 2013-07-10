@@ -137,3 +137,8 @@ en:
         password: Password
         password_confirmation: Confirm password
 
+  sudo_mode:
+    confirmation:
+      new:
+        warning_message: "Are you sure you want to delete your organization? Deletion of your data will begin in 48 hours."
+

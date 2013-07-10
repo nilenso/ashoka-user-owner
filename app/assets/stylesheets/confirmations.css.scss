@@ -28,3 +28,12 @@ input.confirmation-submit {
   float:right;
   margin-right: 20px;
 }
+
+.warning-message {
+  color:  $danger;
+  font-weight: 600;
+  text-align: center;
+  width: 310px;
+  margin-left: auto;
+  margin-right: auto;
+}
