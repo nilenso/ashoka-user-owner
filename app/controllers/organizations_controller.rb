@@ -33,7 +33,7 @@ class OrganizationsController < ApplicationController
   def activate
     organization = Organization.find(params[:organization_id])
     organization.activate
-    UserMailer.activation_mail(organization.cso_admin, organization.default_locale).deliver
+    UserMailer.delay(:queue => "organization_activation_mail").activation_mail(organization.cso_admin, organization.default_locale)
     flash[:notice] = t "status_changed", :organization_name => organization.name, :status => organization.status
     redirect_to organizations_path
   end

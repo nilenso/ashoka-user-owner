@@ -80,23 +80,36 @@ describe OrganizationsController do
         ActionMailer::Base.deliveries.clear
       end
 
+      it "activates the organization" do
+        organization = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:cso_admin_user, :organization => organization)
+        put :activate, :organization_id => organization.id
+        organization.reload.should be_active
+      end
+
+      it "creates a delayed job for the activation mail" do
+        organization = FactoryGirl.create(:organization)
+        user = FactoryGirl.create(:cso_admin_user, :organization => organization)
+        expect do
+          put :activate, :organization_id => organization.id
+        end.to change { Delayed::Job.where(:queue => "organization_activation_mail").count }.by(1)
+      end
+
       it "sends an activation mail to the cso admin of the organization" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization => org)
         put :activate, :organization_id => org.id
+        Delayed::Worker.new.work_off
         ActionMailer::Base.deliveries.should_not be_empty
         email = ActionMailer::Base.deliveries.first
         email.to.should include(user.email)
-        response.should be_redirect
-        org.reload.should be_active
       end
 
-      it "activates the organization with a flash notice" do
+      it "redirects to the organizations index page with a flash notice" do
         org = FactoryGirl.create(:organization)
         user = FactoryGirl.create(:cso_admin_user, :organization_id => org.id)
         put :activate, :organization_id => org.id
 
-        org.reload.should be_active
         response.should redirect_to organizations_path
         flash[:notice].should_not be_nil
       end
