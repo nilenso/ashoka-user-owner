@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625114753) do
+ActiveRecord::Schema.define(:version => 20130712112209) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -28,12 +28,6 @@ ActiveRecord::Schema.define(:version => 20130625114753) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
-  create_table "fruits", :force => true do |t|
-    t.string   "type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "oauth_access_grants", :force => true do |t|
     t.integer  "resource_owner_id", :null => false
@@ -83,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20130625114753) do
     t.string   "org_type"
     t.date     "deleted_at"
     t.boolean  "allow_sharing",  :default => false
+    t.string   "logo"
   end
 
   create_table "privacy_policies", :force => true do |t|

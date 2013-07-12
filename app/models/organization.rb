@@ -8,6 +8,8 @@ class Organization < ActiveRecord::Base
   validates_inclusion_of :default_locale, :in => I18n.available_locales.map(&:to_s)
   validates_inclusion_of :org_type, :in => proc { Organization.types }
 
+  mount_uploader :logo, LogoUploader
+
   after_create :notify_super_admins_if_organization_allows_sharing
 
   def active?
@@ -39,6 +41,7 @@ class Organization < ActiveRecord::Base
 
   def self.build(org_params, cso_admin_params)
     organization = Organization.new(:name => org_params[:name])
+    organization.logo = org_params[:logo]
     organization.org_type = org_params[:org_type]
     organization.allow_sharing = org_params[:allow_sharing]
     cso_admin = User.new(cso_admin_params)

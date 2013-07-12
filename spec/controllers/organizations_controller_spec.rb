@@ -15,33 +15,36 @@ describe OrganizationsController do
   context "POST 'create'" do
     context "when organization created successfully" do
 
-      let(:user) { FactoryGirl.attributes_for(:user) }
-
-      before(:each) do
-        @organization = FactoryGirl.attributes_for(:organization)
-        @organization[:users] = FactoryGirl.attributes_for(:user)
-      end
+      let(:organization_attributes) { FactoryGirl.attributes_for(:organization) }
+      let(:user_attributes) { FactoryGirl.attributes_for(:user) }
+      let(:organization_with_users_attributes) { organization_attributes.merge(:users => user_attributes) }
 
       it "creates a new organization" do
-        expect { post :create, :organization => @organization }.to change { Organization.count }.by(1)
+        expect { post :create, :organization => organization_with_users_attributes }.to change { Organization.count }.by(1)
       end
 
       it "redirects to root path with a flash message" do
-        post :create, :organization => @organization
-        response.should redirect_to(root_path)
+        post :create, :organization => organization_with_users_attributes
         flash[:notice].should_not be_nil
       end
 
       it "makes the user created as the cso_admin for the organization" do
-        post :create, :organization => @organization
-        cso_admin = Organization.find_by_name(@organization[:name]).users.first
+        post :create, :organization => organization_with_users_attributes
+        cso_admin = Organization.find_by_name(organization_with_users_attributes[:name]).users.first
         cso_admin.role.should == "cso_admin"
       end
 
       it "assigns a default_locale to the organization" do
-        post :create, :organization => @organization, :locale => :fr
-        organization = Organization.find_by_name(@organization[:name])
+        post :create, :organization => organization_with_users_attributes, :locale => :fr
+        organization = Organization.find_by_name(organization_with_users_attributes[:name])
         organization.default_locale.should == 'fr'
+      end
+
+      it "should upload a logo along" do
+        logo = fixture_file_upload('/logos/logo.png')
+        post :create, :organization => organization_with_users_attributes.merge(:logo => logo)
+        organization = Organization.find_by_name(organization_with_users_attributes[:name])
+        organization.logo.should be_present
       end
     end
 
