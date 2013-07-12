@@ -3,12 +3,15 @@
     <h2><%= t ".register_organization" %></h2>
   </header>
 
-  <%= semantic_form_for @organization do |f| %>
+  <%= semantic_form_for @organization, :html => {:multipart => true} do |f| %>
     <%= f.inputs :name => t(".organization_info") do %>
       <%= f.input :name, :label => Organization.human_attribute_name(:name) %>
       <%= f.input :org_type, :label => Organization.human_attribute_name(:org_type),
         :as => :select, :collection => Organization.types %>
+      <%= f.label "Upload Logo" %>
+      <%= f.file_field :logo, :accept => "image/*" %>
     <% end %>
+
 
     <%= f.semantic_fields_for :users do |user| %>
       <%= user.inputs :name => t(".user_info") do %>

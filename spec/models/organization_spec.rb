@@ -37,7 +37,6 @@ describe Organization do
 
     it "allows an organization to be deactivated" do
       org = FactoryGirl.create(:organization, :status => Organization::Status::ACTIVE)
-      puts org.methods.grep /logo/
       org.deactivate.should be_true
       org.reload.status.should eq Organization::Status::INACTIVE
     end
