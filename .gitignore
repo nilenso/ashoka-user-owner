@@ -35,6 +35,7 @@ a.log
 
 # Ignore application configuration
 /config/application.yml
+/public/uploads
 
 # Mac OS Metadata
 .DS_Store
