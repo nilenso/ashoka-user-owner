@@ -20,10 +20,10 @@ module Api
         respond_with users.to_json(:only => [:id, :name, :role, :email])
       end
 
-      def names_for_ids
+      def users_for_ids
         user_ids = JSON.parse params[:user_ids]
         users = User.where(:id => user_ids) if user_ids
-        respond_with users.to_json(:only => [:id, :name])
+        respond_with users.to_json(:only => [:id, :name, :email, :role])
       end
 
      def validate_users

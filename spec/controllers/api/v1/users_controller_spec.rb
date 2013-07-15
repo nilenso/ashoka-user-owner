@@ -11,7 +11,7 @@ module Api
         controller.stub(:doorkeeper_token) { token }
         get :me, :format => :json
         response.body.should == user.to_json(:except => :password_digest,
-                                             :include => { :organization => { :only => [:org_type, :name] }})
+                                             :include => {:organization => {:only => [:org_type, :name]}})
       end
 
       context "when asking for users of the organization " do
@@ -41,7 +41,7 @@ module Api
           user_3 = FactoryGirl.create(:user, :active, :organization => organization_2)
           get :index, :organization_id => organization_1.id, :format => :json
           response_hash = JSON.parse(response.body)
-          response_hash.map {|u| u["id"] }.should =~ [user_1.id, user_2.id]
+          response_hash.map { |u| u["id"] }.should =~ [user_1.id, user_2.id]
         end
 
         it "for a normal user returns only his information" do
@@ -70,30 +70,32 @@ module Api
           controller.stub(:doorkeeper_token) { token }
         end
 
-        it "returns the names and ids of users" do
+        it "returns the names, emails, roles and ids of users" do
           users = FactoryGirl.create_list(:user, 5)
-          get :names_for_ids, :user_ids => users.map(&:id).to_json, :format => :json
-          JSON.parse(response.body).should =~ users.map {|user| {:id => user.id, :name => user.name} }.as_json
+          get :users_for_ids, :user_ids => users.map(&:id).to_json, :format => :json
+          JSON.parse(response.body).should =~ users.map { |user| {:id => user.id, :name => user.name, :role => user.role, :email => user.email} }.as_json
         end
 
-        it "returns true if all the ids exist in the user model" do
-          users = FactoryGirl.create_list(:user, 5)
-          get :validate_users, :user_ids => users.map(&:id).to_json, :format => :json
-          response.body.should == "true"
-        end
+        context "when validating" do
+          it "returns true if all the ids exist in the user model" do
+            users = FactoryGirl.create_list(:user, 5)
+            get :validate_users, :user_ids => users.map(&:id).to_json, :format => :json
+            response.body.should == "true"
+          end
 
-        it "returns false if one of the id doesn't exist in the user model" do
-          user = FactoryGirl.create(:user)
-          users = [1,2,3, user.id]
-          get :validate_users, :user_ids => users.to_json, :format => :json
-          response.body.should == "false"
-        end
+          it "returns false if one of the id doesn't exist in the user model" do
+            user = FactoryGirl.create(:user)
+            users = [1, 2, 3, user.id]
+            get :validate_users, :user_ids => users.to_json, :format => :json
+            response.body.should == "false"
+          end
 
-        it "returns a bad response if not logged in" do
-          controller.stub(:current_user) { nil }
-          users = [1,2,3]
-          expect { get :validate_users, :user_ids => users.to_json, :format => :json }.
-            to raise_error(CanCan::AccessDenied)
+          it "returns a bad response if not logged in" do
+            controller.stub(:current_user) { nil }
+            users = [1, 2, 3]
+            expect { get :validate_users, :user_ids => users.to_json, :format => :json }.
+                to raise_error(CanCan::AccessDenied)
+          end
         end
       end
     end

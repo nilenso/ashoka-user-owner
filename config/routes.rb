@@ -24,7 +24,7 @@ UserService::Application.routes.draw do
   namespace :api, :defaults => { :format => 'json' } do
     scope :module => :v1 do
       get 'me', :to => "users#me"
-      get 'users/names_for_ids', :to => "users#names_for_ids"
+      get 'users/users_for_ids', :to => "users#users_for_ids"
       get 'users/validate_users', :to => "users#validate_users"
       get 'organizations/validate_orgs', :to => "organizations#validate_orgs"
       resources :organizations, :shallow => true, :only => [:index, :show] do

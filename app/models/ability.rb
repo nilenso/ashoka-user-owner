@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :names_for_ids, User if user
+    can :users_for_ids, User if user
     user ||= User.new
     case user.role
     when 'super_admin'

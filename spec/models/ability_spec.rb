@@ -15,7 +15,7 @@ describe Ability do
     context "when is an super_admin" do
       let(:user) { FactoryGirl.create :super_admin_user  }
 
-      it { should be_able_to :names_for_ids, User }
+      it { should be_able_to :users_for_ids, User }
       it { should be_able_to :manage, Organization.new }
       it { should be_able_to :manage, User.new }
       it { should be_able_to :manage, :document }
@@ -28,7 +28,7 @@ describe Ability do
       it { should be_able_to :read, organization }
       it { should be_able_to :destroy, organization }
 
-      it { should be_able_to :names_for_ids, User }
+      it { should be_able_to :users_for_ids, User }
 
       it { should be_able_to :manage, FactoryGirl.create(:user, :organization_id => organization.id) }
       it { should_not be_able_to :manage, FactoryGirl.create(:user, :organization_id => 2342342) }
@@ -41,7 +41,7 @@ describe Ability do
       it { should be_able_to :read, organization }
       it { should_not be_able_to :manage, Organization.new }
 
-      it { should be_able_to :names_for_ids, User }
+      it { should be_able_to :users_for_ids, User }
 
       it { should be_able_to :read, user }
       it { should_not be_able_to :manage, User.new }
