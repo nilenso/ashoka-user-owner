@@ -3,6 +3,7 @@ development:
   S3_SECRET: # S3 Secret key.
   S3_BUCKET: # Name of the S3 bucket
   SECRET_TOKEN: # Secret key used to sign cookies (run `rake secret`)
+  SURVEY_WEB_HOST: # Set the host for mailers
 
 test:
   S3_ACCESS_KEY: # S3 Access key.

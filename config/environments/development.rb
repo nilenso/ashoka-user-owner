@@ -31,7 +31,7 @@ UserService::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
-  config.action_mailer.default_url_options = { :host => "localhost:3000" }
+  config.action_mailer.default_url_options = { :host => ENV["SURVEY_WEB_HOST"] }
 
 
   # Expands the lines which load the assets
