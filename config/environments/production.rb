@@ -71,7 +71,8 @@ UserService::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # config.action_mailer.default_url_options = { :host => 'user-owner-staging.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => ENV["SURVEY_WEB_HOST"] }
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
