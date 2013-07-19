@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
 
   def new
     @organization = Organization.new.decorate
-    @organization.users.new
+    @user = @organization.users.new
   end
 
   def create
@@ -18,6 +18,7 @@ class OrganizationsController < ApplicationController
       flash[:notice] = t("successful_create_message")
     else
       @organization = @organization.decorate
+      @user = @organization.users.first
       flash[:error] = t("creation_failed")
       render :new
     end

@@ -13,7 +13,7 @@
     <% end %>
 
 
-    <%= f.semantic_fields_for :users do |user| %>
+    <%= f.semantic_fields_for :users, @user do |user| %>
       <%= user.inputs :name => t(".user_info") do %>
         <%= user.input :name %>
         <%= user.input :email %>

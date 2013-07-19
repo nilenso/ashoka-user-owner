@@ -7,13 +7,21 @@ describe OrganizationsController do
       get :new
       response.should be_ok
       response.should render_template('new')
-      assigns(:organization).should_not be_nil
-      assigns(:organization).users.should_not be_empty
+    end
+
+    it "assigns an organization" do
+      get :new
+      assigns(:organization).should be_a Organization
+    end
+
+    it "assigns a user" do
+      get :new
+      assigns(:user).should be_a User
     end
   end
 
   context "POST 'create'" do
-    context "when organization created successfully" do
+    context "when the organization is created successfully" do
 
       let(:organization_attributes) { FactoryGirl.attributes_for(:organization) }
       let(:user_attributes) { FactoryGirl.attributes_for(:user) }
@@ -48,11 +56,21 @@ describe OrganizationsController do
       end
     end
 
-    context "when organization not created" do
+    context "when the organization is not created" do
       it "renders the new page" do
         post :create, :organization => { :users => [] }
         response.should render_template('new')
         flash[:error].should_not be_nil
+      end
+
+      it "assigns an organization" do
+        post :create, :organization => { :users => [] }
+        assigns(:organization).should be_a Organization
+      end
+
+      it "assigns a user" do
+        post :create, :organization => { :users => [] }
+        assigns(:user).should be_a User
       end
     end
   end
