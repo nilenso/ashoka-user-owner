@@ -75,6 +75,45 @@ describe OrganizationsController do
     end
   end
 
+  context "GET 'edit'" do
+    it "assigns the organization" do
+      organization = FactoryGirl.create(:organization)
+      sign_in_as(FactoryGirl.create(:cso_admin_user, :organization_id => organization.id))
+      get :edit, :id => organization.id
+      response.should be_ok
+      assigns(:organization).should == organization
+    end
+
+    it "returns a bad response when the organization ID passed is invalid" do
+      expect { get :edit, :id => 42 }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  context "PUT 'update'" do
+    it "redirects to the organization's show page" do
+      organization = FactoryGirl.create(:organization)
+      sign_in_as(FactoryGirl.create(:cso_admin_user, :organization_id => organization.id))
+      put :update, :id => organization.id
+      response.should redirect_to organization_path(organization.id)
+    end
+
+    it "updates the organization's name" do
+      organization = FactoryGirl.create(:organization, :name => "Foo")
+      sign_in_as(FactoryGirl.create(:cso_admin_user, :organization_id => organization.id))
+      put :update, :id => organization.id, :organization => { :name => "Bar" }
+      organization.reload.name.should == "Bar"
+    end
+
+    it "updates the organization's logo" do
+      CarrierWave.configure { |c| c.storage = :file }
+      organization = FactoryGirl.create(:organization, :logo => fixture_file_upload("/logos/logo.png"))
+      sign_in_as(FactoryGirl.create(:cso_admin_user, :organization_id => organization.id))
+      new_logo = fixture_file_upload("/logos/another_logo.jpg")
+      put :update, :id => organization.id, :organization => { :logo => new_logo }
+      organization.reload.logo.file.read.should == new_logo.read
+    end
+  end
+
   context "GET 'index'" do
     it "allows users to see their organization only" do
       not_admin = FactoryGirl.create(:user, :organization => FactoryGirl.create(:organization))

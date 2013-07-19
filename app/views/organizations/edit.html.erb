@@ -1,0 +1,17 @@
+<header>
+  <h2><%= t(".edit_organization", :organization_name => @organization.name) %></h2>
+</header>
+
+<%= semantic_form_for @organization do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <% if @organization.logo.present? %>
+      <%= link_to image_tag(@organization.logo_url, :class => "organization-edit-logo-image"), @organization.logo_url %>
+    <%= f.input :logo %>
+    <% end %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :label => t(".update_organization_button_label") %>
+  <% end %>
+<% end %>

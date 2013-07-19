@@ -104,6 +104,9 @@ en:
     destroy:
       organization_to_be_deleted: Your organization has been deleted. Your survey/response data will be deleted within a week. Please contact the administrator at subbu@ashoka.org to reverse this process.
 
+    edit:
+      edit_organization: "Editing %{organization_name}"
+      update_organization_button_label: "Submit"
   users:
     create:
       user_created_successfully: New User has been created and will receive a mail regarding the password

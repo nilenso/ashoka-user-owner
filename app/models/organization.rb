@@ -1,7 +1,7 @@
 class Organization < ActiveRecord::Base
   include SoftDeletable
 
-  attr_accessible :name
+  attr_accessible :name, :logo
   has_many :users
   validates_presence_of :name
   validates_uniqueness_of :name
