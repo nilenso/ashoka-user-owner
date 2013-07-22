@@ -11,7 +11,9 @@ class Ability
       can :manage, :document
     when 'cso_admin'
       can :manage, User, :organization_id => user.organization_id
-      can :manage, Organization, :id => user.organization_id
+      can :read, Organization, :id => user.organization_id
+      can :update, Organization, :id => user.organization_id
+      can :destroy, Organization, :id => user.organization_id
     when nil
       can :create, Organization
     else
