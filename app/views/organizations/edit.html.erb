@@ -7,8 +7,8 @@
     <%= f.input :name %>
     <% if @organization.logo.present? %>
       <%= link_to image_tag(@organization.logo_url, :class => "organization-edit-logo-image"), @organization.logo_url %>
-    <%= f.input :logo %>
     <% end %>
+    <%= f.input :logo %>
   <% end %>
 
   <%= f.actions do %>
