@@ -18,7 +18,7 @@ module Api
       def show
         organization = Organization.find_by_id(params[:id])
         if(organization)
-          respond_with organization.to_json(:only => [:id, :name])
+          respond_with organization.to_json(:only => [:id, :name], :methods => [:logo_url])
         else
           render :nothing => true, :status => :bad_request
         end

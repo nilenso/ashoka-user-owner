@@ -1,5 +1,6 @@
 class LogoUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
+  include AssetsHelper
 
   version :thumb do
     process :resize_to_fit => [100, 100]
@@ -11,5 +12,9 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   def extension_white_list
     %w(jpg jpeg png)
+  end
+
+  def default_url
+    asset_url("placeholder_logo.png")
   end
 end
