@@ -71,7 +71,7 @@ UserService::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => ENV["SURVEY_WEB_HOST"] }
+  config.action_mailer.default_url_options = { :host => ENV["USER_OWNER_HOST"] }
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
