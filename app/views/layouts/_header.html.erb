@@ -13,6 +13,10 @@
         <li><%= link_to t("header.list_users"), main_app.organization_users_path(current_user.organization_id), :class => 'users' %></li>
       <% end %>
 
+      <% if can? :edit, current_user.organization %>
+        <li><%= link_to t("header.edit_organization"), main_app.edit_organization_path(current_user.organization), :class => 'edit-organization' %></li>
+      <% end %>
+
       <% if can?(:destroy, current_user.organization) %>
         <li><%= link_to t("header.delete_organization"), main_app.organization_path(current_user.organization), :method => :delete, :class => 'remove', :confirm => t("header.confirm_delete_organization") %></li>
       <% end %>

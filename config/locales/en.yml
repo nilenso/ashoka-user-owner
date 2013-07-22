@@ -22,6 +22,7 @@ en:
     delete_organization: Delete Organization
     confirm_delete_organization: Are you sure you want to delete your organization?
 
+    edit_organization: "Edit Organization"
   documents:
     create:
       failed_upload: Your upload has failed.
