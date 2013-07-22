@@ -108,6 +108,8 @@ en:
     edit:
       edit_organization: "Editing %{organization_name}"
       update_organization_button_label: "Submit"
+    update:
+      successful_organization_edit_flash_notice: "Your organization was successfully updated."
   users:
     create:
       user_created_successfully: New User has been created and will receive a mail regarding the password

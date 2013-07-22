@@ -95,6 +95,7 @@ describe OrganizationsController do
       sign_in_as(FactoryGirl.create(:cso_admin_user, :organization_id => organization.id))
       put :update, :id => organization.id
       response.should redirect_to organization_path(organization.id)
+      flash[:notice].should be_present
     end
 
     it "updates the organization's name" do

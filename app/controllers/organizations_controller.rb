@@ -31,6 +31,7 @@ class OrganizationsController < ApplicationController
   def update
     organization = Organization.find(params[:id])
     organization.update_attributes(params[:organization])
+    flash[:notice] = t("organizations.update.successful_organization_edit_flash_notice")
     redirect_to organization_path
   end
 
