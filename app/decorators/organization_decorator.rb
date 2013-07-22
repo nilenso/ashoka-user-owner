@@ -18,4 +18,14 @@ class OrganizationDecorator < Draper::Decorator
     document_url = PrivacyPolicy.any? ? PrivacyPolicy.latest.document_url : '#'
     h.link_to(I18n.t("organizations.new.privacy_policy"), document_url, :class => "organization-legal-item-label-link", :target => '_blank')
   end
+
+  def as_json(opts = {})
+    {
+      :id => model.id,
+      :name => model.name,
+      :logos => {
+        :thumb_url => model.logo.thumb.url
+      }
+    }
+  end
 end

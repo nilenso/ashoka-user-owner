@@ -67,14 +67,14 @@ module Api
             organization = FactoryGirl.create(:organization, :logo => logo)
             get :show, :id => organization.id, :format => :json
             response_hash = JSON.parse(response.body)
-            response_hash['logo_url'].should == organization.logo_url
+            response_hash['logos']['thumb_url'].should == organization.logo.thumb.url
           end
 
           it "returns a URL to a placeholder image if the logo doesn't exist" do
             organization = FactoryGirl.create(:organization, :logo => nil)
             get :show, :id => organization.id, :format => :json
             response_hash = JSON.parse(response.body)
-            response_hash['logo_url'].should include "assets/placeholder_logo.png"
+            response_hash['logos']['thumb_url'].should include "assets/placeholder_logo.png"
           end
         end
       end
