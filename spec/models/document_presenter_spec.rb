@@ -60,6 +60,14 @@ describe DocumentPresenter do
     end
   end
 
+  it "sends emails to all cso admins when it changes" do
+    cso_admins = FactoryGirl.create(:cso_admin_user)
+    documents = DocumentPresenter.new(:privacy_policy => FactoryGirl.attributes_for(:privacy_policy))
+    documents.save
+    Delayed::Worker.new.work_off
+    ActionMailer::Base.deliveries.should_not be_empty
+  end
+
   context "saving" do
     it "returns true if save passes" do
       documents = DocumentPresenter.new(:terms_of_service => FactoryGirl.attributes_for(:terms_of_service))

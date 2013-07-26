@@ -17,7 +17,11 @@ class DocumentPresenter
 
       if @privacy_policy_attributes.present?
         @privacy_policy = PrivacyPolicy.new(@privacy_policy_attributes)
-        @privacy_policy.save || errors.add(:privacy_policy, @privacy_policy.errors.full_messages.join)
+        if @privacy_policy.save
+          OrganizationMailer.delay.notify_cso_admins_of_change_in_privacy_policy
+        else
+          errors.add(:privacy_policy, @privacy_policy.errors.full_messages.join)
+        end
       end
 
       if errors.present?

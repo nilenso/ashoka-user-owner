@@ -28,6 +28,8 @@ describe OrganizationMailer do
   end
 
   context "when terms of service is changed" do
+    let!(:cso_admins) { FactoryGirl.create_list(:cso_admin_user, 5) }
+
     it "sends an email" do
       expect { OrganizationMailer.notify_cso_admins_of_change_in_terms_of_service.deliver }.to change {
         ActionMailer::Base.deliveries.count
@@ -35,8 +37,22 @@ describe OrganizationMailer do
     end
 
     it "addresses the emails to the CSO admins (in BCC)" do
-      cso_admins = FactoryGirl.create_list(:cso_admin_user, 5)
       email = OrganizationMailer.notify_cso_admins_of_change_in_terms_of_service
+      email.should bcc_to(*cso_admins.map(&:email))
+    end
+  end
+
+  context "when privacy policy is changed" do
+    let!(:cso_admins) { FactoryGirl.create_list(:cso_admin_user, 5) }
+
+    it "sends an email" do
+      expect { OrganizationMailer.notify_cso_admins_of_change_in_privacy_policy.deliver }.to change {
+        ActionMailer::Base.deliveries.count
+      }.by(1)
+    end
+
+    it "addresses the emails to the CSO admins (in BCC)" do
+      email = OrganizationMailer.notify_cso_admins_of_change_in_privacy_policy
       email.should bcc_to(*cso_admins.map(&:email))
     end
   end

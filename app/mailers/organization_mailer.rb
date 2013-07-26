@@ -9,4 +9,8 @@ class OrganizationMailer < ActionMailer::Base
   def notify_cso_admins_of_change_in_terms_of_service
     mail(:bcc =>  User.cso_admins.pluck(:email), :subject => I18n.t("organization_mailer.notify_cso_admins_of_change_in_terms_of_service.subject"))
   end
+
+  def notify_cso_admins_of_change_in_privacy_policy
+    mail(:bcc =>  User.cso_admins.pluck(:email), :subject => I18n.t("organization_mailer.notify_cso_admins_of_change_in_privacy_policy.subject"))
+  end
 end

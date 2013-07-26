@@ -85,6 +85,12 @@ en:
       body_line_1: Our terms of service have changed.
       body_line_2: Please log in and check the updated version.
 
+    notify_cso_admins_of_change_in_privacy_policy:
+      subject: "Our Privacy Policy has changed"
+      salutation: Hello!
+      body_line_1: Our privacy policy has changed.
+      body_line_2: Please log in and check the updated version.
+
   organizations:
     new:
       register_organization: Register your Organization
