@@ -34,6 +34,10 @@ class Organization < ActiveRecord::Base
     users.find_by_role('cso_admin')
   end
 
+  def cso_admins
+    users.where(:role => 'cso_admin')
+  end
+
   def self.types
     organization = YAML.load_file("#{Rails.root}/config/organization_types.yml")
     organization["types"].split(',').map(&:strip)
@@ -65,6 +69,8 @@ class Organization < ActiveRecord::Base
   end
 
   def soft_delete_self_and_associated
+    OrganizationMailer.delay(:queue => "deregister_organization_notify_superadmins").
+        notify_super_admins_and_cso_admins_when_organization_deregisters(cso_admins.pluck(:email), self.name)
     users.each(&:soft_delete)
     self.delay(:queue => "deregister_organization", :run_at => 48.hours.from_now).soft_delete
   end

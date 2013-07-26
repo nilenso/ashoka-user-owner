@@ -251,7 +251,7 @@ describe OrganizationsController do
 
       it "creates a delayed job" do
         organization = FactoryGirl.create(:organization)
-        expect { delete :destroy, :id => organization.id, :password => "foo" }.to change { Delayed::Job.count }.by(1)
+        expect { delete :destroy, :id => organization.id, :password => "foo" }.to change { Delayed::Job.where(:queue => "deregister_organization").count }.by(1)
       end
 
       it "soft-deletes the organization in 48 hours" do

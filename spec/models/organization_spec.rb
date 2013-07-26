@@ -123,9 +123,9 @@ describe Organization do
   end
 
   context "when soft deleting self and associated" do
-    it "spins up a delayed job" do
+    it "spins up a delayed job to initiate soft-delete" do
       organization = FactoryGirl.create(:organization)
-      expect { organization.soft_delete_self_and_associated }.to change { Delayed::Job.count }.by(1)
+      expect { organization.soft_delete_self_and_associated }.to change { Delayed::Job.where(:queue => "deregister_organization").count }.by(1)
     end
 
     it "soft-deletes the organization in 48 hours" do
@@ -142,6 +142,19 @@ describe Organization do
       user = FactoryGirl.create(:user, :organization => organization)
       organization.soft_delete_self_and_associated
       user.reload.should be_soft_deleted
+    end
+
+    it "spins up a delayed job which queues the email to be send out to admins" do
+      organization = FactoryGirl.create(:organization)
+      expect do
+        organization.soft_delete_self_and_associated
+      end.to change { Delayed::Job.where(:queue => "deregister_organization_notify_superadmins").count }.by(1)
+    end
+
+    it "sends an email" do
+      organization = FactoryGirl.create(:organization, :users => [FactoryGirl.create(:cso_admin_user)])
+      organization.soft_delete_self_and_associated
+      expect { Delayed::Worker.new.work_off }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 

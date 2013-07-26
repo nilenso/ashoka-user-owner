@@ -91,6 +91,11 @@ en:
       body_line_1: Our privacy policy has changed.
       body_line_2: Please log in and check the updated version.
 
+    notify_super_admins_and_cso_admins_when_organization_deregisters:
+          subject: "%{organization_name} has de-registered"
+          salutation: Hello!
+          body: "%{organization_name} has de-registered. The survey data will be destroyed after 48 hours."
+
   organizations:
     new:
       register_organization: Register your Organization
