@@ -79,6 +79,12 @@ en:
       salutation: Hello!
       body: "%{organization_name} has just been registered. The CSO Admin has opted to share its data with the administrators."
 
+    notify_cso_admins_of_change_in_terms_of_service:
+      subject: "Our Terms of Service have changed"
+      salutation: Hello!
+      body_line_1: Our terms of service have changed.
+      body_line_2: Please log in and check the updated version.
+
   organizations:
     new:
       register_organization: Register your Organization

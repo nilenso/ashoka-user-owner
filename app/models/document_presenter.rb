@@ -8,7 +8,11 @@ class DocumentPresenter
     ActiveRecord::Base.transaction do
       if @terms_of_service_attributes.present?
         @terms_of_service = TermsOfService.new(@terms_of_service_attributes)
-        @terms_of_service.save || errors.add(:terms_of_service, @terms_of_service.errors.full_messages.join)
+        if @terms_of_service.save
+          OrganizationMailer.delay.notify_cso_admins_of_change_in_terms_of_service
+        else
+          errors.add(:terms_of_service, @terms_of_service.errors.full_messages.join)
+        end
       end
 
       if @privacy_policy_attributes.present?

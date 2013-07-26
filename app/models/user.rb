@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   delegate :active?, :to => :organization, :prefix => true
 
   scope :super_admins, where(:role => "super_admin")
+  scope :cso_admins, where(:role => "cso_admin")
 
   ROLES = %w(viewer field_agent supervisor designer manager cso_admin super_admin)
 

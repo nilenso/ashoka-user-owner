@@ -14,6 +14,14 @@ describe DocumentPresenter do
         DocumentPresenter.new(:terms_of_service => nil).save
       end.not_to change { TermsOfService.count }
     end
+
+    it "sends emails to all cso admins when it changes" do
+      cso_admins = FactoryGirl.create(:cso_admin_user)
+      presenter = DocumentPresenter.new(:terms_of_service => FactoryGirl.attributes_for(:terms_of_service))
+      presenter.save
+      Delayed::Worker.new.work_off
+      ActionMailer::Base.deliveries.should_not be_empty
+    end
   end
 
   context "privacy policy" do
