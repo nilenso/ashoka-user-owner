@@ -1,25 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  it { should respond_to(:email) }
-  it { should respond_to(:name) }
-  it { should respond_to(:password) }
-  it { should respond_to(:password_confirmation) }
-  it { should belong_to(:organization) }
-  it { should allow_mass_assignment_of(:role) }
-  it { should allow_mass_assignment_of(:email) }
-  it { should allow_mass_assignment_of(:name) }
-  it { should allow_mass_assignment_of(:password) }
-  it { should allow_mass_assignment_of(:password_confirmation) }
-  it { should allow_mass_assignment_of(:status) }
-
   context "validations" do
-    subject { FactoryGirl.create(:super_admin_user, :organization => FactoryGirl.create(:organization)) }
-
-    it { should validate_presence_of(:email)}
-    it { should validate_presence_of(:name)}
-    it { should validate_uniqueness_of(:email) }
-
     it "validates presence of password and password confirmation on create" do
       organization = FactoryGirl.create(:organization)
       user = FactoryGirl.build(:user, :organization => organization)
