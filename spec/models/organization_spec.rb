@@ -66,6 +66,14 @@ describe Organization do
     org.field_agents.should include user
   end
 
+  it "returns list of cso_admins" do
+    cso_admin_1 = FactoryGirl.create(:user, :role => "cso_admin")
+    cso_admin_2 = FactoryGirl.create(:user, :role => "cso_admin")
+    super_admin = FactoryGirl.create(:user, :role => "super_admin")
+    organization = FactoryGirl.create(:organization, :users => [cso_admin_1, cso_admin_2, super_admin])
+    organization.cso_admins.should == [cso_admin_1, cso_admin_2]
+  end
+
   context "when creating an organization" do
     it "creates an Organization and the cso admin for it" do
       org_params = FactoryGirl.attributes_for(:organization, :name => "my_org")
