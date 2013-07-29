@@ -66,14 +66,14 @@ describe OrganizationMailer do
     it "sends out email to super admins" do
       super_admins = FactoryGirl.create_list(:super_admin_user, 5)
       email = OrganizationMailer.notify_super_admins_and_cso_admins_when_organization_deregisters([], "")
-      email.should deliver_to(*super_admins.map(&:email))
+      email.should bcc_to(*super_admins.map(&:email))
     end
 
     it "sends out email to cso admins of the organization" do
       cso_admins = FactoryGirl.create_list(:cso_admin_user, 5)
       organization = FactoryGirl.create(:organization, :users => cso_admins)
       email = OrganizationMailer.notify_super_admins_and_cso_admins_when_organization_deregisters(cso_admins.map(&:email), "")
-      email.should deliver_to(*cso_admins.map(&:email))
+      email.should bcc_to(*cso_admins.map(&:email))
     end
 
     it "contains the organization name in the subject" do
