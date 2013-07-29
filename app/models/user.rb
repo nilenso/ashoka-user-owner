@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   scope :super_admins, where(:role => "super_admin")
   scope :cso_admins, where(:role => "cso_admin")
+  scope :super_admins_and_cso_admins_for, -> organization_id { where("(role = ?) OR (role = ? AND organization_id = ?)",
+                                                                     "super_admin", "cso_admin", organization_id) }
 
   ROLES = %w(viewer field_agent supervisor designer manager cso_admin super_admin)
 

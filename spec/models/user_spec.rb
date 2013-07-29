@@ -46,6 +46,14 @@ describe User do
       cso_admin_user = FactoryGirl.create(:cso_admin_user)
       User.super_admins.should == [super_admin_user]
     end
+
+    it "returns the list of super admins and cso admins for that organization" do
+      super_admin = FactoryGirl.create(:super_admin_user)
+      cso_admin = FactoryGirl.create(:cso_admin_user)
+      field_agent = FactoryGirl.create(:field_agent_user)
+      organization = FactoryGirl.create(:organization, :users => [super_admin, cso_admin, field_agent])
+      User.super_admins_and_cso_admins_for(organization.id).should =~ [super_admin, cso_admin]
+    end
   end
 
   context "logic" do

@@ -14,9 +14,8 @@ class OrganizationMailer < ActionMailer::Base
     mail(:bcc =>  User.cso_admins.pluck(:email), :subject => I18n.t("organization_mailer.notify_cso_admins_of_change_in_privacy_policy.subject"))
   end
 
-  def notify_super_admins_and_cso_admins_when_organization_deregisters(cso_admin_emails, organization_name)
+  def notify_deregister_organization_for(recipients, organization_name)
     @organization_name = organization_name
-    recipients = User.super_admins.pluck(:email) + cso_admin_emails
-    mail(:bcc => recipients, :subject => I18n.t("organization_mailer.notify_super_admins_and_cso_admins_when_organization_deregisters.subject", :organization_name => organization_name))
+    mail(:bcc => recipients, :subject => I18n.t("organization_mailer.notify_deregister_organization_for.subject", :organization_name => organization_name))
   end
 end

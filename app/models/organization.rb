@@ -66,7 +66,7 @@ class Organization < ActiveRecord::Base
 
   def soft_delete_self_and_associated
     OrganizationMailer.delay(:queue => "deregister_organization_notify_superadmins").
-        notify_super_admins_and_cso_admins_when_organization_deregisters(cso_admins.pluck(:email), self.name)
+        notify_deregister_organization_for(User.super_admins_and_cso_admins_for(self.id).pluck("email"), self.name)
     users.each(&:soft_delete)
     self.delay(:queue => "deregister_organization", :run_at => 48.hours.from_now).soft_delete
   end

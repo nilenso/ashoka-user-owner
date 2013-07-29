@@ -71,7 +71,7 @@ describe Organization do
     cso_admin_2 = FactoryGirl.create(:user, :role => "cso_admin")
     super_admin = FactoryGirl.create(:user, :role => "super_admin")
     organization = FactoryGirl.create(:organization, :users => [cso_admin_1, cso_admin_2, super_admin])
-    organization.cso_admins.should == [cso_admin_1, cso_admin_2]
+    organization.cso_admins.should =~ [cso_admin_1, cso_admin_2]
   end
 
   context "when creating an organization" do
@@ -152,10 +152,33 @@ describe Organization do
       end.to change { Delayed::Job.where(:queue => "deregister_organization_notify_superadmins").count }.by(1)
     end
 
-    it "sends an email" do
-      organization = FactoryGirl.create(:organization, :users => [FactoryGirl.create(:cso_admin_user)])
-      organization.soft_delete_self_and_associated
-      expect { Delayed::Worker.new.work_off }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    context "while sending an email" do
+      it "has super admins as recipients" do
+        super_admins = FactoryGirl.create_list(:super_admin_user, 5)
+        organization = FactoryGirl.create(:organization)
+        organization.soft_delete_self_and_associated
+        Delayed::Worker.new.work_off
+        email = ActionMailer::Base.deliveries.last
+        email.should bcc_to super_admins.map(&:email)
+      end
+
+      it "has cso admins for the organization as recipients" do
+        cso_admins = FactoryGirl.create_list(:cso_admin_user, 5)
+        organization = FactoryGirl.create(:organization, :users => cso_admins)
+        organization.soft_delete_self_and_associated
+        Delayed::Worker.new.work_off
+        email = ActionMailer::Base.deliveries.last
+        email.should bcc_to cso_admins.map(&:email)
+      end
+
+      it "contains the organization name in the subject" do
+        FactoryGirl.create(:super_admin_user)
+        organization = FactoryGirl.create(:organization, :name => "FooOrg")
+        organization.soft_delete_self_and_associated
+        Delayed::Worker.new.work_off
+        email = ActionMailer::Base.deliveries.last
+        email.should have_subject /FooOrg/
+      end
     end
   end
 
