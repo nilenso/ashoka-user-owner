@@ -66,13 +66,6 @@ describe Organization do
     org.field_agents.should include user
   end
 
-  it "returns the cso admin of the Organization" do
-    org = FactoryGirl.create(:organization)
-    cso_ad = FactoryGirl.create(:cso_admin_user, :role => 'cso_admin')
-    org.users << cso_ad
-    org.cso_admin.should == cso_ad
-  end
-
   context "when creating an organization" do
     it "creates an Organization and the cso admin for it" do
       org_params = FactoryGirl.attributes_for(:organization, :name => "my_org")
@@ -80,7 +73,7 @@ describe Organization do
       organization = Organization.build(org_params, cso_admin_params)
       organization.save
       organization.reload.name.should == "my_org"
-      organization.cso_admin.name.should == "cso_admin_user"
+      organization.cso_admins.first.name.should == "cso_admin_user"
     end
 
     it "sets the allow_sharing field" do
@@ -96,7 +89,7 @@ describe Organization do
       cso_admin_params = FactoryGirl.attributes_for(:cso_admin_user)
       organization = Organization.build(org_params, cso_admin_params)
       organization.save
-      organization.cso_admin.status.should == 'active'
+      organization.cso_admins.first.status.should == 'active'
     end
   end
 

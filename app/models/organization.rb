@@ -30,10 +30,6 @@ class Organization < ActiveRecord::Base
     users.where(:role => 'field_agent')
   end
 
-  def cso_admin
-    users.find_by_role('cso_admin')
-  end
-
   def cso_admins
     users.where(:role => 'cso_admin')
   end
